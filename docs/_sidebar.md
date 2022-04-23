@@ -1,4 +1,6 @@
 <!-- docs/_sidebar.md -->
 * 导读
-    * [**bigData**](bigData/README)
-    * [**java**](java/DesignPatterns/README.md)
+	* [**java**](java/DesignPatterns/README.md)
+	* [**网络安全**](网络安全/REDEME) 
+    * [**BigData**](BigData/README.md)
+
