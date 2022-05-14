@@ -171,7 +171,7 @@ php://filter/read=convert.base64-encode/resource=conf.php
 
 28. nmap -sP 192.168.96.4       //主机存活性扫描，arp直连方式。
 
-29. nmap -p "*" 192.168.96.4 Nmap默认扫描的端口是1000个
+29. nmap -p "*" 192.168.96.4 //扫描所有端口 Nmap默认扫描的端口是1000个
 
 30. nmap -iR [number]       //对随机生成number个地址进行扫描。
 ```
