@@ -4,10 +4,10 @@
 ```
 ##### 窗口函数
  窗口函数order by
-```sql
+```
 当为排序函数，如row_number(),rank()等时，over中的order by只起到窗口内排序作用。
 
-当为聚合函数，如max，min，count等时，over中的order by不仅起到窗口内排序，还起到窗口内从当前行到之前所有行的聚合,如果没有order by就默认在窗口范围中当前行到之前所有行的数据进行统计。
+当为聚合函数，如max，min，count等时，不加order by ，就是针对一整个分区进行sum求和。加上order by score后，就是根据当前行到之前所有行聚合
 ```
 - lead 函数
 ```
@@ -18,7 +18,6 @@ LEAD (col, n, default)：用于统计窗口内往下滴 n 行值。第一个参�
 与 lead 函数相反，用于统计窗口内网上第 n 行值。
 ```
 FIRST_VALUE 
-
 ```
 取分组内排序后，截止到当前行，第一个值
 
@@ -149,11 +148,14 @@ SELECT t2.key1
 ```
 left semi join
 当join条件成立时，返回左表中的数据。如果左表中满足指定条件的某行数据在右表中出现过，则此行保留在结果集中。
+LEFT SEMI JOIN只会返回左表中能匹配到右表的数据
 
 在MaxCompute中，与left semi join类似的操作为in subquery，请参见IN SUBQUERY。您可以自行选择其中一种方式。
 
 left anti join
-当join条件不成立时，返回左表中的数据。如果左表中满足指定条件的某行数据没有在右表中出现过，则此行保留在结果集中。
+当join条件不成立时，返回左表中的数据。如果左表中满足指定条件的某行数据没有在右表中出现过，则此行保留在结果集中。 
+LEFT ANTI JOIN只会返回左表中不能匹配到右表的数据
+
 ```
 ```
 在MaxCompute中，与left anti join类似的操作为not in subquery，但并不完全相同，请参见NOT IN SUBQUERY。
