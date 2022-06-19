@@ -510,6 +510,7 @@ public class DimSink  extends RichSinkFunction<JSONObject> {
 识别到当日的访客
 1. 识别出该访客打开的第一个页面，表示这个访客开始进入
 2. 对一天范围内的访客去重
+
 ```java
 package org.example.app;
 import com.alibaba.fastjson.JSON;
@@ -595,5 +596,4 @@ public class UniqueVisitApp {
         env.execute();
     }
 }
-
 ```
