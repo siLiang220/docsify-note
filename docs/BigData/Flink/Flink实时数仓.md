@@ -128,130 +128,131 @@ public class TableProcess {
 ```
 
 - 读取配置信息将配置信息广播
+
 ```java
 
-package org.example.app;  
-  
-import com.alibaba.fastjson.JSONObject;  
-import com.ververica.cdc.connectors.mysql.source.MySqlSource;  
-import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.data.Field;  
-import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.data.Schema;  
-import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.data.Struct;  
-import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.source.SourceRecord;  
-import com.ververica.cdc.debezium.DebeziumDeserializationSchema;  
-import io.debezium.data.Envelope;  
-import org.apache.flink.api.common.eventtime.WatermarkStrategy;  
-import org.apache.flink.api.common.functions.FilterFunction;  
-import org.apache.flink.api.common.state.MapStateDescriptor;  
-import org.apache.flink.api.common.typeinfo.TypeInformation;  
-import org.apache.flink.connector.kafka.source.KafkaSource;  
-import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;  
-import org.apache.flink.streaming.api.datastream.BroadcastConnectedStream;  
-import org.apache.flink.streaming.api.datastream.BroadcastStream;  
-import org.apache.flink.streaming.api.datastream.DataStreamSource;  
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;  
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;  
-import org.apache.flink.streaming.api.functions.co.BroadcastProcessFunction;  
-import org.apache.flink.streaming.api.scala.DataStream;  
-import org.apache.flink.util.Collector;  
-import org.apache.flink.util.OutputTag;  
-import org.example.bean.TableProcess;  
-import org.example.fun.TableProcessFunction;  
-import org.example.utils.KafkaUtil;  
-  
-/**  
+package org.example.app;
+
+import com.alibaba.fastjson.JSONObject;
+import com.ververica.cdc.connectors.mysql.source.MySqlSource;
+import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.data.Field;
+import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.data.Schema;
+import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.data.Struct;
+import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.source.SourceRecord;
+import com.ververica.cdc.debezium.DebeziumDeserializationSchema;
+import io.debezium.data.Envelope;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.api.common.functions.FilterFunction;
+import org.apache.flink.api.common.state.MapStateDescriptor;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.connector.kafka.sink.KafkaSink;
+import org.apache.flink.connector.kafka.source.KafkaSource;
+import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
+import org.apache.flink.streaming.api.datastream.*;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.util.Collector;
+import org.apache.flink.util.OutputTag;
+import org.example.bean.TableProcess;
+import org.example.fun.DimSink;
+import org.example.fun.TableProcessFunction;
+import org.example.utils.KafkaUtil;
+
+/**
  * author:zhaosiliang
- * date:2022/6/18 14:49 
- * 描述：把分好的流保存的课对应的表、主题中  
- **/  
-public class BaseDBApp {  
-  
-    public static void main(String[] args) {  
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();  
-        env.setParallelism(1);  
-        env.setStateBackend(new HashMapStateBackend());  
-        env.getCheckpointConfig().setCheckpointStorage("file:///d:/checkpoint/");  
-        env.getCheckpointConfig().setCheckpointTimeout(3000);  
-          
-        //读取kafka  
-        String topic ="";  
-        String groupId ="";  
-        KafkaSource<String> kafkaSource = KafkaUtil.getKafkaSource(topic, groupId);  
-        DataStreamSource<String> kafkaDs = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "my kafka");  
-        SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaDs.map(JSONObject::parseObject);  
-  
-        //过滤  
-        SingleOutputStreamOperator<JSONObject> filterDS = jsonObjDS.filter(new FilterFunction<JSONObject>() {  
-            @Override  
-            public boolean filter(JSONObject value) throws Exception {  
-                String data = value.getString("data");  
-                return data != null && data.length() > 0;  
-            }  
-        });  
-  
-        //读取数据库配置表形成广播流  
-        MySqlSource<String> mysqlSourceFunction = MySqlSource.<String>builder()  
-                .hostname("127.0.0.1")  
-                .port(3306)  
-                .username("root")  
-                .password("root")  
-                .tableList("test")  
-                .tableList("test.table_process")  
-                .deserializer(new DebeziumDeserializationSchema<String>() {  
-                    @Override  
-                    public void deserialize(SourceRecord sourceRecord, Collector<String> collector) throws Exception {  
-                        String topic = sourceRecord.topic();  
-                        String[] split = topic.split("\\.");  
-                        String db = split[1];  
-                        String table = split[2];  
-                        //获取数据   
-Struct value = (Struct) sourceRecord.value();  
-                        Struct after = value.getStruct("after");  
-                        JSONObject data = new JSONObject();  
-                        if (after != null) {  
-                            Schema schema = after.schema();  
-                            for (Field field : schema.fields()) {  
-                                data.put(field.name(), after.get(field.name()));  
-                            }  
-                        }  
-                        //获取操作类型  
-                        Envelope.Operation operation = Envelope.operationFor(sourceRecord);  
-                        //存放数据  
-                        JSONObject result = new JSONObject();  
-                        result.put("database", db);  
-                        result.put("table", table);  
-                        result.put("type", operation.toString().toLowerCase());  
-                        result.put("data", data);  
-                    }  
-  
-                    //定义数据类型  
-                    @Override  
-                    public TypeInformation<String> getProducedType() {  
-                        return TypeInformation.of(String.class);  
-                    }  
-                }).build();  
-  
-        //读取mysql 数据  
-        DataStreamSource<String> tableProcessDS = env.fromSource(mysqlSourceFunction,WatermarkStrategy.noWatermarks(),"my mysql");  
-  
-        //将配置信息作为广播流  
-        MapStateDescriptor<String, TableProcess> mapStateDescriptor = new MapStateDescriptor<>("table-process-state",String.class,TableProcess.class);  
-        BroadcastStream<String> broadcastStream = tableProcessDS.broadcast(mapStateDescriptor);  
-  
-        //将主流数据和广播流进行连接  
-        BroadcastConnectedStream<JSONObject, String> connectStream = filterDS.connect(broadcastStream);  
-  
-        //分流 处理数据广播流数据，主流数据  
-        OutputTag<JSONObject> hbaseTag = new OutputTag<>("hbase-tag");  
-    //提取kafka流数据和HBase 数据  
-SingleOutputStreamOperator<JSONObject> kafka = connectStream.process(new TableProcessFunction(hbaseTag, mapStateDescriptor));  
-  
-DataStream<JSONObject> hbaseJsonDS = kafka.getSideOutput(hbaseTag);  
-hbaseJsonDS.addSink(new DimSink());
-	
-    }  
-      
+ * date:2022/6/18 14:49
+ * 描述：把分好的流保存的课对应的表、主题中
+ **/
+public class BaseDBApp {
+
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setParallelism(1);
+        env.setStateBackend(new HashMapStateBackend());
+        env.getCheckpointConfig().setCheckpointStorage("file:///d:/checkpoint/");
+        env.getCheckpointConfig().setCheckpointTimeout(3000);
+        
+        //读取kafka
+        String topic ="";
+        String groupId ="";
+        KafkaSource<String> kafkaSource = KafkaUtil.getKafkaSource(topic, groupId);
+        DataStreamSource<String> kafkaDs = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "my kafka");
+        SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaDs.map(JSONObject::parseObject);
+
+        //过滤
+        SingleOutputStreamOperator<JSONObject> filterDS = jsonObjDS.filter(new FilterFunction<JSONObject>() {
+            @Override
+            public boolean filter(JSONObject value) throws Exception {
+                String data = value.getString("data");
+                return data != null && data.length() > 0;
+            }
+        });
+
+        //读取数据库配置表形成广播流
+        MySqlSource<String> mysqlSourceFunction = MySqlSource.<String>builder()
+                .hostname("127.0.0.1")
+                .port(3306)
+                .username("root")
+                .password("root")
+                .tableList("test")
+                .tableList("test.table_process")
+                .deserializer(new DebeziumDeserializationSchema<String>() {
+                    @Override
+                    public void deserialize(SourceRecord sourceRecord, Collector<String> collector) throws Exception {
+                        String topic = sourceRecord.topic();
+                        String[] split = topic.split("\\.");
+                        String db = split[1];
+                        String table = split[2];
+                        //获取数据 
+                        Struct value = (Struct) sourceRecord.value();
+                        Struct after = value.getStruct("after");
+                        JSONObject data = new JSONObject();
+                        if (after != null) {
+                            Schema schema = after.schema();
+                            for (Field field : schema.fields()) {
+                                data.put(field.name(), after.get(field.name()));
+                            }
+                        }
+                        //获取操作类型
+                        Envelope.Operation operation = Envelope.operationFor(sourceRecord);
+                        //存放数据
+                        JSONObject result = new JSONObject();
+                        result.put("database", db);
+                        result.put("table", table);
+                        result.put("type", operation.toString().toLowerCase());
+                        result.put("data", data);
+                    }
+
+                    //定义数据类型
+                    @Override
+                    public TypeInformation<String> getProducedType() {
+                        return TypeInformation.of(String.class);
+                    }
+                }).build();
+
+        //读取mysql 数据
+        DataStreamSource<String> tableProcessDS = env.fromSource(mysqlSourceFunction,WatermarkStrategy.noWatermarks(),"my mysql");
+
+        //将配置信息作为广播流
+        MapStateDescriptor<String, TableProcess> mapStateDescriptor = new MapStateDescriptor<>("table-process-state",String.class,TableProcess.class);
+        BroadcastStream<String> broadcastStream = tableProcessDS.broadcast(mapStateDescriptor);
+
+        //将主流数据和广播流进行连接
+        BroadcastConnectedStream<JSONObject, String> connectStream = filterDS.connect(broadcastStream);
+
+        //分流 处理数据广播流数据，主流数据
+        OutputTag<JSONObject> hbaseTag = new OutputTag<>("hbase-tag");
+        //提取kafka流数据和HBase 数据
+        SingleOutputStreamOperator<JSONObject> kafka = connectStream.process(new TableProcessFunction(hbaseTag, mapStateDescriptor));
+
+        DataStream<JSONObject> hbaseJsonDS = kafka.getSideOutput(hbaseTag);
+        hbaseJsonDS.addSink(new DimSink());
+
+
+//        DataStreamSink<JSONObject> jsonObjectDataStreamSink = kafka.addSink(KafkaUtil.getKafkaSinkBySchema());
+    }
+    
 }
+
 ```
 - 分流 处理数据，广播流数据，主流数据（根据广播流数据处理）
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/Pasted%20image%2020220618153758.png)
