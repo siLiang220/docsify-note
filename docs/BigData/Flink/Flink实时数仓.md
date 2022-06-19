@@ -251,6 +251,7 @@ public class BaseDBApp {
 }
 
 ```
+
 - 分流 处理数据，广播流数据，主流数据（根据广播流数据处理）
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/Pasted%20image%2020220618153758.png)
 
@@ -297,8 +298,6 @@ public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,St
         Class.forName(GmallConfig.PHOENIX_DRIVER);
         connection = DriverManager.getConnection(GmallConfig.PHOEXIN_SERVER);
     }
-
-
     // processElement 处理主流数据
     //1.读取状态
     //2.过滤数据
@@ -353,15 +352,12 @@ public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,St
         //获取状态
         BroadcastState<String, TableProcess> broadcastState =
                 ctx.getBroadcastState(mapStateDescriptor);
-
 //        {"database":"","table":"","type","","data":{"":""}}
         JSONObject jsonObject = JSON.parseObject(value);
         //取出数据中的表名以及操作类型封装 key
         JSONObject data = jsonObject.getJSONObject("data");
         String table = data.getString("source_table");
         String type = data.getString("operate_type");
-
-
         String key = table + ":" + type;
         //取出 Value 数据封装为 TableProcess 对象
         TableProcess tableProcess = JSON.parseObject(data.toString(), TableProcess.class);
