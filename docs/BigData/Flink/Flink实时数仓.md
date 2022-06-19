@@ -342,7 +342,6 @@ public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,St
         // }
         // }
         entries.removeIf(next -> !fieldList.contains(next.getKey()));
-
     }
 
     //processBroadcastElement 处理广播流数据
@@ -433,8 +432,8 @@ public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,St
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1655560139481.png)
 
 DimSink 继承了 `RickSinkFunction`，这个 function 得分两条时间线。 
-	一条是任务启动时执行 open 操作（图中紫线），我们可以把连接的初始化工作放 在此处一次性执行。 
-	一条是随着每条数据的到达反复执行 invoke()（图中黑线）,在这里面我们要实 现数据的保存，主要策略就是根据数据组合成 sql 提交给 hbase。
+一条是任务启动时执行 open 操作（图中紫线），我们可以把连接的初始化工作放 在此处一次性执行。 
+一条是随着每条数据的到达反复执行 invoke()（图中黑线）,在这里面我们要实 现数据的保存，主要策略就是根据数据组合成 sql 提交给 hbase。
 ```java
 package org.example.fun;
 import com.alibaba.fastjson.JSONObject;
