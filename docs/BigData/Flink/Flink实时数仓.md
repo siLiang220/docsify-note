@@ -45,7 +45,9 @@ CREATE TABLE ` table_process ` (
 package org.example.bean;  
   
 /**  
- * author:zhaosiliang * date:2022/6/18 14:34 * 描述：创建配置表实体类  
+ * author:zhaosiliang 
+ * date:2022/6/18 14:34  
+ * 描述：创建配置表实体类  
  **/  
 public class TableProcess {  
   
