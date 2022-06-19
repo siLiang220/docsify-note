@@ -255,7 +255,6 @@ public class BaseDBApp {
 - 分流 处理数据，广播流数据，主流数据（根据广播流数据处理）
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/Pasted%20image%2020220618153758.png)
 
- >[!attention]
 ```java
 package org.example.fun;
 import com.alibaba.fastjson.JSON;
@@ -421,9 +420,7 @@ public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,St
     }
 
 }
-
 ```
-
 - 分流sink 维度保存Hbase
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1655560139481.png)
 
