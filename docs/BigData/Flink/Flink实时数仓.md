@@ -130,7 +130,6 @@ public class TableProcess {
 - 读取配置信息将配置信息广播
 
 ```java
-
 package org.example.app;
 
 import com.alibaba.fastjson.JSONObject;
@@ -259,178 +258,180 @@ public class BaseDBApp {
 
  >[!attention]
 ```java
-package org.example.fun;  
-  
-import com.alibaba.fastjson.JSON;  
-import com.alibaba.fastjson.JSONObject;  
-import org.apache.flink.api.common.state.BroadcastState;  
-import org.apache.flink.api.common.state.MapStateDescriptor;  
-import org.apache.flink.api.common.state.ReadOnlyBroadcastState;  
-import org.apache.flink.configuration.Configuration;  
-import org.apache.flink.streaming.api.functions.co.BroadcastProcessFunction;  
-import org.apache.flink.util.Collector;  
-import org.apache.flink.util.OutputTag;  
-import org.example.bean.TableProcess;  
-import org.example.common.GmallConfig;  
-  
-import java.sql.Connection;  
-import java.sql.DriverManager;  
-import java.sql.PreparedStatement;  
-import java.sql.SQLException;  
-import java.util.Arrays;  
-import java.util.List;  
-import java.util.Map;  
-import java.util.Set;  
-  
-/**  
- * author:zhaosiliang 
- *  date:2022/6/18 16:21
- *  描述：自定义函数  处理广播流，主流数据，分流
- **/  
-public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,String, JSONObject> {  
-    private OutputTag<JSONObject> hbaseTag;  
-    private MapStateDescriptor<String,TableProcess> mapStateDescriptor;  
-    Connection connection = null;  
-  
-    public TableProcessFunction(OutputTag<JSONObject> hbaseTag, MapStateDescriptor<String, TableProcess> mapStateDescriptor) {  
-        this.hbaseTag = hbaseTag;  
-        this.mapStateDescriptor = mapStateDescriptor;  
-    }  
-  
-    @Override  
-    public void open(Configuration parameters) throws Exception {  
-         //初始化phoenix  
-        Class.forName(GmallConfig.PHONEIX_DRIVER);  
-        connection = DriverManager.getConnection(GmallConfig.PHOEXIN_SERVER);  
-    }  
-  
-  
-    // processElement 处理主流数据  
-    //1.读取状态  
-    //2.过滤数据  
-    //3.分流  
-    @Override  
-    public void processElement(JSONObject value, BroadcastProcessFunction<JSONObject, String, JSONObject>.ReadOnlyContext ctx, Collector<JSONObject> out) throws Exception {  
-        ReadOnlyBroadcastState<String, TableProcess> broadcastState = ctx.getBroadcastState(mapStateDescriptor);  
-        //获取表名+操作类型  
-        String table = value.getString("table");  
-        String type = value.getString("type");  
-        //获取对应的配置信息  
-        TableProcess tableProcess = broadcastState.get(table + ":" + type);  
-  
-        if (tableProcess != null){  
-            // 设置要写入的目标表或者topic  
-            value.put("sink_table",tableProcess.getSinkTable());  
-            //根据配置信息中提供的字段做数据过滤  
-            filterColumn(value.getJSONObject("data"), tableProcess.getSinkColumns());  
-            //判断当前数据应该写往 HBASE 还是 Kafka            
-            if (TableProcess.SINK_TYPE_KAFKA.equals(tableProcess.getSinkType())) {  
-                //Kafka 数据,将数据输出到主流  
-                out.collect(value);  
-            } else if (TableProcess.SINK_TYPE_HBASE.equals(tableProcess.getSinkType())) {  
-                //HBase 数据,将数据输出到侧输出流  
-                ctx.output(hbaseTag, value);  
-            }  
-  
-        }  
-    }  
-  
-    //根据配置信息中提供的字段做数据过滤  
-    private void filterColumn(JSONObject data, String sinkColumns) {  
-        //保留的数据字段  
-        String[] fields = sinkColumns.split(",");  
-        List<String> fieldList = Arrays.asList(fields);  
-        Set<Map.Entry<String, Object>> entries = data.entrySet();  
-        // while (iterator.hasNext()) {  
-        // Map.Entry<String, Object> next = iterator.next();        
-        // if (!fieldList.contains(next.getKey())) {        
-        // iterator.remove();        
-        // }        
-        // }        
-        entries.removeIf(next -> !fieldList.contains(next.getKey()));  
-  
-    }  
-  
-    //processBroadcastElement 处理广播流数据  
-    //1.间隙string -> tableProcess  
-    //2. 检查hbase 表是否存在并建表  
-    //3.写入状态  
-    @Override  
-    public void processBroadcastElement(String value, BroadcastProcessFunction<JSONObject, String, JSONObject>.Context ctx, Collector<JSONObject> out) throws Exception {  
-        //获取状态  
-        BroadcastState<String, TableProcess> broadcastState =  
-                ctx.getBroadcastState(mapStateDescriptor);  
-  
-//        {"database":"","table":"","type","","data":{"":""}}  
-        JSONObject jsonObject = JSON.parseObject(value);  
-        //取出数据中的表名以及操作类型封装 key        JSONObject data = jsonObject.getJSONObject("data");  
-        String table = data.getString("source_table");  
-        String type = data.getString("operate_type");  
-  
-  
-        String key = table + ":" + type;  
-        //取出 Value 数据封装为 TableProcess 对象  
-        TableProcess tableProcess = JSON.parseObject(data.toString(), TableProcess.class);  
-        //HBASE 建表  
-        if (TableProcess.SINK_TYPE_HBASE.equals(tableProcess.getSinkType())) {  
-            checkTable(tableProcess.getSinkTable(), tableProcess.getSinkColumns(), tableProcess.getSinkPk(),  
-                    tableProcess.getSinkExtend());  
-        }  
-        System.out.println("Key:" + key + "," + tableProcess);  
-        //广播出去 无需关心如何广播出去的  
-        broadcastState.put(key, tableProcess);  
-  
-    }  
-  
-    private void checkTable(String sinkTable, String sinkColumns, String sinkPk, String sinkExtend) {  
-        //给主键以及扩展字段赋默认值  
-        if (sinkPk == null) {  
-            sinkPk = "id";  
-        }  
-        if (sinkExtend == null) {  
-            sinkExtend = "";  
-        }  
-        //封装建表 SQL        
-        StringBuilder createSql = new StringBuilder("create table if not exists ").append(GmallConfig.HBASE_SCHEMA).append(".").append(sinkTable).append("(");  
-        //遍历添加字段信息  
-        String[] fields = sinkColumns.split(",");  
-        for (int i = 0; i < fields.length; i++) {  
-            //取出字段  
-            String field = fields[i];  
-            //判断当前字段是否为主键  
-            if (sinkPk.equals(field)) {  
-                createSql.append(field).append(" varchar primary key ");  
-            } else {  
-                createSql.append(field).append(" varchar ");  
-            }  
-            //如果当前字段不是最后一个字段,则追加","  
-            if (i < fields.length - 1) {  
-                createSql.append(",");  
-            }  
-        }  
-        createSql.append(")");  
-        createSql.append(sinkExtend);  
-        System.out.println(createSql);  
-        //执行建表 SQL        
-        PreparedStatement preparedStatement = null;  
-        try {  
-            preparedStatement = connection.prepareStatement(createSql.toString());  
-            preparedStatement.execute();  
-        } catch (SQLException e) {  
-            e.printStackTrace();  
-            throw new RuntimeException("创建 Phoenix 表" + sinkTable + "失败！");  
-        } finally {  
-            if (preparedStatement != null) {  
-                try {  
-                    preparedStatement.close();  
-                } catch (SQLException e) {  
-                    e.printStackTrace();  
-                }  
-            }  
-        }  
-    }  
-  
+package org.example.fun;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.flink.api.common.state.BroadcastState;
+import org.apache.flink.api.common.state.MapStateDescriptor;
+import org.apache.flink.api.common.state.ReadOnlyBroadcastState;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.streaming.api.functions.co.BroadcastProcessFunction;
+import org.apache.flink.util.Collector;
+import org.apache.flink.util.OutputTag;
+import org.example.bean.TableProcess;
+import org.example.common.GmallConfig;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * author:zhaosiliang
+ * date:2022/6/18 16:21
+ * 描述：自定义函数
+ **/
+public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,String, JSONObject> {
+    private OutputTag<JSONObject> hbaseTag;
+    private MapStateDescriptor<String,TableProcess> mapStateDescriptor;
+    Connection connection = null;
+
+    public TableProcessFunction(OutputTag<JSONObject> hbaseTag, MapStateDescriptor<String, TableProcess> mapStateDescriptor) {
+        this.hbaseTag = hbaseTag;
+        this.mapStateDescriptor = mapStateDescriptor;
+    }
+
+    @Override
+    public void open(Configuration parameters) throws Exception {
+         //初始化phoenix
+        Class.forName(GmallConfig.PHOENIX_DRIVER);
+        connection = DriverManager.getConnection(GmallConfig.PHOEXIN_SERVER);
+    }
+
+
+    // processElement 处理主流数据
+    //1.读取状态
+    //2.过滤数据
+    //3.分流
+    @Override
+    public void processElement(JSONObject value, BroadcastProcessFunction<JSONObject, String, JSONObject>.ReadOnlyContext ctx, Collector<JSONObject> out) throws Exception {
+        ReadOnlyBroadcastState<String, TableProcess> broadcastState = ctx.getBroadcastState(mapStateDescriptor);
+        //获取表名+操作类型
+        String table = value.getString("table");
+        String type = value.getString("type");
+        //获取对应的配置信息
+        TableProcess tableProcess = broadcastState.get(table + ":" + type);
+
+        if (tableProcess != null){
+            // 设置要写入的目标表或者topic
+            value.put("sink_table",tableProcess.getSinkTable());
+            //根据配置信息中提供的字段做数据过滤
+            filterColumn(value.getJSONObject("data"), tableProcess.getSinkColumns());
+            //判断当前数据应该写往 HBASE 还是 Kafka
+            if (TableProcess.SINK_TYPE_KAFKA.equals(tableProcess.getSinkType())) {
+                //Kafka 数据,将数据输出到主流
+                out.collect(value);
+            } else if (TableProcess.SINK_TYPE_HBASE.equals(tableProcess.getSinkType())) {
+                //HBase 数据,将数据输出到侧输出流
+                ctx.output(hbaseTag, value);
+            }
+
+        }
+    }
+
+    //根据配置信息中提供的字段做数据过滤
+    private void filterColumn(JSONObject data, String sinkColumns) {
+        //保留的数据字段
+        String[] fields = sinkColumns.split(",");
+        List<String> fieldList = Arrays.asList(fields);
+        Set<Map.Entry<String, Object>> entries = data.entrySet();
+        // while (iterator.hasNext()) {
+        // Map.Entry<String, Object> next = iterator.next();
+        // if (!fieldList.contains(next.getKey())) {
+        // iterator.remove();
+        // }
+        // }
+        entries.removeIf(next -> !fieldList.contains(next.getKey()));
+
+    }
+
+    //processBroadcastElement 处理广播流数据
+    //1.间隙string -> tableProcess
+    //2. 检查hbase 表是否存在并建表
+    //3.写入状态
+    @Override
+    public void processBroadcastElement(String value, BroadcastProcessFunction<JSONObject, String, JSONObject>.Context ctx, Collector<JSONObject> out) throws Exception {
+        //获取状态
+        BroadcastState<String, TableProcess> broadcastState =
+                ctx.getBroadcastState(mapStateDescriptor);
+
+//        {"database":"","table":"","type","","data":{"":""}}
+        JSONObject jsonObject = JSON.parseObject(value);
+        //取出数据中的表名以及操作类型封装 key
+        JSONObject data = jsonObject.getJSONObject("data");
+        String table = data.getString("source_table");
+        String type = data.getString("operate_type");
+
+
+        String key = table + ":" + type;
+        //取出 Value 数据封装为 TableProcess 对象
+        TableProcess tableProcess = JSON.parseObject(data.toString(), TableProcess.class);
+        //HBASE 建表
+        if (TableProcess.SINK_TYPE_HBASE.equals(tableProcess.getSinkType())) {
+            checkTable(tableProcess.getSinkTable(), tableProcess.getSinkColumns(), tableProcess.getSinkPk(),
+                    tableProcess.getSinkExtend());
+        }
+        System.out.println("Key:" + key + "," + tableProcess);
+        //广播出去 无需关系如何广播出去的
+        broadcastState.put(key, tableProcess);
+
+    }
+
+    private void checkTable(String sinkTable, String sinkColumns, String sinkPk, String sinkExtend) {
+        //给主键以及扩展字段赋默认值
+        if (sinkPk == null) {
+            sinkPk = "id";
+        }
+        if (sinkExtend == null) {
+            sinkExtend = "";
+        }
+        //封装建表 SQL
+        StringBuilder createSql = new StringBuilder("create table if not exists ").append(GmallConfig.HBASE_SCHEMA).append(".").append(sinkTable).append("(");
+        //遍历添加字段信息
+        String[] fields = sinkColumns.split(",");
+        for (int i = 0; i < fields.length; i++) {
+            //取出字段
+            String field = fields[i];
+            //判断当前字段是否为主键
+            if (sinkPk.equals(field)) {
+                createSql.append(field).append(" varchar primary key ");
+            } else {
+                createSql.append(field).append(" varchar ");
+            }
+            //如果当前字段不是最后一个字段,则追加","
+            if (i < fields.length - 1) {
+                createSql.append(",");
+            }
+        }
+        createSql.append(")");
+        createSql.append(sinkExtend);
+        System.out.println(createSql);
+        //执行建表 SQL
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(createSql.toString());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("创建 Phoenix 表" + sinkTable + "失败！");
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
+
 ```
 
 - 分流sink 维度保存Hbase
@@ -440,73 +441,75 @@ DimSink 继承了 `RickSinkFunction`，这个 function 得分两条时间线。
 	一条是任务启动时执行 open 操作（图中紫线），我们可以把连接的初始化工作放 在此处一次性执行。 
 	一条是随着每条数据的到达反复执行 invoke()（图中黑线）,在这里面我们要实 现数据的保存，主要策略就是根据数据组合成 sql 提交给 hbase。
 ```java
-package org.example.fun;  
-  
-import com.alibaba.fastjson.JSONObject;  
-import org.apache.commons.lang3.StringUtils;  
-import org.apache.flink.configuration.Configuration;  
-import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;  
-import org.example.common.GmallConfig;  
-  
-import java.sql.Connection;  
-import java.sql.DriverManager;  
-import java.sql.PreparedStatement;  
-import java.sql.SQLException;  
-import java.util.Collection;  
-import java.util.Set;  
-  
-/**  
- * author:zhaosiliang 
- *  date:2022/6/18 21:55  
- * 描述：Phoenix sink  
- **/  
-public class DimSink  extends RichSinkFunction<JSONObject> {  
-    private Connection connection = null;  
-    @Override  
-    public void open(Configuration parameters) throws Exception {  
-        //初始化 Phoenix 连接  
-        Class.forName(GmallConfig.PHOENIX_DRIVER);  
-        connection = DriverManager.getConnection(GmallConfig.PHOENIX_DRIVER);  
-    }  
-  
-    //将数据写入 Phoenix：upsert into t(id,name,sex) values(...,...,...)  
-    @Override  
-    public void invoke(JSONObject jsonObject, Context context) throws Exception {  
-        PreparedStatement preparedStatement = null;  
-        try {  
-            //获取数据中的 Key 以及 Value            
-            JSONObject data = jsonObject.getJSONObject("data");  
-            Set<String> keys = data.keySet();  
-            Collection<Object> values = data.values();  
-            //获取表名  
-            String tableName = jsonObject.getString("sink_table");  
-            //创建插入数据的 SQL            
-            String upsertSql = genUpsertSql(tableName, keys, values);  
-            System.out.println(upsertSql);  
-            //编译 SQL            
-            preparedStatement = connection.prepareStatement(upsertSql);  
-            //执行  
-            preparedStatement.executeUpdate();  
-            //提交  
-            connection.commit();  
-        } catch (SQLException e) {  
-            e.printStackTrace();  
-            System.out.println("插入 Phoenix 数据失败！");  
-        } finally {  
-            if (preparedStatement != null) {  
-                preparedStatement.close();  
-            }  
-  
-        }  
-    }  
-    //创建插入数据的 SQL upsert into t(id,name,sex) values('...','...','...')    
-    private String genUpsertSql(String tableName, Set<String> keys, Collection<Object> values) {  
-        return "upsert into " + GmallConfig.HBASE_SCHEMA + "." +  
-                tableName + "(" + StringUtils.join(keys, ",") + ")" +  
-                " values('" + StringUtils.join(values, "','") + "')";  
-    }  
-  
+package org.example.fun;
+
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
+import org.example.common.GmallConfig;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Set;
+
+/**
+ * author:zhaosiliang
+ * date:2022/6/18 21:55
+ * 描述：
+ **/
+public class DimSink  extends RichSinkFunction<JSONObject> {
+    private Connection connection = null;
+    @Override
+    public void open(Configuration parameters) throws Exception {
+        //初始化 Phoenix 连接
+        Class.forName(GmallConfig.PHOENIX_DRIVER);
+        connection = DriverManager.getConnection(GmallConfig.PHOENIX_DRIVER);
+    }
+
+    //将数据写入 Phoenix：upsert into t(id,name,sex) values(...,...,...)
+    @Override
+    public void invoke(JSONObject jsonObject, Context context) throws Exception {
+        PreparedStatement preparedStatement = null;
+        try {
+            //获取数据中的 Key 以及 Value
+            JSONObject data = jsonObject.getJSONObject("data");
+            Set<String> keys = data.keySet();
+            Collection<Object> values = data.values();
+            //获取表名
+            String tableName = jsonObject.getString("sink_table");
+            //创建插入数据的 SQL
+            String upsertSql = genUpsertSql(tableName, keys, values);
+            System.out.println(upsertSql);
+            //编译 SQL
+            preparedStatement = connection.prepareStatement(upsertSql);
+            //执行
+            preparedStatement.executeUpdate();
+            //提交
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("插入 Phoenix 数据失败！");
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+
+        }
+    }
+    //创建插入数据的 SQL upsert into t(id,name,sex) values('...','...','...')
+    private String genUpsertSql(String tableName, Set<String> keys, Collection<Object> values) {
+        return "upsert into " + GmallConfig.HBASE_SCHEMA + "." +
+                tableName + "(" + StringUtils.join(keys, ",") + ")" +
+                " values('" + StringUtils.join(values, "','") + "')";
+    }
+
 }
+
+
 ```
 
 ## DWD 与DWS层
@@ -515,90 +518,91 @@ public class DimSink  extends RichSinkFunction<JSONObject> {
 1. 识别出该访客打开的第一个页面，表示这个访客开始进入
 2. 对一天范围内的访客去重
 ```java
-package org.example.app;  
-  
-import com.alibaba.fastjson.JSON;  
-import com.alibaba.fastjson.JSONAware;  
-import com.alibaba.fastjson.JSONObject;  
-import org.apache.flink.api.common.JobExecutionResult;  
-import org.apache.flink.api.common.eventtime.WatermarkStrategy;  
-import org.apache.flink.api.common.functions.FilterFunction;  
-import org.apache.flink.api.common.functions.RichFilterFunction;  
-import org.apache.flink.api.common.state.ValueState;  
-import org.apache.flink.api.common.state.ValueStateDescriptor;  
-import org.apache.flink.configuration.Configuration;  
-import org.apache.flink.connector.kafka.source.KafkaSource;  
-import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;  
-import org.apache.flink.streaming.api.datastream.DataStreamSource;  
-import org.apache.flink.streaming.api.datastream.KeyedStream;  
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;  
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;  
-import org.example.utils.KafkaUtil;  
-  
-import java.text.SimpleDateFormat;  
-  
-/**  
+package org.example.app;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONAware;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.flink.api.common.JobExecutionResult;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.api.common.functions.FilterFunction;
+import org.apache.flink.api.common.functions.RichFilterFunction;
+import org.apache.flink.api.common.state.ValueState;
+import org.apache.flink.api.common.state.ValueStateDescriptor;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.connector.kafka.source.KafkaSource;
+import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.example.utils.KafkaUtil;
+
+import java.text.SimpleDateFormat;
+
+/**
  * author:zhaosiliang
- *  date:2022/6/19 17:12 
- * 描述：访客uv计算  
- **/  
-public class UniqueVisitApp {  
-  
-    public static void main(String[] args) throws Exception {  
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();  
-        env.setParallelism(1);  
-        env.setStateBackend(new HashMapStateBackend());  
-        env.getCheckpointConfig().setCheckpointStorage("file:///d:/checkpoint/");  
-        env.getCheckpointConfig().setCheckpointTimeout(3000);  
-  
-        //读取kafka  
-        String groupId = "unique_visit_app";  
-        String sourceTopic = "dwd_page_log";  
-        String sinkTopic = "dwm_unique_visit";  
-        KafkaSource<String> kafkaSource = KafkaUtil.getKafkaSource(sourceTopic, groupId);  
-        DataStreamSource<String> kafkaDs = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "my kafka");  
-  
-        //将数据转为json  
-        SingleOutputStreamOperator<JSONObject> jsonObjDs = kafkaDs.map(JSON::parseObject);  
-  
-        //过滤数据，状态编程 值保留每个mid第一次登录数据  
-        KeyedStream<JSONObject, String> keyByStream = jsonObjDs.keyBy(jsonObject -> jsonObject.getJSONObject("common").getString("mid"));  
-  
-        SingleOutputStreamOperator<JSONObject> uvDS = keyByStream.filter(new RichFilterFunction<JSONObject>() {  
-  
-            private ValueState<String> dateState;  
-            private SimpleDateFormat simpleDateFormat;  
-  
-            @Override  
-            public void open(Configuration parameters) throws Exception {  
-                ValueStateDescriptor<String> valueStateDescriptor = new ValueStateDescriptor<>("date-state", String.class);  
-                dateState = getRuntimeContext().getState(valueStateDescriptor);  
-                simpleDateFormat= new SimpleDateFormat("yyyy-MM-dd");  
-            }  
-  
-            @Override  
-            public boolean filter(JSONObject value) throws Exception {  
-  
-                //1.判断 上一跳页面，判断是否为null,是 取出状态，判断状态是否为null，如果 null 返回true，变更状态  
-                String lastPageId = value.getJSONObject("page").getString("last_page_id");  
-                if (lastPageId == null || lastPageId.length() <= 0) {  
-                    //取当前状态  
-                    String lastDate = dateState.value();  
-                    String currentDate = simpleDateFormat.format(value.getLong("ts"));  
-                    //判断两个日期是否相同  
-                    if (!currentDate.equals(lastDate)) {  
-                        dateState.update(currentDate);  
-                        return true;  
-                    }  
-                }  
-                return false;  
-            }  
-  
-        });  
-  
-        uvDS.print();  
-        uvDS.map(JSONAware::toJSONString);  
-        env.execute();  
-    }  
+ * date:2022/6/19 17:12
+ * 描述：访客uv计算
+ **/
+public class UniqueVisitApp {
+
+    public static void main(String[] args) throws Exception {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setParallelism(1);
+        env.setStateBackend(new HashMapStateBackend());
+        env.getCheckpointConfig().setCheckpointStorage("file:///d:/checkpoint/");
+        env.getCheckpointConfig().setCheckpointTimeout(3000);
+
+        //读取kafka
+        String groupId = "unique_visit_app";
+        String sourceTopic = "dwd_page_log";
+        String sinkTopic = "dwm_unique_visit";
+        KafkaSource<String> kafkaSource = KafkaUtil.getKafkaSource(sourceTopic, groupId);
+        DataStreamSource<String> kafkaDs = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "my kafka");
+
+        //将数据转为json
+        SingleOutputStreamOperator<JSONObject> jsonObjDs = kafkaDs.map(JSON::parseObject);
+
+        //过滤数据，状态编程 值保留每个mid第一次登录数据
+        KeyedStream<JSONObject, String> keyByStream = jsonObjDs.keyBy(jsonObject -> jsonObject.getJSONObject("common").getString("mid"));
+
+        SingleOutputStreamOperator<JSONObject> uvDS = keyByStream.filter(new RichFilterFunction<JSONObject>() {
+
+            private ValueState<String> dateState;
+            private SimpleDateFormat simpleDateFormat;
+
+            @Override
+            public void open(Configuration parameters) throws Exception {
+                ValueStateDescriptor<String> valueStateDescriptor = new ValueStateDescriptor<>("date-state", String.class);
+                dateState = getRuntimeContext().getState(valueStateDescriptor);
+                simpleDateFormat= new SimpleDateFormat("yyyy-MM-dd");
+            }
+
+            @Override
+            public boolean filter(JSONObject value) throws Exception {
+
+                //1.判断 上一跳页面，判断是否为null,是 取出状态，判断状态是否为null，如果 null 返回true，变更状态
+                String lastPageId = value.getJSONObject("page").getString("last_page_id");
+                if (lastPageId == null || lastPageId.length() <= 0) {
+                    //取当前状态
+                    String lastDate = dateState.value();
+                    String currentDate = simpleDateFormat.format(value.getLong("ts"));
+                    //判断两个日期是否相同
+                    if (!currentDate.equals(lastDate)) {
+                        dateState.update(currentDate);
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+        });
+
+        uvDS.print();
+        uvDS.map(JSONAware::toJSONString);
+        env.execute();
+    }
 }
+
 ```
