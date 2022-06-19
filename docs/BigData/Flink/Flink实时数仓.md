@@ -351,7 +351,7 @@ public class TableProcessFunction extends BroadcastProcessFunction<JSONObject,St
         //获取状态
         BroadcastState<String, TableProcess> broadcastState =
                 ctx.getBroadcastState(mapStateDescriptor);
-//        {"database":"","table":"","type","","data":{"":""}}
+        //{"database":"","table":"","type","","data":{"":""}}
         JSONObject jsonObject = JSON.parseObject(value);
         //取出数据中的表名以及操作类型封装 key
         JSONObject data = jsonObject.getJSONObject("data");
