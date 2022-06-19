@@ -30,8 +30,9 @@ public class DaemonDemo {
 - 多线程 
 - 异步 Runnable
 - 有返回结果 Callable
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1654086918710.png)
 
-![[uTools_1654086918710.png]]
+
 ```java
 package com.java.bilibili.base;  
   
