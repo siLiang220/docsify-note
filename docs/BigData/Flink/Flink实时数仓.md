@@ -131,7 +131,6 @@ public class TableProcess {
 
 ```java
 package org.example.app;
-
 import com.alibaba.fastjson.JSONObject;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.data.Field;
@@ -155,7 +154,6 @@ import org.example.bean.TableProcess;
 import org.example.fun.DimSink;
 import org.example.fun.TableProcessFunction;
 import org.example.utils.KafkaUtil;
-
 /**
  * author:zhaosiliang
  * date:2022/6/18 14:49
@@ -259,7 +257,6 @@ public class BaseDBApp {
  >[!attention]
 ```java
 package org.example.fun;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.flink.api.common.state.BroadcastState;
@@ -271,7 +268,6 @@ import org.apache.flink.util.Collector;
 import org.apache.flink.util.OutputTag;
 import org.example.bean.TableProcess;
 import org.example.common.GmallConfig;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -442,20 +438,17 @@ DimSink 继承了 `RickSinkFunction`，这个 function 得分两条时间线。
 	一条是随着每条数据的到达反复执行 invoke()（图中黑线）,在这里面我们要实 现数据的保存，主要策略就是根据数据组合成 sql 提交给 hbase。
 ```java
 package org.example.fun;
-
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.example.common.GmallConfig;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Set;
-
 /**
  * author:zhaosiliang
  * date:2022/6/18 21:55
@@ -519,7 +512,6 @@ public class DimSink  extends RichSinkFunction<JSONObject> {
 2. 对一天范围内的访客去重
 ```java
 package org.example.app;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONAware;
 import com.alibaba.fastjson.JSONObject;
@@ -537,7 +529,6 @@ import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.example.utils.KafkaUtil;
-
 import java.text.SimpleDateFormat;
 
 /**
