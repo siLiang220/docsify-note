@@ -124,8 +124,10 @@ public class TableProcess {
     }  
 }
 ```
--  读取配置信息将配置信息广播
+
+- 读取配置信息将配置信息广播
 ```java
+
 package org.example.app;  
   
 import com.alibaba.fastjson.JSONObject;  
@@ -156,8 +158,9 @@ import org.example.fun.TableProcessFunction;
 import org.example.utils.KafkaUtil;  
   
 /**  
- * author:zhaosiliang * 
- * date:2022/6/18 14:49 * 描述：把分好的流保存的课对应的表、主题中  
+ * author:zhaosiliang
+ * date:2022/6/18 14:49 
+ * 描述：把分好的流保存的课对应的表、主题中  
  **/  
 public class BaseDBApp {  
   
