@@ -133,7 +133,8 @@ public class FutureAPIDemo {
 **CompletableFuture** 提供一种观察者模式类似的机制，可以让任务执行完成之后通知监听的一方
 **CompletableFuture**实现了CompletionStage接口和Future接口，前者是对后者的一个扩展，增加了异步回调、流式处理、多个Future组合处理的能力，使Java在处理多任务的协同工作时更加顺畅便利。
 ###### runAsync/SupplyAsync
- 这两方法各有一个重载版本，可以指定执行异步任务的Executor实现，如果不指定，默认使用ForkJoinPool.commonPool()，如果机器是单核的，则默认使用ThreadPerTaskExecutor，该类是一个内部类，每次执行execute都会创建一个新线程
+ 这两方法各有一个重载版本，可以指定执行异步任务的Executor实现，如果不指定，默认使用ForkJoinPool.commonPool()，如果机器是单核的，则默认使用ThreadPerTaskExecutor，该类是一个内部类，每次执行execute都会创建一个新线程，
+ runAsync表示创建无返回值的异步任务，相当于ExecutorService submit(Runnable task)方法
 ```java
 package com.java.bilibili.base;  
   
@@ -250,6 +251,7 @@ class NetMall{
 ### 异步回调
 ###### thenApply/thenApplyAsync 
  `thenApply` 表示某个任务执行完成后执行的动作，即回调方法，会将该任务的执行结果即方法返回值作为入参传递到回调方法中
+ 如果使用thenApplyAsync，那么执行的线程是从ForkJoinPool.commonPool()中获取不同的线程进行执行，如果使用thenApply，如果supplyAsync方法执行速度特别快，那么thenApply任务就是主线程进行执行，如果执行特别慢的话就是和supplyAsync执行线程一样。
 计算结果存在依赖关系，线程串行化，**当前步骤出现异常，不继续走下一步**
 ###### handle 
 `handle`有异常也可以继续往下一步走，根据异常参数可以进一步处理
@@ -279,7 +281,7 @@ public class CompletableFutureAPI2Demo {
             }  
             return i;  
         });  
-        //cf执行完成后会将执行结果和执行过程中抛出的异常传入回调方法，如果是正常执行的则传入的异常为null  
+        //cf执行完成后会将执行结果和执行过程中抛出的异常传入回调方法，如果是正常执行的则传入的异常为null,参数a是上一步正常的执行结果，参数b是上一步执行异常
         CompletableFuture<String> cf2 = cf.handle((a, b) -> {  
             System.out.println(Thread.currentThread().getName());  
             try {  

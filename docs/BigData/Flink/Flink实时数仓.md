@@ -20,8 +20,9 @@
 - 数据预警或提示
 - 实时推荐系统
 ## 实现Flink 动态分流
-	由于 FlinkCDC 是把全部数据统一写入一个 Topic 中, 这样显然不利于日后的数据处理。 所以需要把各个表拆开处理。但是由于每个表有不同的特点，有些表是维度表，有些表是事 实表。 在实时计算中一般把维度数据写入存储容器，一般是方便通过主键查询的数据库比如 HBase,Redis,MySQL 等。一般把事实数据写入流中，进行进一步处理，最终形成宽表。 
-	这样的配置不适合写在配置文件中，因为这样的话，业务端随着需求变化每增加一张表， 就要修改配置重启计算程序。所以这里需要一种动态配置方案，把这种配置长期保存起来， 一旦配置有变化，实时计算可以自动感知
+#### 动态分流
+由于 FlinkCDC 是把全部数据统一写入一个 Topic 中, 这样显然不利于日后的数据处理。 所以需要把各个表拆开处理。但是由于每个表有不同的特点，有些表是维度表，有些表是事 实表。 在实时计算中一般把维度数据写入存储容器，一般是方便通过主键查询的数据库比如 HBase,Redis,MySQL 等。一般把事实数据写入流中，进行进一步处理，最终形成宽表。 
+这样的配置不适合写在配置文件中，因为这样的话，业务端随着需求变化每增加一张表， 就要修改配置重启计算程序。所以这里需要一种动态配置方案，把这种配置长期保存起来， 一旦配置有变化，实时计算可以自动感知
 #### 实现方案
 1. 一种是用 mysql 数据库存储，周期性的同步；
 2. 另一种是用 mysql 数据库存储，使用广播流。
@@ -126,7 +127,55 @@ public class TableProcess {
     }  
 }
 ```
-
+kafkaUtil
+```java
+package org.example.utils;  
+  
+import com.ververica.cdc.connectors.shaded.org.apache.kafka.clients.producer.ProducerConfig;  
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;  
+import org.apache.flink.api.common.serialization.SimpleStringSchema;  
+import org.apache.flink.connector.base.DeliveryGuarantee;  
+import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;  
+import org.apache.flink.connector.kafka.sink.KafkaSink;  
+import org.apache.flink.connector.kafka.source.KafkaSource;  
+import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;  
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;  
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;  
+import org.apache.flink.streaming.connectors.kafka.KafkaSerializationSchema;  
+  
+/**  
+ * author:zhaosiliang * date:2022/6/18 10:10 * 描述：  
+ **/  
+public class KafkaUtil {  
+  
+    //1.15 版本中移除FlinkKafkaConsumer  
+    public static KafkaSource <String> getKafkaSource(String topic, String groupId){  
+        KafkaSource<String> source = KafkaSource.<String>builder()  
+                .setBootstrapServers("brokers")  
+                .setTopics(topic)  
+                .setGroupId(groupId)  
+                .setStartingOffsets(OffsetsInitializer.earliest())  
+                .setValueOnlyDeserializer(new SimpleStringSchema())  
+                .build();  
+        return source;  
+    }  
+  
+    public static <T> KafkaSink<String> getKafkaSinkBySchema() {  
+  
+        KafkaSink<String> sink = KafkaSink.<String>builder()  
+                .setBootstrapServers("brokers")  
+                .setRecordSerializer(KafkaRecordSerializationSchema.builder()  
+                        .setTopic("topic-name")  
+                        .setValueSerializationSchema(new SimpleStringSchema())  
+                        .build()  
+                )  
+                .setDeliverGuarantee(DeliveryGuarantee.AT_LEAST_ONCE)  
+                .build();  
+        return sink;  
+    }  
+  
+}
+```
 - 读取配置信息将配置信息广播
 
 ```java
@@ -497,7 +546,7 @@ public class DimSink  extends RichSinkFunction<JSONObject> {
 ```
 
 ## DWD 与DWS层
-### 访客UV计算
+#### 访客UV计算
 识别到当日的访客
 1. 识别出该访客打开的第一个页面，表示这个访客开始进入
 2. 对一天范围内的访客去重
@@ -558,6 +607,9 @@ public class UniqueVisitApp {
             @Override
             public void open(Configuration parameters) throws Exception {
                 ValueStateDescriptor<String> valueStateDescriptor = new ValueStateDescriptor<>("date-state", String.class);
+                //设置TTL 及更新方式  
+				StateTtlConfig stateTtlConfig = StateTtlConfig.newBuilder(Time.days(1)).setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite).build();  
+valueStateDescriptor.enableTimeToLive(stateTtlConfig);
                 dateState = getRuntimeContext().getState(valueStateDescriptor);
                 simpleDateFormat= new SimpleDateFormat("yyyy-MM-dd");
             }
@@ -588,3 +640,174 @@ public class UniqueVisitApp {
     }
 }
 ```
+
+#### 跳出明细计算
+用户成功访问一个页面后就退出，不在继续访问网站的其他页面。而跳出率就是跳出次数除以访问次数
+- 该页面是用户访问的第一个页面
+- 首次访问后一段事件，用户没有继续访问其他的页面
+
+## DWM 层
+#### 订单宽表
+ 双流join 时，下流的watermark 取的是上流最小的watermark
+- 实数据和事实数据关联，其实就是流与流之间的关联。 
+- 事实数据与维度数据关联，其实就是流计算中查询外部数据源。
+##### 旁路缓存模式优化
+旁路缓存模式：任何请求先访问缓存，缓存命中直接获的数据返回结果。如果未命中，查询数据库，同时将数据写入缓存中
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1656835221442.png)
+
+JDBCUtil
+```xml
+<dependency>  
+    <groupId>commons-beanutils</groupId>  
+    <artifactId>commons-beanutils</artifactId>  
+    <version>1.9.3</version>  
+</dependency>  
+<!--Guava 工程包含了若干被 Google 的 Java 项目广泛依赖的核心库,方便开发-->  
+<dependency>  
+    <groupId>com.google.guava</groupId>  
+    <artifactId>guava</artifactId>  
+    <version>29.0-jre</version>  
+</dependency>
+```
+
+```java
+package org.example.utils;  
+  
+import com.google.common.base.CaseFormat;  
+import org.apache.commons.beanutils.BeanUtils;  
+  
+import java.lang.reflect.InvocationTargetException;  
+import java.sql.*;  
+import java.util.ArrayList;  
+import java.util.List;  
+  
+/**  
+ * author:zhaosiliang 
+ * date:2022/7/3 13:03 
+ * 描述：  
+ **/  
+public class JdbcUtil {  
+  
+    public static <T> List<T> queryList(Connection connection,String sql,Class<T> clz,Boolean underScoreToCamel) throws SQLException, InstantiationException, IllegalAccessException, InvocationTargetException {  
+  
+        List<T> resultList = new ArrayList<>();  
+        //预编译sql  
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);  
+        ResultSet resultSet = preparedStatement.executeQuery();  
+        ResultSetMetaData metaData = resultSet.getMetaData();  
+        int columnCount = metaData.getColumnCount();  
+        while (resultSet.next()){  
+            T t = clz.newInstance();  
+            for (int i= 1 ; i< columnCount+1; i++){  
+                String columnName = metaData.getColumnName(i);  
+                Object value = resultSet.getObject(columnName);  
+                //判断是否驼峰命名  
+                if (underScoreToCamel) {  
+                    columnName = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL,columnName);  
+                }  
+                //泛型对象赋值  
+                BeanUtils.setProperty(t,columnName,value);  
+            }  
+            resultList.add(t);  
+        }  
+        return resultList;  
+    }  
+}
+```
+DIMUtil
+```java
+package org.example.utils;
+
+import com.alibaba.fastjson.JSONObject;
+import org.example.common.GmallConfig;
+import redis.clients.jedis.Jedis;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+/**
+ * author:zhaosiliang
+ * date:2022/7/3 16:09
+ * 描述：
+ **/
+public class DimUtil {
+    public static JSONObject getDimInfo(Connection connection,String tableName,String id) throws SQLException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        //查询数据前先查询redis
+        Jedis jedis = RedisUtil.getJedis();
+        String redisKey = "DIM:"+tableName +":"+id;
+        String dimInfoJsonStr = jedis.get(redisKey);
+        if (dimInfoJsonStr!=null){
+            jedis.close();
+            //重置过期时间
+            jedis.expire(redisKey,24*60*60);
+            return JSONObject.parseObject(dimInfoJsonStr);
+        }
+
+        String querySql = "SELECT * FROM "+ GmallConfig.HBASE_SCHEMA+"."+tableName+"WHERE id = '"+ id+"'";
+        List<JSONObject> queryList = JdbcUtil.queryList(connection, querySql, JSONObject.class, false);
+        JSONObject jsonObject = queryList.get(0);
+
+        //保存redis
+        jedis.set(redisKey,jsonObject.toJSONString());
+        jedis.expire(redisKey,24*60*60);
+        return jsonObject;
+    }
+    public static void deleteCached(String tableName,String id) {
+        try {
+            String redisKey = "DIM:"+tableName +":"+id;
+            Jedis jedis = RedisUtil.getJedis();
+            // 通过 key 清除缓存
+            jedis.del(redisKey);
+            jedis.close();
+        } catch (Exception e) {
+            System.out.println("缓存异常！");
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+redisUtil
+```java
+package org.example.utils;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+
+/**
+ * author:zhaosiliang
+ * date:2022/7/3 17:10
+ * 描述：
+ **/
+public class RedisUtil {
+    public static JedisPool jedisPool = null;
+    public static Jedis getJedis() {
+        if (jedisPool == null) {
+            JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+            jedisPoolConfig.setMaxTotal(100); //最大可用连接数
+            jedisPoolConfig.setBlockWhenExhausted(true); //连接耗尽是否等待
+            jedisPoolConfig.setMaxWaitMillis(2000); //等待时间
+            jedisPoolConfig.setMaxIdle(5); //最大闲置连接数
+            jedisPoolConfig.setMinIdle(5); //最小闲置连接数
+            jedisPoolConfig.setTestOnBorrow(true); //取连接的时候进行一下测试 ping pong
+                    jedisPool = new JedisPool(jedisPoolConfig, "127.0.0.1", 6379, 1000);
+            System.out.println("开辟连接池");
+            return jedisPool.getResource();
+        } else {
+        // System.out.println(" 连接池:" + jedisPool.getNumActive());
+            return jedisPool.getResource();
+        }
+    }
+}
+
+```
+##### 异步查询查询优化
+在 Flink 流处理过程中，经常需要和外部系统进行交互，用维度表补全事实表中的字段。
+例如：在电商场景中，需要一个商品的 skuid 去关联商品的一些属性，例如商品所属行业、商品的生产厂家、生产厂家的一些情况；在物流场景中，知道包裹 id，需要去关联包裹的行业属性、发货信息、收货信息等等。
+默认情况下，在 Flink 的 MapFunction 中，单个并行只能用同步方式去交互: 将请求发送到外部存储，IO 阻塞，等待请求返回，然后继续发送下一个请求。
+Flink 在 1.2 中引入了 Async I/O，在异步模式下，将 IO 操作异步化，单个并行可以连续发送多个请求，哪个请求先返回就先处理，从而在连续的请求间不需要阻塞式等待，大大提高了流处理效率。
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1657373595417.png)

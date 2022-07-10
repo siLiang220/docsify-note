@@ -2,5 +2,5 @@
     * [根目录（/）](/README)
 	* [回到上一级(../)](BigData/README)
 	- [离线数仓](BigData/离线数仓/README)
-	- [Flink](docs/bigData/Flink/README.md)
+	- [Flink](BigData/Flink/README.md)
 	- [Hive](BigData/Hive/Hive笔记.md) 
