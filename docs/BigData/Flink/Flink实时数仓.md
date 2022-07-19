@@ -302,6 +302,7 @@ public class BaseDBApp {
 ```
 
 - 分流 处理数据，广播流数据，主流数据（根据广播流数据处理）
+processBroadCastElement与processElement 执行时没有先后执行顺序
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/Pasted%20image%2020220618153758.png)
 
 ```java
@@ -739,9 +740,10 @@ public class DimUtil {
         String redisKey = "DIM:"+tableName +":"+id;
         String dimInfoJsonStr = jedis.get(redisKey);
         if (dimInfoJsonStr!=null){
-            jedis.close();
+            
             //重置过期时间
             jedis.expire(redisKey,24*60*60);
+            jedis.close();
             return JSONObject.parseObject(dimInfoJsonStr);
         }
 
@@ -811,3 +813,283 @@ public class RedisUtil {
 默认情况下，在 Flink 的 MapFunction 中，单个并行只能用同步方式去交互: 将请求发送到外部存储，IO 阻塞，等待请求返回，然后继续发送下一个请求。
 Flink 在 1.2 中引入了 Async I/O，在异步模式下，将 IO 操作异步化，单个并行可以连续发送多个请求，哪个请求先返回就先处理，从而在连续的请求间不需要阻塞式等待，大大提高了流处理效率。
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1657373595417.png)
+ThreadPoolUtil
+```java
+package org.example.utils;  
+  
+import java.util.concurrent.Executors;  
+import java.util.concurrent.LinkedBlockingQueue;  
+import java.util.concurrent.ThreadPoolExecutor;  
+import java.util.concurrent.TimeUnit;  
+  
+public class ThreadPoolUtil {  
+  
+    static ThreadPoolExecutor threadPoolExecutor;  
+  
+    private ThreadPoolUtil() {  
+    }  
+  
+    public static ThreadPoolExecutor getThreadPool(){  
+        if (threadPoolExecutor == null){  
+            synchronized (ThreadPoolUtil.class) {  
+                if (threadPoolExecutor == null){  
+                    threadPoolExecutor = new ThreadPoolExecutor(2,20,1, TimeUnit.MINUTES,new LinkedBlockingQueue<>());  
+                }  
+            }  
+        }  
+        return threadPoolExecutor;  
+    }  
+}
+```
+
+RichAsyncFunction 异步IO
+```java
+package org.example.fun;  
+  
+import com.alibaba.fastjson.JSONObject;  
+  
+import java.text.ParseException;  
+  
+public interface DimAsyncJoinFunction<T> {  
+      
+    void join(T input, JSONObject dimInfo) throws ParseException;  
+  
+    String getKey(T input);  
+}
+```
+
+```JAVA
+package org.example.fun;
+
+import com.alibaba.fastjson.JSONObject;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.streaming.api.functions.async.AsyncFunction;
+
+
+import org.apache.flink.streaming.api.functions.async.ResultFuture;
+import org.apache.flink.streaming.api.functions.async.RichAsyncFunction;
+import org.example.common.GmallConfig;
+import org.example.utils.DimUtil;
+import org.example.utils.ThreadPoolUtil;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Collections;
+import java.util.concurrent.ThreadPoolExecutor;
+
+public abstract class DimAsyncFunction<IN> extends RichAsyncFunction<IN,IN> implements DimAsyncJoinFunction<IN> {
+
+
+    private String tableName;
+
+    public DimAsyncFunction(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public DimAsyncFunction() {
+    }
+
+    private Connection connection;
+    private ThreadPoolExecutor threadPoolExecutor;
+    //初始化连接
+    @Override
+    public void open(Configuration parameters) throws Exception {
+        Class.forName(GmallConfig.PHOENIX_DRIVER);
+        connection = DriverManager.getConnection(GmallConfig.PHOEXIN_SERVER);
+        threadPoolExecutor = ThreadPoolUtil.getThreadPool();
+    }
+
+
+    @Override
+    public void asyncInvoke(IN input, ResultFuture<IN> resultFuture) throws Exception {
+
+        threadPoolExecutor.submit(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // 查询维度信息，补存维度信息，将数据输出
+                    String id  = getKey(input);
+                    JSONObject dimInfo = DimUtil.getDimInfo(connection, tableName, id);
+                    if (dimInfo != null){
+                        join(input,dimInfo);
+                    }
+                    resultFuture.complete(Collections.singletonList(input));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                } catch (InstantiationException e) {
+                    throw new RuntimeException(e);
+                } catch (IllegalAccessException | ParseException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+    }
+
+
+
+    @Override
+    public void timeout(IN input, ResultFuture<IN> resultFuture) throws Exception {
+        System.out.println("请求超时重新发送请求");
+    }
+}
+
+```
+OrderWideApp
+```java
+package org.example.app;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.connector.kafka.source.KafkaSource;
+import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
+import org.apache.flink.streaming.api.datastream.AsyncDataStream;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.co.ProcessJoinFunction;
+import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.util.Collector;
+import org.example.bean.OrderDetail;
+import org.example.bean.OrderInfo;
+import org.example.bean.OrderWide;
+import org.example.fun.DimAsyncFunction;
+import org.example.utils.KafkaUtil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * author:zhaosiliang
+ * date:2022/7/3 11:04
+ * 描述：
+ **/
+public class OrderWideApp {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setParallelism(1);
+        //设置状态后端
+        env.setStateBackend(new HashMapStateBackend());
+        env.getCheckpointConfig().setCheckpointStorage("file:///D:/checkPoint/eff7bb8bcb4046ac95cf5c0d86dd3115");
+        env.enableCheckpointing(3000);
+
+        //读取kafka订单和订单主题明细数据
+        String orderInfoSourceTopic = "dwd_order_info";
+        String orderDetailSourceTopic ="dwd_order_detail";
+        String orderWideSinkTopic="dwm_order_wide";
+        String groupId ="order_wide_group";
+
+        KafkaSource<String> orderInfoKafkaSource = KafkaUtil.getKafkaSource(orderInfoSourceTopic, groupId);
+        KafkaSource<String> orderDetailKafkaSource = KafkaUtil.getKafkaSource(orderDetailSourceTopic, groupId);
+        DataStreamSource<String> orderInfoKafkaDS = env.fromSource(orderInfoKafkaSource, WatermarkStrategy.noWatermarks(),"order_info_kafka");
+        DataStreamSource<String> orderDetailKafkaDS = env.fromSource(orderDetailKafkaSource, WatermarkStrategy.noWatermarks(), "order_detail_kafka");
+
+        //将数据转为java bean 提取时间戳生成watermark
+        WatermarkStrategy<OrderInfo> orderInfoWatermarkStrategy = WatermarkStrategy.<OrderInfo>forMonotonousTimestamps()
+                .withTimestampAssigner(new SerializableTimestampAssigner<OrderInfo>() {
+                    @Override
+                    public long extractTimestamp(OrderInfo element, long recordTimestamp) {
+                        return element.getCreate_ts();
+                    }
+                });
+
+        WatermarkStrategy<OrderDetail> orderDetailWatermarkStrategy = WatermarkStrategy.<OrderDetail>forMonotonousTimestamps()
+                .withTimestampAssigner(new SerializableTimestampAssigner<OrderDetail>() {
+                    @Override
+                    public long extractTimestamp(OrderDetail element, long recordTimestamp) {
+                        return element.getCreate_ts();
+                    }
+                });
+
+        KeyedStream<OrderInfo, Long> orderInfoWithIdKeyedStream = orderDetailKafkaDS.map(jsonStr -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //将 JSON 字符串转换为 JavaBean
+            OrderInfo orderInfo = JSON.parseObject(jsonStr, OrderInfo.class);
+            //取出创建时间字段
+            String create_time = orderInfo.getCreate_time();
+            //按照空格分割
+            String[] createTimeArr = create_time.split(" ");
+            orderInfo.setCreate_date(createTimeArr[0]);
+            orderInfo.setCreate_hour(createTimeArr[1]);
+            orderInfo.setCreate_ts(sdf.parse(create_time).getTime());
+            return orderInfo;
+        }).assignTimestampsAndWatermarks(orderInfoWatermarkStrategy)
+                .keyBy(OrderInfo::getId);
+
+        KeyedStream<OrderDetail, Long> orderDetailWithOrderIdKeyedStream =
+                orderDetailKafkaDS.map(jsonStr -> {
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            OrderDetail orderDetail = JSON.parseObject(jsonStr, OrderDetail.class);
+                            orderDetail.setCreate_ts(sdf.parse(orderDetail.getCreate_time()).getTime());
+                            return orderDetail;
+                        }).assignTimestampsAndWatermarks(orderDetailWatermarkStrategy)
+                        .keyBy(OrderDetail::getOrder_id);
+        //双流 JOIN
+        SingleOutputStreamOperator<OrderWide> orderWideNoDimDS =
+                orderInfoWithIdKeyedStream.intervalJoin(orderDetailWithOrderIdKeyedStream)
+                        .between(Time.seconds(-5), Time.seconds(5))
+                //生产环境,为了不丢数据,设置时间为最大网络延迟
+                .process(new ProcessJoinFunction<OrderInfo, OrderDetail, OrderWide>() {
+                    @Override
+                    public void processElement(OrderInfo orderInfo, OrderDetail orderDetail, Context
+                            context, Collector<OrderWide> collector) throws Exception {
+                        collector.collect(new OrderWide(orderInfo, orderDetail));
+                    }
+                });
+
+        //关联维度表信息
+        //orderWideDS.map(orderWide->{
+            //关联用户维度 DimUtil.getDimInfo
+
+        // })
+
+        //FLINK 异步IO
+        //关联用户维度
+        SingleOutputStreamOperator<OrderWide> orderWideWithUserDS = AsyncDataStream.unorderedWait(orderWideNoDimDS, new DimAsyncFunction<OrderWide>("DIM_USER_INFO") {
+
+            public String getKey(OrderWide orderWide) {
+                return orderWide.getUser_id().toString();
+            }
+
+            public void join(OrderWide orderWide, JSONObject dimInfo) throws ParseException {
+                orderWide.setUser_gender(dimInfo.getString("GENDER"));
+                String birthday = dimInfo.getString("BIRTHDAY");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                long currentTime = System.currentTimeMillis();
+                long ts = simpleDateFormat.parse(birthday).getTime();
+                Long age = (currentTime - ts) / (1000 * 60 * 60 * 24 * 365);
+                orderWide.setUser_age(age.intValue());
+            }
+        }, 65, TimeUnit.SECONDS);
+
+        //关联地区维度
+        SingleOutputStreamOperator<OrderWide> orderWithArea = AsyncDataStream.unorderedWait(orderWideWithUserDS, new DimAsyncFunction<OrderWide>("DIM_BASE_PROVINCE") {
+            @Override
+            public void join(OrderWide orderWide, JSONObject dimInfo) throws ParseException {
+                orderWide.setProvince_name(dimInfo.getString("name"));
+                orderWide.setProvince_area_code(dimInfo.getString("area_code"));
+                orderWide.setProvince_iso_code(dimInfo.getString("ISO_CODE"));
+                orderWide.setProvince_3166_2_code(dimInfo.getString("ISO_S166_CODE"));
+            }
+
+            @Override
+            public String getKey(OrderWide orderWide) {
+                return orderWide.getProvince_id().toString();
+            }
+        }, 60, TimeUnit.SECONDS);
+    }
+    //关联其他维度信息
+}
+
+
+```
