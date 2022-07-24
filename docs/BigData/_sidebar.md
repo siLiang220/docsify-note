@@ -3,4 +3,5 @@
 	* [回到上一级(../)](BigData/README)
 	- [离线数仓](BigData/离线数仓/README)
 	- [Flink](BigData/Flink/README.md)
-	- [Hive](BigData/Hive/Hive笔记.md) 
+	- [Hive](BigData/Hive/Hive笔记.md)
+	- [ambari](BigData/ambari/README.md)
