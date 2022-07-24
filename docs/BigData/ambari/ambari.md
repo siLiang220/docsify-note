@@ -109,7 +109,7 @@ yum -y install mysql-server
 The GPG keys listed for the "MySQL 5.7 Community Server" repository are already installed but they are not correct for this package.
 Check that the correct key URLs are configured for this repository.
 
-# 解决方案
+#解决方案
 rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 
 ```
