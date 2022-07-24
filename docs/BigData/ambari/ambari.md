@@ -7,7 +7,7 @@
 ambari使用的是Master/Slaves 架构（由一个Ambari server 和多个Agent 组成），通过一个Server主进程实现集群的管理和操作命令的发送，而具体的管理动作是由每台目标主机的Agent进行执行。
 [HDP支持的ambari 版本](https://supportmatrix.cloudera.com/#Hortonworks)  
 [安装参考文档1](https://blog.csdn.net/q495673918/article/details/121626972)
-[参考文档2](https://blog.csdn.net/weixin_40461486/article/details/120437682))
+[参考文档2](https://blog.csdn.net/weixin_40461486/article/details/120437682)
 
 ## 准备工作
 ### 机器
@@ -32,6 +32,7 @@ hostname -f
 ip1 node1
 ip2 node2
 ```
+
 修改完成后用ping 测试 
 ```shell
 ping node1
@@ -48,7 +49,7 @@ vi /etc/selinux/config # 然后将 SELINUX=enforcing 改为 SELINUX=disabled
 **ambari 2.7.4安装包 HDP3.1.4安装包 下载后上传到node1（使用迅雷下载）**
 HDP是hortonworks的软件栈，里面包含了hadoop生态系统的所有软件项目。
 HDP-UTILS是工具类库。
-
+```md
 http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.4.0/ambari-2.7.4.0-centos7.tar.gz
 
 http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.4.0/HDP-3.1.4.0-centos7-rpm.tar.gz
@@ -56,6 +57,8 @@ http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.4.0/HDP-3.1.4.0
 http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.22/repos/centos7/HDP-UTILS-1.1.0.22-centos7.tar.gz
 
 https://archive.cloudera.com/p/HDP-GPL/3.x/3.1.4.0/centos7/HDP-GPL-3.1.4.0-centos7-gpl.tar.gz
+```
+
 
 ### 环境 
 #### 每台机器都安装 java 8
@@ -65,11 +68,11 @@ rpm -ivh jdk-8u161-linux-x64.rpm
 ```
 2. 配置环境变量
 ```shell
-➜  /data which java
+which java
 /usr/bin/java
-➜  /data ls -lrt /usr/bin/java
+ls -lrt /usr/bin/java
 lrwxrwxrwx 1 root root 22 Jul 24 14:21 /usr/bin/java -> /etc/alternatives/java
-➜  /data ls -lrt /etc/alternatives/java
+/data ls -lrt /etc/alternatives/java
 lrwxrwxrwx 1 root root 35 Jul 24 14:21 /etc/alternatives/java -> /usr/java/jdk1.8.0_161/jre/bin/java
 
 ```
@@ -358,6 +361,7 @@ Ambari Server 'start' completed successfully.
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658658524615.png)
 - **node2 注册失败**
 解决方法 在/etc/amabri-agent/conf/ambari-agent.in  文件的[security]加上force_https_protocol=PROTOCOL_TLSv1_2
+
 [参考地址]([ambari agents cannot reach ambari-server after cha... - Cloudera Community - 193251](https://community.cloudera.com/t5/Support-Questions/ambari-agents-cannot-reach-ambari-server-after-changing/m-p/193251))
 ```shell
 [security]
@@ -382,5 +386,6 @@ agent:hostname_script configuration not defined thus read hostname 'node2' using
 
 Failed to connect to https://node1:8440/ca due to [Errno 110] Connection timed out
 ```
+ 
  开放 node1 8440 8441端口
  ### 选择安装的框架和分配资源
