@@ -4,7 +4,7 @@
 - 提供集中管理，用于在整个集群中启动、停止和重新配置Hadoop服务
 - 提供系统警报、监控Hadoop集群的运行状态
 ### Ambari架构
-ambari使用的是Master/Slaves 架构（由一个Ambari server 和多个Agent 组成），通过一个Server主进程实现集群的管理和操作命令的发送，而具体的管理动作是由每台目标主机的Agent进行执行。
+-ambari使用的是Master/Slaves 架构（由一个Ambari server 和多个Agent 组成），通过一个Server主进程实现集群的管理和操作命令的发送，而具体的管理动作是由每台目标主机的Agent进行执行。
 [HDP支持的ambari 版本](https://supportmatrix.cloudera.com/#Hortonworks)  
 [安装参考文档1](https://blog.csdn.net/q495673918/article/details/121626972)
 [参考文档2](https://blog.csdn.net/weixin_40461486/article/details/120437682)
@@ -64,14 +64,13 @@ https://archive.cloudera.com/p/HDP-GPL/3.x/3.1.4.0/centos7/HDP-GPL-3.1.4.0-cento
 rpm -ivh jdk-8u161-linux-x64.rpm
 ```
 2. 配置环境变量
-```shell
+```
 which java
 /usr/bin/java
 ls -lrt /usr/bin/java
 lrwxrwxrwx 1 root root 22 Jul 24 14:21 /usr/bin/java -> /etc/alternatives/java
 /data ls -lrt /etc/alternatives/java
 lrwxrwxrwx 1 root root 35 Jul 24 14:21 /etc/alternatives/java -> /usr/java/jdk1.8.0_161/jre/bin/java
-
 ```
 后边显示的/usr/java/jdk1.8.0_161就是完整的安装路径
 设置jdk 环境变量
@@ -99,51 +98,47 @@ rpm -ivh mysql57-community-release-el7-8.noarch.rpm
 #安装成功后/etc/yum.repos.d/目录下会增加两个文件
 ```
 3. 安装mysql 服务
-```shell
+```
 yum -y install mysql-server
 
 #安装出现问题
 The GPG keys listed for the "MySQL 5.7 Community Server" repository are already installed but they are not correct for this package.
 Check that the correct key URLs are configured for this repository.
-
-#解决方案
+# 解决方案
 rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
-
 ```
 4. 启动mysql
 ```shell
 systemctl start mysqld
 ```
 5. 修改mysql 临时密码 获取mysql 临时密码 
-```shell
+```sql
 grep 'temporary password' /var/log/mysqld.log
-# 登录
+--登录
 mysql -u root -p 
-# 为了可以设置简单密码  
+--为了可以设置简单密码  
 set global validate_password_policy=LOW;
-
 set global validate_password_length=4;
-
-# 创建密码为root123
+--创建密码为root123
 ALTER USER  'root'@'localhost'  IDENTIFIED BY 'root123';
 ```
 6. 新增ambari 用户并增加权限
-```shell
+```sql
 CREATE USER 'ambari'@'%' IDENTIFIED BY 'ambari';
 GRANT ALL PRIVILEGES ON *.* TO 'ambari'@'%';
 CREATE USER 'ambari'@'localhost' IDENTIFIED BY 'ambari';
 GRANT ALL PRIVILEGES ON *.* TO 'ambari'@'localhost';
 CREATE USER 'ambari'@'node1' IDENTIFIED BY 'ambari';
-GRANT ALL PRIVILEGES ON *.* TO 'ambari'@'node1';  //本地主机名
+GRANT ALL PRIVILEGES ON *.* TO 'ambari'@'node1';
 FLUSH PRIVILEGES;
 ```
  删除用户
-```shell
+```sql
 Delete FROM user Where User='your_user' and Host='your_host';
 FLUSH PRIVILEGES;
 ```
 7. 使用ambari 用户登录，并创建数据库
-```
+```sql
 mysql -uambari -pambari
 CREATE DATABASE ambari;
 exit;
@@ -173,7 +168,7 @@ tar -zxvf HDP-GPL-3.1.4.0-centos7-gpl.tar.gz -C /var/www/html/
 ```
 #### 配置基础数据源
 - 在/etc/yum.repos.d/目录下创建ambari.repo
-```shell
+```
 [ambari-2.7.4.0]
 name=ambari
 baseurl=http://node1/ambari/centos7/2.7.4.0-118
@@ -385,4 +380,13 @@ Failed to connect to https://node1:8440/ca due to [Errno 110] Connection timed o
 ```
  
  开放 node1 8440 8441端口
- ### 选择安装的框架和分配资源
+### 选择安装的框架和分配资源
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658754203705.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658754239186.png)
+
+
+### 设置服务用户名密码
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658753184289.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658753243206.png)
+
+ ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658753268939.png)
