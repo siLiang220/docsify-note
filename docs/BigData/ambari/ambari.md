@@ -150,8 +150,7 @@ CREATE DATABASE ambari;
 exit;
 ```
 - 设置时钟同步(所有机器)
-
-### 修改yum 源，实现离线安装
+#### 修改yum 源，实现离线安装
 #### node1安装httpd服务
 ```shell
 #安装
@@ -163,7 +162,7 @@ systemctl status httpd
 #设置开机启动 
 systemctl enable httpd
 ```
-#### 把上传的ambari，HDP，HDP-UTILS都解压到/var/www/html (thhpd 创建的)这个目录下
+#### 把上传的ambari，HDP，HDP-UTILS都解压到/var/www/html (httpd 创建的)这个目录下
 ```shell
 tar -zxvf ambari-2.7.4.0-centos7.tar.gz -C /var/www/html/
 tar -zxvf HDP-3.1.4.0-centos7-rpm.tar.gz -C /var/www/html/
@@ -204,6 +203,7 @@ gpgcheck=1
 gpgkey=http://node1/DP-GPL/centos7/3.1.4.0-315/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 enabled=1
 priority=1
+ 
 ```
 - 安装createrepo
 ```shell
