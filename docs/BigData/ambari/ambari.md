@@ -98,13 +98,16 @@ rpm -ivh mysql57-community-release-el7-8.noarch.rpm
 #安装成功后/etc/yum.repos.d/目录下会增加两个文件
 ```
 3. 安装mysql 服务
-```
+```shell
 yum -y install mysql-server
-
-#安装出现问题
+```
+安装出现问题
+```
 The GPG keys listed for the "MySQL 5.7 Community Server" repository are already installed but they are not correct for this package.
 Check that the correct key URLs are configured for this repository.
-# 解决方案
+```
+解决方案
+```shell
 rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 ```
 4. 启动mysql
@@ -112,8 +115,11 @@ rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 systemctl start mysqld
 ```
 5. 修改mysql 临时密码 获取mysql 临时密码 
-```sql
+```shell
 grep 'temporary password' /var/log/mysqld.log
+```
+
+```sql
 --登录
 mysql -u root -p 
 --为了可以设置简单密码  
@@ -354,7 +360,6 @@ Ambari Server 'start' completed successfully.
 - **node2 注册失败**
 解决方法 在/etc/amabri-agent/conf/ambari-agent.in  文件的[security]加上force_https_protocol=PROTOCOL_TLSv1_2
 
-[参考地址]([ambari agents cannot reach ambari-server after cha... - Cloudera Community - 193251](https://community.cloudera.com/t5/Support-Questions/ambari-agents-cannot-reach-ambari-server-after-changing/m-p/193251))
 ```shell
 [security]
 keysdir=/var/lib/ambari-agent/keys
@@ -375,7 +380,6 @@ Unable to lookup the cluster by ID; assuming that there is no cluster and theref
 ambari-agnet 错误内容
 ```
 agent:hostname_script configuration not defined thus read hostname 'node2' using socket.getfqdn().
-
 Failed to connect to https://node1:8440/ca due to [Errno 110] Connection timed out
 ```
  
