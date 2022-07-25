@@ -196,7 +196,7 @@ gpgcheck=1
 gpgkey=http://node1/HDP-UTILS/centos7/1.1.0.22/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 enabled=1
 priority=1
-
+ 
 [HDP-HDP-GPL-3.1.4.0-315]
 name=HDP-GPL Version - HDP-GPL-3.1.4.0-315
 baseurl=http://node1/HDP-GPL/centos7/3.1.4.0-315/
