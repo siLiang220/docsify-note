@@ -150,9 +150,7 @@ CREATE DATABASE ambari;
 exit;
 ```
 - 设置时钟同步(所有机器)
-```
 
-```
 ### 修改yum 源，实现离线安装
 #### node1安装httpd服务
 ```shell
