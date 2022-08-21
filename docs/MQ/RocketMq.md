@@ -12,9 +12,9 @@
 消息标签，二级消息类型，用来进一步区分某个topic下的消息分类
 - **producer：**
 消息生产者
-- **message**
+- **message：**
 消息队列中的消息载体
-- **Message ID**
+- **Message ID：**
 消息的全局唯一标识，由消息队列rocketMq系统生成，唯一标识某条消息
 - **Message Key：**
 消息的业务标识，由消息生产者设置

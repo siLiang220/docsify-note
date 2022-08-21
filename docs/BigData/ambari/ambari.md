@@ -392,7 +392,7 @@ Failed to connect to https://node1:8440/ca due to [Errno 110] Connection timed o
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658753243206.png)
 
  ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658753268939.png)
-#### 创建hive数据库
+### 创建hive数据库
 ```sql
 create database hive;
 CREATE USER 'hive'@'%'IDENTIFIED BY '123456';
@@ -404,18 +404,19 @@ test connection 错误执行
 ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
 ```
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658843011515.png)
-#### 设置superset![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844023075.png)
+### 设置superset
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844023075.png)
 
-#### 设置HDFS
+### 设置HDFS
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844231787.png)
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844280082.png)
-#### 设置yarn
+### 设置yarn
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844409098.png)
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844429738.png)
-#### 设置mapreduce
+### 设置mapreduce
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844480510.png)
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844499355.png)
-#### 设置账户
+### 设置账户
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844623538.png)
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844644292.png)
 自定义服务内容
