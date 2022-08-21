@@ -5,63 +5,63 @@
 -   **生产者**：与Name Server集群中的其中一个节点（随机）建立长连接（Keep-alive），定期从Name Server读取Topic路由信息，并向提供Topic服务的Master Broker建立长连接，且定时向Master Broker发送心跳。
 -   **消费者**：与Name Server集群中的其中一个节点（随机）建立长连接，定期从Name Server拉取Topic路由信息，并向提供Topic服务的Master Broker、Slave Broker建立长连接，且定时向Master Broker、Slave Broker发送心跳。Consumer既可以从Master Broker订阅消息，也可以从Slave Broker订阅消息，订阅规则由Broker配置决定。
 # 基本概念
-#### topic
+**topic**
 消息主题，一级消息类型，通过topic进行分类
-#### tag
+**tag**
 消息标签，二级消息类型，用来进一步区分某个topic下的消息分类
-#### producer
+**producer**
 消息生产者
-#### message
+**message**
 消息队列中的消息载体
-#### Message ID
+**Message ID**
 消息的全局唯一标识，由消息队列rocketMq系统生成，唯一标识某条消息
-#### Message Key
+**Message Key**
 消息的业务标识，由消息生产者设置
-#### Consumer
+**Consumer**
 消息消费者，负责接收消费消息
 - Push Consumer : 由消费者队列推送的consumer
 - Pull Consumer : consumer 主动从消息队列拉取消息
-#### 分区
+**分区**
 topic partition物理概念，每个topic下包含一个或多个分区
-#### 消费者点位
+**消费者点位**
 每个Topic会有多个分区，每个分区会统计当前消息的总条数，这个称为最大位点MaxOffset；分区的起始位置对应的位置叫做起始位点MinOffset。
 
 消息队列RocketMQ版的Pull Consumer会按顺序依次消费分区内的每条消息，记录已经消费了的消息条数，称为消费位点ConsumerOffset。剩余的未消费的条数（也称为消息堆积量）= 最大位点MaxOffset-消费位点ConsumerOffset。
-#### group
+**group**
 一类Producer或Consumer，这类Producer或Consumer通常生产或消费同一类消息，且消息发布或订阅的逻辑一致。
-#### Group ID
+**Group ID**
 group 的标识
-#### 队列
+**队列**
 每个Topic下会由一到多个队列来存储消息。每个Topic对应队列数与消息类型
-#### 集群消费
+**集群消费**
 一个Group ID所标识的所有Consumer平均分摊消费消息。例如某个Topic有9条消息，一个Group ID有3个Consumer实例，那么在集群消费模式下每个实例平均分摊，只消费其中的3条消息。
-#### 广播消费
+**广播消费**
 一个Group ID所标识的所有Consumer都会各自消费某条消息一次。例如某个Topic有9条消息，一个Group ID有3个Consumer实例，那么在广播消费模式下每个实例都会各自消费9条消息。
-#### 定时消息
+**定时消息**
 Producer将消息发送到消息队列RocketMQ版服务端，但并不期望这条消息立马投递，而是推迟到在当前时间点之后的某一个时间投递到Consumer进行消费，该消息即定时消息。
-#### 延时消息
+**延时消息**
 Producer将消息发送到消息队列RocketMQ版服务端，但并不期望这条消息立马投递，而是延迟一定时间后才投递到Consumer进行消费，该消息即延时消息。
-#### 事务消息
+**事务消息**
 消息队列RocketMQ版提供类似XA或Open XA的分布事务功能，通过消息队列RocketMQ版的事务消息能达到分布式事务的最终一致。
-#### 顺序消息
+**顺序消息**
 消息队列RocketMQ版提供的一种按照顺序进行发布和消费的消息类型，分为全局顺序消息和分区顺序消息。
-#### 全局顺序消息
+**全局顺序消息**
 对于指定的一个Topic，所有消息按照严格的先入先出（FIFO）的顺序进行发布和消费。
-#### 分区顺序消息
+**分区顺序消息**
 对于指定的一个Topic，所有消息根据Sharding Key进行区块分区。同一个分区内的消息按照严格的FIFO顺序进行发布和消费。Sharding Key是顺序消息中用来区分不同分区的关键字段，和普通消息的Message Key是完全不同的概念。
-#### 消息堆积
+**消息堆积**
 Producer已经将消息发送到消息队列RocketMQ版的服务端，但由于Consumer消费能力有限，未能在短时间内将所有消息正确消费掉，此时在消息队列RocketMQ版的服务端保存着未被消费的消息，该状态即消息堆积。
-**消息堆积量=处理中的消息+已就绪的消息**
-#### 消息过滤
+_**消息堆积量=处理中的消息+已就绪的消息**_
+**消息过滤**
 Consumer可以根据消息标签（Tag）对消息进行过滤，确保Consumer最终只接收被过滤后的消息类型。消息过滤在消息队列RocketMQ版的服务端完成。
-#### 消息轨迹
+**消息轨迹**
 在一条消息从Producer发出到Consumer消费处理过程中，由各个相关节点的时间、地点等数据汇聚而成的完整链路信息。通过消息轨迹，您能清晰定位消息从Producer发出，经由消息队列RocketMQ版服务端，投递给Consumer的完整链路，方便定位排查问题。
-#### 重置消息位点
+**重置消息位点**
 以时间轴为坐标，在消息持久化存储的时间范围内（默认3天），重新设置Consumer对已订阅的Topic的消费进度，设置完成后Consumer将接收设定时间点之后由Producer发送到消息队列RocketMQ版服务端的消息
-#### 死信队列
+**死信队列**
 死信队列用于处理无法被正常消费的消息。当一条消息初次消费失败，消息队列RocketMQ版会自动进行消息重试；达到最大重试次数后，若消费依然失败，则表明Consumer在正常情况下无法正确地消费该消息。此时，消息队列RocketMQ版不会立刻将消息丢弃，而是将这条消息发送到该Consumer对应的特殊队列中。
 消息队列RocketMQ版将这种正常情况下无法被消费的消息称为死信消息（Dead-Letter Message），将存储死信消息的特殊队列称为死信队列（Dead-Letter Queue）。
-#### 消息路由
+**消息路由**
 消息路由常用于不同地域之间的消息同步，保证地域之间的数据一致性。消息队列RocketMQ版的全球消息路由功能依托阿里云优质基础设施实现的高速通道专线，可以高效地实现不同地域之间的消息同步复制
 ## 普通消息
 ### 功能简介
@@ -116,21 +116,15 @@ _**使用定时消息实现金融支付超时的需求**_
 ![图片](https://mmbiz.qpic.cn/mmbiz_jpg/yvBJb5IiafvmHRibibXKmQicfIKHsSZuwWUK0MIgD5mjRu9picShELjZUqlca2xib0jUicnG6wUWSicmNHmTSC3vBLhtow/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
 
 同时，对于同一 MessageGroup，为了保证其发送顺序的先后性，比较简单的做法是构造一个单线程的场景，即不同的 MessageGroup 由不同的 Producer 负责，并且对于每一个 Producer 而言，顺序消息是同步发送的。同步发送的好处是显而易见的，在客户端得到上一条消息的发送结果后再发送下一条，即能准确保证发送顺序，若使用异步发送或多线程则很难保证这一点。 
-
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_png/dky8WRYUFZFibJ3zSicbQNQUJDbYAo62rfUWkmKPs0ntg2PGtu9j4icMMOEvjibsEZNs0MbRLKVP1ovL1D4Zp9FtCg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20220821205226.png)
 
 因此可以看到，虽然在底层原理上，顺序消息发送和普通消息发送并无二异，但是为了保证顺序消息的发送顺序性，同步发送的方式相比较普通消息，实际上降低了消息的最大吞吐。
 
 #### 顺序消费
-
 与顺序消息不同的是，普通消息的消费实际上没有任何限制，消费者拉取的消息是被异步、并发消费的，而顺序消息，需要保证对于同一个 MessageGroup，同一时刻只有一个客户端在消费消息，并且在该条消息被确认消费完成之前（或者进入死信队列），消费者无法消费同一 MessageGroup 的下一条消息，否则消费的顺序性将得不到保证。因此这里存在着一个消费瓶颈，该瓶颈取决于用户自身的业务处理逻辑。极端情况下当某一 MessageGroup 的消息过多时，就可能导致消费堆积。当然也需要明确的是，这里的语境都指的是同一 MessageGroup，不同 MessageGroup 的消息之间并不存在顺序性的关联，是可以进行并发消费的。因此全文中提到的顺序实际上是一种偏序。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/yvBJb5IiafvmHRibibXKmQicfIKHsSZuwWUKNCAq6B8ltd007C83icaiccXV5w5ncibdN7klGUw44fyA84ohI9eqDXJKA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-
-
-
 无论对于发送还是消费，我们通过 MessageGroup 的方式将消息分组，即并发的基本单元是 MessageGroup，不同的 MessageGroup 可以并发的发送和消费，从而一定程度具备了可拓展性，支持多队列存储、水平拆分、并发消费，且不受影响。回顾普通消息，站在顺序消息的视角，可以认为普通消息的并发基本单元是单条消息，即每条消息均拥有不同的 MessageGroup。
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661086394431.png)
 
 我们回到开头那个问题：
 
@@ -140,7 +134,8 @@ _**使用定时消息实现金融支付超时的需求**_
 
 下述是一个表格，简要对比了顺序消息和普通消息。  
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/yvBJb5IiafvmHRibibXKmQicfIKHsSZuwWUKzvGJX1DoIck0R94fHRIZfEwEK0OibOTJ0HYexwU8hfFnsLVrDHfsILw/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661086274209.png)
+
 
 _**最佳实践**_
 
