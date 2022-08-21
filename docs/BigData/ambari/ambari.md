@@ -392,3 +392,102 @@ Failed to connect to https://node1:8440/ca due to [Errno 110] Connection timed o
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658753243206.png)
 
  ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658753268939.png)
+#### 创建hive数据库
+```sql
+create database hive;
+CREATE USER 'hive'@'%'IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON *.* TO 'hive'@'%';
+FLUSH PRIVILEGES;
+```
+test connection 错误执行
+```shell
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+```
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658843011515.png)
+#### 设置superset![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844023075.png)
+
+#### 设置HDFS
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844231787.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844280082.png)
+#### 设置yarn
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844409098.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844429738.png)
+#### 设置mapreduce
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844480510.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844499355.png)
+#### 设置账户
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844623538.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658844644292.png)
+自定义服务内容
+```md
+**Admin Name** : admin
+
+**Cluster Name** : hdpcluster
+
+**Total Hosts** : 2 (2 new)
+
+**Repositories**:
+
+-   redhat7 (HDP-3.1):  
+    http://node1/HDP/centos7/3.1.4.0-315/
+    
+-   redhat7 (HDP-3.1-GPL):  
+    http://node1/HDP-GPL/centos7/3.1.4.0-315/
+    
+-   redhat7 (HDP-UTILS-1.1.0.22):  
+    http://node1/HDP-UTILS/centos7/1.1.0.22/
+    
+
+**Services:**
+
+-   _**HDFS**_
+    -   DataNode : 1 host
+    -   NameNode : node1
+    -   NFSGateway : 0 host
+    -   SNameNode : node2
+-   _**YARN + MapReduce2**_
+    -   Timeline Service V1.5 : node2
+    -   NodeManager : 1 host
+    -   ResourceManager : node1
+    -   Timeline Service V2.0 Reader : node1
+    -   Registry DNS : node1
+-   _**Tez**_
+    -   Clients : 1 host
+-   _**Hive**_
+    -   Metastore : node2
+    -   HiveServer2 : node2
+    -   Database : Existing MySQL / MariaDB Database
+-   _**HBase**_
+    -   Master : node1
+    -   RegionServer : 1 host
+    -   Phoenix Query Server : 0 host
+-   _**ZooKeeper**_
+    -   Server : 2 hosts
+-   _**Storm**_
+    -   DRPC Server : node1
+    -   Nimbus : node1
+    -   UI Server : node1
+    -   Supervisor : 1 host
+-   _**Infra Solr**_
+    -   Infra Solr Instance : node1
+-   _**Ambari Metrics**_
+    -   Metrics Collector : node1
+    -   Grafana : node1
+-   _**Atlas**_
+    -   Metadata Server : node1
+-   _**Kafka**_
+    -   Broker : node1
+-   _**SmartSense**_
+    -   Activity Analyzer : node1
+    -   Activity Explorer : node1
+    -   HST Server : node1
+-   _**Spark2**_
+    -   Livy for Spark2 Server : 0 host
+    -   History Server : node1
+    -   Thrift Server : 0 host
+-   _**Zeppelin Notebook**_
+    -   Notebook : node1
+-   _**Superset**_
+    -   Superset : node1
+    - 
+```
