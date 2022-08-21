@@ -4,6 +4,7 @@
 -   **Broker**：消息中转角色，负责存储消息，转发消息。分为Master Broker和Slave Broker，一个Master Broker可以对应多个Slave Broker，但是一个Slave Broker只能对应一个Master Broker。Broker启动后需要完成一次将自己注册至Name Server的操作；随后每隔30s定期向Name Server上报Topic路由信息。
 -   **生产者**：与Name Server集群中的其中一个节点（随机）建立长连接（Keep-alive），定期从Name Server读取Topic路由信息，并向提供Topic服务的Master Broker建立长连接，且定时向Master Broker发送心跳。
 -   **消费者**：与Name Server集群中的其中一个节点（随机）建立长连接，定期从Name Server拉取Topic路由信息，并向提供Topic服务的Master Broker、Slave Broker建立长连接，且定时向Master Broker、Slave Broker发送心跳。Consumer既可以从Master Broker订阅消息，也可以从Slave Broker订阅消息，订阅规则由Broker配置决定。
+
 ## 基本概念
 **topic**
 消息主题，一级消息类型，通过topic进行分类
@@ -112,8 +113,7 @@ _**使用定时消息实现金融支付超时的需求**_
 顺序消息是消息队列 RocketMQ 版提供的一种对消息发送和消费顺序有严格要求的消息。对于一个指定的 Topic，同一 MessageGroup 的消息按照严格的先进先出（FIFO）原则进行发布和消费，即先发布的消息先消费，后发布的消息后消费，服务端严格按照发送顺序进行存储、消费。同一 MessageGroup 的消息保证顺序，不同 MessageGroup 之间的消息顺序不做要求，因此需做到两点，发送的顺序性和消费的顺序性。
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20220821174945.png)
 在分布式环境下，保证消息的全局顺序性是十分困难的，例如两个 RocketMQ Producer A 与 Producer B，它们在没有沟通的情况下各自向 RocketMQ 服务端发送消息 a 和消息 b，由于分布式系统的限制，我们无法保证 a 和 b 的顺序。因此业界消息系统通常保证的是分区的顺序性，即保证带有同一属性的消息的顺序，我们将该属性称之为 MessageGroup。如图所示，ProducerA 发送了 MessageGroup 属性为 A 的两条消息 A1，A2 和 MessageGroup 属性为 B 的 B1，B2，而 ProducerB 发送了 MessageGroup 属性为 C 的两条属性 C1，C2。  
-
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/yvBJb5IiafvmHRibibXKmQicfIKHsSZuwWUK0MIgD5mjRu9picShELjZUqlca2xib0jUicnG6wUWSicmNHmTSC3vBLhtow/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661087067399.png)
 
 同时，对于同一 MessageGroup，为了保证其发送顺序的先后性，比较简单的做法是构造一个单线程的场景，即不同的 MessageGroup 由不同的 Producer 负责，并且对于每一个 Producer 而言，顺序消息是同步发送的。同步发送的好处是显而易见的，在客户端得到上一条消息的发送结果后再发送下一条，即能准确保证发送顺序，若使用异步发送或多线程则很难保证这一点。 
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20220821205226.png)
