@@ -20,13 +20,12 @@
 消息的业务标识，由消息生产者设置
 **Consumer**
 消息消费者，负责接收消费消息
-- Push Consumer : 由消费者队列推送的consumer
-- Pull Consumer : consumer 主动从消息队列拉取消息
+	- Push Consumer : 由消费者队列推送的consumer
+	- Pull Consumer : consumer 主动从消息队列拉取消息
 **分区**
 topic partition物理概念，每个topic下包含一个或多个分区
 **消费者点位**
 每个Topic会有多个分区，每个分区会统计当前消息的总条数，这个称为最大位点MaxOffset；分区的起始位置对应的位置叫做起始位点MinOffset。
-
 消息队列RocketMQ版的Pull Consumer会按顺序依次消费分区内的每条消息，记录已经消费了的消息条数，称为消费位点ConsumerOffset。剩余的未消费的条数（也称为消息堆积量）= 最大位点MaxOffset-消费位点ConsumerOffset。
 **group**
 一类Producer或Consumer，这类Producer或Consumer通常生产或消费同一类消息，且消息发布或订阅的逻辑一致。
@@ -154,14 +153,14 @@ _**应用案例**_
 -   电商的订单创建，以订单 ID 作为 MessageGroup，那么同一个订单相关的创建订单消息、订单支付消息、订单退款消息、订单物流消息都会按照发布的先后顺序来消费。
  ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20220821175728.png)
 
-
 ## 事务消息
 ([解析 RocketMQ 业务消息——“事务消息” (qq.com)](https://mp.weixin.qq.com/s/efM6kOAdQC3UwuPOAvnDDg))
-以 电商交易场景为例，用户支付订单会同时设计下游物流发货，积分变更，购物车状态清空等多个子系统变更
+
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661072131352.png)
-分布式系统的调用特点：一个核心业务逻辑的执行同时需要调用多个下游业务进行处理。
+以 电商交易场景为例，用户支付订单会同时设计下游物流发货，积分变更，购物车状态清空等多个子系统变更分布式系统的调用特点：一个核心业务逻辑的执行同时需要调用多个下游业务进行处理。
 基于rocketMQ分布式事务消息：支持最终的一致性
-而基于消息队列 RocketMQ 版实现的分布式事务消息功能，在普通消息基础上，支持二阶段的提交能力。将二阶段提交和本地事务绑定，实现全局提交结果的一致性。![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661072393119.png)
+而基于消息队列 RocketMQ 版实现的分布式事务消息功能，在普通消息基础上，支持二阶段的提交能力。将二阶段提交和本地事务绑定，实现全局提交结果的一致性。
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661072393119.png)
 ### 基本原理
 #### 基本概念
 - **事务消息：** RocketMQ 提供类似 XA 或 Open XA 的分布式事务功能，通过 RocketMQ 事务消息能达到分布式事务的最终一致；
