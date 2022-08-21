@@ -1,3 +1,3 @@
 # 目录
-  * [springboot](java/spring/springboot.md)
-  *  [springdata jpa](java/spring/spring data jpa.md)
+  * [Springboot](java/spring/springboot.md)
+  *  [Springdata jpa](java/spring/spring data jpa.md)
