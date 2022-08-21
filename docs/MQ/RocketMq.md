@@ -1,10 +1,10 @@
-# 系统架构
+## 系统架构
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1660974176438.png)
 -  **Name Server**：是一个几乎无状态节点，可集群部署，在消息队列RocketMQ版中提供命名服务，更新和发现Broker服务。
 -   **Broker**：消息中转角色，负责存储消息，转发消息。分为Master Broker和Slave Broker，一个Master Broker可以对应多个Slave Broker，但是一个Slave Broker只能对应一个Master Broker。Broker启动后需要完成一次将自己注册至Name Server的操作；随后每隔30s定期向Name Server上报Topic路由信息。
 -   **生产者**：与Name Server集群中的其中一个节点（随机）建立长连接（Keep-alive），定期从Name Server读取Topic路由信息，并向提供Topic服务的Master Broker建立长连接，且定时向Master Broker发送心跳。
 -   **消费者**：与Name Server集群中的其中一个节点（随机）建立长连接，定期从Name Server拉取Topic路由信息，并向提供Topic服务的Master Broker、Slave Broker建立长连接，且定时向Master Broker、Slave Broker发送心跳。Consumer既可以从Master Broker订阅消息，也可以从Slave Broker订阅消息，订阅规则由Broker配置决定。
-# 基本概念
+## 基本概念
 **topic**
 消息主题，一级消息类型，通过topic进行分类
 **tag**
@@ -153,8 +153,6 @@ _**应用案例**_
 -   电商的订单创建，以订单 ID 作为 MessageGroup，那么同一个订单相关的创建订单消息、订单支付消息、订单退款消息、订单物流消息都会按照发布的先后顺序来消费。
  ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20220821175728.png)
 
-
-#### 
 ## 事务消息
 ([解析 RocketMQ 业务消息——“事务消息” (qq.com)](https://mp.weixin.qq.com/s/efM6kOAdQC3UwuPOAvnDDg))
 以 电商交易场景为例，用户支付订单会同时设计下游物流发货，积分变更，购物车状态清空等多个子系统变更
