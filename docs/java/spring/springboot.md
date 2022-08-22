@@ -34,7 +34,9 @@ public class AsyncServlet extends HttpServlet {
     }
 }
 ```
+
 - spring mvc 线程池+DeferredResult 实现文件上传 异步处理和同步返回
+
 ```java
 @RestController
 public class PictureUploadController {
