@@ -13,8 +13,6 @@ public class AsyncServlet extends HttpServlet {
         final AsyncContext ctx = req.startAsync();
         //2. 提交线程池异步执行
         executorService.execute(new Runnable() {
-
-
             @Override
             public void run() {
                 try {
@@ -43,7 +41,6 @@ public class PictureUploadController {
     private ExecutorService threadPool = new ThreadPoolExecutor(16, 16, 30, TimeUnit.SECONDS,
             new LinkedBlockingQueue<>(5000), new ThreadFactory() {
         private final AtomicInteger uploadUrlPicThreadNum = new AtomicInteger(1);
-
         @Override
         public Thread newThread(Runnable runnable) {
             Thread thread = Executors.defaultThreadFactory().newThread(runnable);
@@ -53,7 +50,7 @@ public class PictureUploadController {
     }, new ThreadPoolExecutor.DiscardOldestPolicy());
 
     @Autowired
-PictureUploadService pictureUploadService;
+	PictureUploadService pictureUploadService;
 
     @PostMapping("/asyncUpload")
     public DeferredResult<ApiResult> asyncUploadPicture(@Valid PictureUploadDTO pictureUploadDTO) {    
