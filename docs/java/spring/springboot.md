@@ -2,7 +2,6 @@
 Servlet API3.0版本开始，引入异步处理机制。具体做法是Servlet容器的主线程池的工作线程接受到一个HTTP请求后，把他交给一个专门的任务处理子线程来处理该请求，工作线程又被释放回 主线程池，用于接收其他的HTTP请求，任务处理结果可通过在字线程中返回，这样既能实现线程隔离，又能同步返回处理结果给客户端。
 - 异步servlet 示例
 ```java
-
 @WebServlet(URLPatterns = "/async",asyncSupported = true)
 public class AsyncServlet extends HttpServlet {
 
@@ -34,13 +33,11 @@ public class AsyncServlet extends HttpServlet {
         });
     }
 }
-
 ```
 
-- spring mvc 线程池+DeferredResult 实现文件上传 异步处理和同步返回
+-  spring mvc 线程池+`DeferredResult`实现文件上传 异步处理和同步返回
 
 ```java
-
 @RestController
 public class PictureUploadController {
     private ExecutorService threadPool = new ThreadPoolExecutor(16, 16, 30, TimeUnit.SECONDS,
@@ -73,5 +70,4 @@ public class PictureUploadController {
         return deferredResult;
     }
 }
-
 ```

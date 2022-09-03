@@ -1,39 +1,35 @@
 ###### NVL
-```
+```text
 第一个参数为空那么显示第二个参数的值，如果第一个参数的值不为空，则显示第一个参数本来的值。
 ```
 ##### 窗口函数
  窗口函数order by
-```
+```text
 当为排序函数，如row_number(),rank()等时，over中的order by只起到窗口内排序作用。
 
 当为聚合函数，如max，min，count等时，不加order by ，就是针对一整个分区进行sum求和。加上order by score后，就是根据当前行到之前所有行聚合
 ```
 - lead 函数
-```
+```text
 LEAD (col, n, default)：用于统计窗口内往下滴 n 行值。第一个参数为列名，第二个参数为往下滴 n 行（默认为 1 ），第三个参数为默认值（当往下第n行为NULL时候，取默认值，如不指定，则为NULL）
 ```
 - LAG 
-```
+```text
 与 lead 函数相反，用于统计窗口内网上第 n 行值。
 ```
 FIRST_VALUE 
-```
+```text
 取分组内排序后，截止到当前行，第一个值
-
 This takes at most two parameters. The first parameter is the column for which you want the first value, the second (optional) parameter must be a boolean which is false by default. If set to true it skips null values.
 ```
 LAST_VALUE
-```
-与first_value 相反
-取分组内排序后，截止到当前行，最后一个值
-
+```text
+与first_value 相反取分组内排序后，截止到当前行，最后一个值
 This takes at most two parameters. The first parameter is the column for which you want the last value, the second (optional) parameter must be a boolean which is false by default. If set to true it skips null values.
-
 ```
 
 ##### 窗口函数去重
-```
+```sql
 INSERT OVERWRITE TABLE ecang_ods_order_detail 
 SELECT  op_id,
         order_id,
@@ -54,11 +50,11 @@ WHERE   t.rn = 1
 INSERT OVERWRITE 清除表后重新插入
 row_number() OVER (PARTITION BY aa.op_id ORDER BY aa.op_id DESC ) AS rn 
 
-op_id 分组 分组后在组内以op_id 排序 生成每组内部排序后的顺序编号rank ,取结果数据rank= 1的数据
+-- op_id 分组 分组后在组内以op_id 排序 生成每组内部排序后的顺序编号rank ,取结果数据rank= 1的数据
 
 ```
 ##### 修改数据
-```
+```sql
 INSERT OVERWRITE TABLE ecang_order_data
 SELECT  CASE    WHEN s.order_id IS NOT NULL THEN s.order_id 
                 ELSE t.order_id 
@@ -67,12 +63,11 @@ SELECT  CASE    WHEN s.order_id IS NOT NULL THEN s.order_id
                  ELSE t.platform 
                  FROM    ecang_order_data AS t
 FULL OUTER JOIN ecang_ods_order_data AS s
-ON      t.order_id = s.order_id
-;
-源表 order_id 不存在取目标表数据,存在取源表
+ON      t.order_id = s.order_id;
+-- 源表 order_id 不存在取目标表数据,存在取源表
 ```
 ##### 列转行
-```
+```sql
 INSERT OVERWRITE TABLE ecang_ods_order_detail
 
 SELECT 
@@ -85,7 +80,7 @@ FROM ( SELECT  GET_JSON_OBJECT(value,"$.value") as details FROM   ecang_analytic
 LATERAL VIEW EXPLODE (split(regexp_replace(regexp_replace(details,'\\[\\{',''),'}]',''),'},\\{')) info as info;
 ```
 ##### 删除数据
-```
+```sql
 INSERT OVERWRITE TABLE table1
 SELECT t1.key1
       ,t1.key2
@@ -97,11 +92,11 @@ SELECT t1.key1
 ;                        
 ```
 ##### Merge（当日发生过删除操作）
-```
+```sql
 INSERT OVERWRITE TABLE table1
 SELECT *
   FROM(
-//先把上日和今日都存在的记录从上日表中排除，再把今日删除的记录排除。剩下的就是今日没有更新的记录。
+--先把上日和今日都存在的记录从上日表中排除，再把今日删除的记录排除。剩下的就是今日没有更新的记录。
 SELECT t1.key1
       ,t1.key2
       ,t1.col1
@@ -111,7 +106,7 @@ SELECT t1.key1
   LEFT OUTER JOIN table3 t3 ON t1.key1 = t3.key1 AND t1.key2 = t3.key2
   WHERE t2.key1 IS NULL OR t3.key1 IS NULL
   UNION ALL
-//合并上今日增量，就是今日的全量。
+-- 合并上今日增量，就是今日的全量。
 SELECT t2.key1
       ,t2.key2
       ,t2.col1
@@ -121,11 +116,11 @@ SELECT t2.key1
 ```
 
 ##### Merge（当日没有发生过删除操作）
-```
+```sql
 INSERT OVERWRITE TABLE table1
 SELECT *
   FROM(
-//先把上日存在、今日也存在的记录从上日表中排除，剩下的就是今日没有更新的记录。
+-- 先把上日存在、今日也存在的记录从上日表中排除，剩下的就是今日没有更新的记录。
 SELECT t1.key1
       ,t1.key2
       ,t1.col1
@@ -134,7 +129,7 @@ SELECT t1.key1
   LEFT OUTER JOIN table2 t2 ON t1.key1 = t2.key1 AND t1.key2 = t2.key2
   WHERE t2.key1 IS NULL
   UNION ALL
-//再合并上今日增量，就是今天的全量。
+-- 再合并上今日增量，就是今天的全量。
 SELECT t2.key1
       ,t2.key2
       ,t2.col1

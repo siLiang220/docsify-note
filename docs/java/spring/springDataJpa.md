@@ -1,10 +1,8 @@
-# JPA 领域事件发布
----
+## JPA 领域事件发布
 source: [6. 基于Spring Data的领域事件发布]( https://blog.csdn.net/qq_33920904/article/details/105261617)
----
-领域事件发布是一个领域对象为了让其它对象知道自己已经处理完成某个操作时发出的一个通知，事件发布力求从代码层面让自身对象与外部对象解耦，并减少技术代码入侵。
+>领域事件发布是一个领域对象为了让其它对象知道自己已经处理完成某个操作时发出的一个通知，事件发布力求从代码层面让自身对象与外部对象解耦，并减少技术代码入侵。
 
-## 一、 手动发布事件
+### 一、 手动发布事件
 
 ```java
 // 实体定义
@@ -50,7 +48,7 @@ public class ApplicationService {
 
 使用`applicationEventPublisher.publishEvent`在领域服务处理完成后发布领域事件，此方法需要在业务代码中显式发布事件，并在领域服务里引入ApplicationEventPublisher类，但对领域服务本身有一定的入侵性，但灵活性较高。
 
-## 二、 自动发布事件
+### 二、 自动发布事件
 
 ```java
 // 实体定义
@@ -104,7 +102,7 @@ public class ApplicationService {
 使用`@DomainEvents`定义事件返回的类型，必须是一个集合，使用`@AfterDomainEventPublication`定义事件发布后的回调。  
 此方法实事件类型定义在实体中，与领域服务完全解耦，没有入侵。系统会在**orderRepository.save(saleOrder)**后自动调用事件发布，另**delete**方法不会调用事件发布。
 
-## 三、 事件监听
+### 三、 事件监听
 
 ```java
 @Component
@@ -135,7 +133,7 @@ public class ApplicationEventProcessor {
 
 ```
 
-### 1\. 使用`@EventListener`监听事件
+#### 1\. 使用`@EventListener`监听事件
 
 `@EventListener`没有事务支持，只要事件发出就可监控到
 
@@ -150,7 +148,7 @@ public void departmentAdd(Department department) {
 
 上述情况会造成事务失败回滚，但事件监控端已经执行，可能导致数据不一致的情况发生
 
-### 2\. 使用`@TransactionalEventListener`监听事件
+#### 2\. 使用`@TransactionalEventListener`监听事件
 
 -   `TransactionPhase.BEFORE_COMMIT` 事务提交前
 -   `TransactionPhase.AFTER_COMMIT` 事务提交后
@@ -159,7 +157,7 @@ public void departmentAdd(Department department) {
 
 使用`TransactionPhase.AFTER_COMMIT`可在事务完成后，再执行事件监听方法，从而保证数据的一致性
 
-### 3\. `TransactionPhase.AFTER_ROLLBACK`回滚事务问题
+#### 3\. `TransactionPhase.AFTER_ROLLBACK`回滚事务问题
 
 ```java
 @Async
@@ -171,12 +169,12 @@ public void departmentCreatedFailed(DepartmentEvent departmentEvent) {
 
 由于`@DomainEvents`作用在实体上的，只有刚orderRepository.save(saleOrder)执行成功后才会发送事件，故**AFTER\_ROLLBACK**方法只会在同一事务中其它语句执行失败或显式rollback时才会执行，如果save方法执行失败，将不会监听到回滚事件。
 
-### 4\. `@Async`异步事件监听
+#### 4\. `@Async`异步事件监听
 
 -   没有此注解事件监听方法与主方法为一个事务。
 -   使用此注解将脱离原有事务，**BEFORE\_COMMIT**也无法拦截事务提交前时刻
 -   此注解需要配合`@EnableAsync`一起使用
-## 四、使用领域事件时的陷阱
+### 四、使用领域事件时的陷阱
 处理领域事件看起来很简单，但有几个陷阱会导致 Spring 不发布事件、不调用观察者或不持久化观察者执行的更改。
 -   无保存调用 = 无事件 
 如果您在其存储库上调用save或saveAll方法，Spring Data JPA 仅发布实体的域事件。但是，如果您正在使用托管实体（通常是您在当前事务期间从数据库中获取的每个实体对象），您就不需要调用任何存储库方法来持久化您的更改。您只需要在实体对象上调用 setter 方法并更改属性的值。您的持久性提供程序，例如 Hibernate，会自动检测更改并保持不变。
