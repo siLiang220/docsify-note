@@ -207,13 +207,14 @@ ssc.stop(stopSparkContext=True,stopGraceFully=True)
 #### 2\.DStream 有状态操作
 ##### 1\. 滑动窗口转换操作
 设定滑动窗口的实践间隔,让窗口按照在指定时间间隔在DStream上滑动
+
 | 操作                  | 含义                                                                                                        |
 | --------------------- | ----------------------------------------------------------------------------------------------------------- |
 | window                | 窗口化的批数据                                                                                              |
 | countByWindow         | 获取流元素中一个滑动窗口数                                                                                  |
 | reduceByWindow        | 对窗口内的元素进行聚集,得到一个单元素流                                                                     |
 | reduceByKeyAndWindow  | 返回一个(K,V)组成的新DStream,key的值是由自定义函数计算得到,还有一个可选参数对离开窗口的数据做逆向reduce操作 |
-| countByValueAndWindow | 返回一个(K,V)组成的新DStream,key的值是在滑动窗口出现的频率                                                  | 
+| countByValueAndWindow | 返回一个(K,V)组成的新DStream,key的值是在滑动窗口出现的频率                                                  |
 
 
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1662276749772.png)
