@@ -27,28 +27,32 @@
       //   },
       // },
       plugins: [
-    function(hook) {
-      var footer = [
-        '<hr/>',
-        '<footer>',
-        '<span><a  target="_blank" href="https://beian.miit.gov.cn/">津ICP备17004780号-1</a></span>',
-        '</footer>'
-      ].join('');
+        function(hook) {
+          var footer = [
+            '<hr/>',
+            '<footer>',
+            '<span><a  target="_blank" href="https://beian.miit.gov.cn/">津ICP备17004780号-1</a></span>',
+            '</footer>'
+          ].join('');
 
-      hook.afterEach(function(html) {
-        return html + footer;
-      });
-    }
-  ]
+          hook.afterEach(function(html) {
+            return html + footer;
+          });
+        }
+      ] 
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <!-- 代码拷贝 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
-  <!-- 代码高亮 -->
+  <!-- 代码高亮java -->
   <!-- <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script> -->
   <script src="//cdn.jsdelivr.net/npm/prismjs@1.28.0/components/prism-java.min.js"></script>
+   <!-- 代码高亮python -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+    <!-- 代码高亮sql -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
   <!-- 备案插件 -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/docsify-beian@latest/dist/beian.min.js"></script> -->
 

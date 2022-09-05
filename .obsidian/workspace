@@ -1,0 +1,122 @@
+{
+  "main": {
+    "id": "fd0ed2ad7d86c449",
+    "type": "split",
+    "children": [
+      {
+        "id": "f210348d45a272ba",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "docs/BigData/Spark/Spark.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "bcab4f4a2921d0e5",
+    "type": "split",
+    "children": [
+      {
+        "id": "057b223e14c6bd87",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1c363c84f8732b0a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "550d7007f55ef127",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "16c03617cb4fcd6a",
+    "type": "split",
+    "children": [
+      {
+        "id": "d72d16373a14b732",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e79d31fa32cdaf59",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "docs/BigData/Spark/Spark.md",
+                "collapseAll": false,
+                "extraContext": true,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "60737400b735a4b0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docs/BigData/Spark/Spark.md"
+              }
+            }
+          },
+          {
+            "id": "fadcecdf70484ec2",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "f210348d45a272ba",
+  "lastOpenFiles": [
+    "docs/BigData/Spark/_sidebar.md",
+    "docs/BigData/Spark/Spark.md",
+    "docs/BigData/Spark/SparkStreaming.md",
+    "docs/BigData/README.md",
+    "docs/BigData/_sidebar.md",
+    "java/README.md",
+    "docs/BigData/Spark/README.md",
+    "docs/BigData/Hive/_sidebar.md",
+    "docs/BigData/Hive/README.md",
+    "docs/BigData/Flink/_sidebar.md"
+  ]
+}
