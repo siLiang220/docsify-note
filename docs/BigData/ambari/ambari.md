@@ -1,31 +1,40 @@
 ### Ambari功能
-- 提供跨任意数量的主机安装Hadoop服务分步向导
-- 处理集群的Hadoop服务配置
-- 提供集中管理，用于在整个集群中启动、停止和重新配置Hadoop服务
-- 提供系统警报、监控Hadoop集群的运行状态
+
+1. 提供跨任意数量的主机安装Hadoop服务分步向导 处理集群的Hadoop服务配置
+2. 提供集中管理，用于在整个集群中启动、停止和重新配置Hadoop服务
+3. 提供系统警报、监控Hadoop集群的运行状态
+
 ### Ambari架构
--ambari使用的是Master/Slaves 架构（由一个Ambari server 和多个Agent 组成），通过一个Server主进程实现集群的管理和操作命令的发送，而具体的管理动作是由每台目标主机的Agent进行执行。
+
+ambari使用的是Master/Slaves 架构（由一个Ambari server 和多个Agent 组成），通过一个Server主进程实现集群的管理和操作命令的发送，而具体的管理动作是由每台目标主机的Agent进行执行。
+
 [HDP支持的ambari 版本](https://supportmatrix.cloudera.com/#Hortonworks)  
+
 [安装参考文档1](https://blog.csdn.net/q495673918/article/details/121626972)
+
 [参考文档2](https://blog.csdn.net/weixin_40461486/article/details/120437682)
+
 
 ## 准备工作
 ### 机器
+
 设置ssh 免密登录 
 - 上传私钥文件到/root/.ssh 
 - 设置权限 chmod 700 /root/.ssh/id_rsa
 - 重启ssh systemctl restart sshd
 - 测试连接 ssh 用户名@ip
+
 修改本机名 
-```shell
+```bash
 hostnamectl set-hostname node2
 ```
+
 修改后查看本机名
-```shell
+```bash
 hostname -f
 ```
 修改host 文件 /etc/hosts
-```
+```bash
 ::1	localhost	localhost.localdomain	localhost6	localhost6.localdomain6
 127.0.0.1	localhost	localhost.localdomain	localhost4	localhost4.localdomain4
  
@@ -34,11 +43,11 @@ ip2 node2
 ```
 
 修改完成后用ping 测试 
-```shell
+```bash
 ping node1
 ```
 禁用selinux
-```shell
+```bash
 # 临时关闭（机器重启后会再开）
 setenforce 0
 # 永久关闭（设置后需重启才能生效）
@@ -47,6 +56,7 @@ vi /etc/selinux/config # 然后将 SELINUX=enforcing 改为 SELINUX=disabled
 ```
 ### 安装包
 **ambari 2.7.4安装包 HDP3.1.4安装包 下载后上传到node1（使用迅雷下载）**
+
 HDP是hortonworks的软件栈，里面包含了hadoop生态系统的所有软件项目。
 HDP-UTILS是工具类库。
 ```md
@@ -60,11 +70,11 @@ https://archive.cloudera.com/p/HDP-GPL/3.x/3.1.4.0/centos7/HDP-GPL-3.1.4.0-cento
 ### 环境 
 #### 每台机器都安装 java 8
 1. 安装jdk
-```shell
+```bash
 rpm -ivh jdk-8u161-linux-x64.rpm
 ```
 2. 配置环境变量
-```
+```bash
 which java
 /usr/bin/java
 ls -lrt /usr/bin/java
@@ -72,33 +82,33 @@ lrwxrwxrwx 1 root root 22 Jul 24 14:21 /usr/bin/java -> /etc/alternatives/java
 /data ls -lrt /etc/alternatives/java
 lrwxrwxrwx 1 root root 35 Jul 24 14:21 /etc/alternatives/java -> /usr/java/jdk1.8.0_161/jre/bin/java
 ```
-后边显示的/usr/java/jdk1.8.0_161就是完整的安装路径
-设置jdk 环境变量
-```
+	- 后边显示的/usr/java/jdk1.8.0_161就是完整的安装路径
+```bash
+# 设置jdk 环境变量
 vim /etc/profile
 #set java 环境变量
 export JAVA_HOME=/usr/java/jdk1.8.0_161
 export PATH=$JAVA_HOME/bin:$PATH
-
 ```
-使环境变量生效
-```shell
+	- 使环境变量生效
+```bash
 source /etc/profile
 #再检查环境变量
 echo $JAVA_HOME
 ```
+
 #### node1下载安装mysql 5.7
 1. 下载mysql5.7的rpm包
-```shell
+```bash
 wget https://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
 ```
 2. 安装rpm文件
-```shell
+```bash
 rpm -ivh mysql57-community-release-el7-8.noarch.rpm
 #安装成功后/etc/yum.repos.d/目录下会增加两个文件
 ```
 3. 安装mysql 服务
-```shell
+```bash
 yum -y install mysql-server
 ```
 安装出现问题
@@ -107,15 +117,16 @@ The GPG keys listed for the "MySQL 5.7 Community Server" repository are already 
 Check that the correct key URLs are configured for this repository.
 ```
 解决方案
-```shell
+```bash
 rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
 ```
 4. 启动mysql
-```shell
+```bash
 systemctl start mysqld
 ```
 5. 修改mysql 临时密码 获取mysql 临时密码 
-```shell
+
+```bash
 grep 'temporary password' /var/log/mysqld.log
 ```
 
@@ -150,9 +161,10 @@ CREATE DATABASE ambari;
 exit;
 ```
 - 设置时钟同步(所有机器)
+
 #### 修改yum 源，实现离线安装
 #### node1安装httpd服务
-```shell
+```bash
 #安装
 yum -y install httpd 
 #启动
@@ -162,13 +174,15 @@ systemctl status httpd
 #设置开机启动 
 systemctl enable httpd
 ```
+
 #### 把上传的ambari，HDP，HDP-UTILS都解压到/var/www/html (httpd 创建的)这个目录下
-```shell
+```bash
 tar -zxvf ambari-2.7.4.0-centos7.tar.gz -C /var/www/html/
 tar -zxvf HDP-3.1.4.0-centos7-rpm.tar.gz -C /var/www/html/
 tar -zxvf HDP-UTILS-1.1.0.22-centos7.tar.gz -C /var/www/html/
 tar -zxvf HDP-GPL-3.1.4.0-centos7-gpl.tar.gz -C /var/www/html/
 ```
+
 #### 配置基础数据源
 - 在/etc/yum.repos.d/目录下创建ambari.repo
 ```
@@ -206,19 +220,19 @@ priority=1
  
 ```
 - 安装createrepo
-```shell
+```bash
 yum install yum-utils createrepo yum-plugin-priorities -y
 ```
 - 生成本地源（软件仓库）元数据，即为存放本地特定位置的众多rpm包建立索引，描述各包所需依赖信息，并形成元数据。
-```shell
+```bash
 createrepo  ./
 ```
 - 将前面创建的ambari.repo复制到其他机器
-```shell
+```bash
 scp ambari.repo node2:$PWD
 ```
 - 清除yum 缓存（每台机器）
-```shell
+```bash
 yum clean all
 yum makecache
 yum repolist
@@ -308,7 +322,7 @@ Ambari Server 'setup' completed successfully. #安装成功
 ```
 
 设置失误可以重新操作
-```shell
+```bash
 ambari-server reset
 # 然后再执行sudo ambari-server setup
 ```
@@ -321,7 +335,7 @@ source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql;
 
 ### 启动ambari
 服务启动成功会监听8080端口，失败的话可以查看日志 /var/log/ambari-server/ambari-server.log
-```shell
+```bash
 ➜ ambari-server start                                
 Using python  /usr/bin/python
 Starting ambari-server
@@ -358,7 +372,7 @@ Ambari Server 'start' completed successfully.
 - **node2 注册失败**
 解决方法 在/etc/amabri-agent/conf/ambari-agent.in  文件的[security]加上force_https_protocol=PROTOCOL_TLSv1_2
 
-```shell
+```bash
 [security]
 keysdir=/var/lib/ambari-agent/keys
 server_crt=ca.crt
@@ -400,7 +414,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'hive'@'%';
 FLUSH PRIVILEGES;
 ```
 test connection 错误执行
-```shell
+```bash
 ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
 ```
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1658843011515.png)
