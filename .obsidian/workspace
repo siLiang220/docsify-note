@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "b365b9785393b074",
+        "id": "4fbc44f1698d9520",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "docs/中台/《中台架构与实现基于DDD和微服务》.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -69,7 +65,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/中台/《中台架构与实现基于DDD和微服务》.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -85,9 +80,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "docs/中台/《中台架构与实现基于DDD和微服务》.md"
-              }
+              "state": {}
             }
           },
           {
@@ -108,15 +101,15 @@
   },
   "active": "1c363c84f8732b0a",
   "lastOpenFiles": [
-    "docs/java/DesignPatterns/软件设计原则.md",
     "docs/中台/《中台架构与实现基于DDD和微服务》.md",
+    "().md",
+    "docs/java/DesignPatterns/软件设计原则.md",
     "docs/中台/README.md",
     "docs/java/README.md",
     "docs/网络安全/REDEME.md",
     "docs/中台/_sidebar.md",
     "docs/网络安全/_sidebar.md",
     "docs/java/spring/_sidebar.md",
-    "docs/README.md",
-    "docs/_sidebar.md"
+    "docs/README.md"
   ]
 }
