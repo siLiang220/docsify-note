@@ -7,8 +7,12 @@
         "id": "4fbc44f1698d9520",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "docs/网络安全/_sidebar.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -65,6 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "docs/网络安全/_sidebar.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -80,7 +85,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "docs/网络安全/_sidebar.md"
+              }
             }
           },
           {
@@ -99,17 +106,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "1c363c84f8732b0a",
+  "active": "4fbc44f1698d9520",
   "lastOpenFiles": [
+    "docs/网络安全/WSA抓包.md",
+    "docs/网络安全/web安全.md",
+    "docs/网络安全/SecurityVulnerabilities.md",
     "docs/中台/《中台架构与实现基于DDD和微服务》.md",
+    "docs/网络安全/Burpsuite.md",
     "().md",
     "docs/java/DesignPatterns/软件设计原则.md",
     "docs/中台/README.md",
     "docs/java/README.md",
-    "docs/网络安全/REDEME.md",
-    "docs/中台/_sidebar.md",
-    "docs/网络安全/_sidebar.md",
-    "docs/java/spring/_sidebar.md",
-    "docs/README.md"
+    "docs/网络安全/REDEME.md"
   ]
 }
