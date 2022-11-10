@@ -19,7 +19,7 @@ docker run -d=true
 ## Docker run
 [Docker 命令详解（run篇） - 海兵的正义 - 博客园 (cnblogs.com)](https://www.cnblogs.com/shijunjie/p/10488603.html)
 
-```bash
+```shell
 ## 从远程服务器拉取(下载)取镜像
 docker pull nginx # 不指定版本相当于 docker pull nginx:latest 通常约定latest为最新版本
 
@@ -164,6 +164,7 @@ RUN echo 321 >> 1.txt # 此时目录即WORKDIR指定的 /app目录
 CMD tail -f 1.txt
 ```
 
+### Dockerfile 示例
 ```bash
 docker pull node:16.15.0
 
