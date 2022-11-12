@@ -136,14 +136,14 @@ public class FutureAPIDemo {
 
 ## CompletableFuture
 `CompletableFuture` 提供一种观察者模式类似的机制，可以让任务执行完成之后通知监听的一方
-``CompletableFuture``实现了`CompletionStage`接口和Future接口，前者是对后者的一个扩展，增加了异步回调、流式处理、多个Future组合处理的能力，使Java在处理多任务的协同工作时更加顺畅便利。
+``CompletableFuture``实现了`CompletionStage`接口和`Future`接口，前者是对后者的一个扩展，增加了异步回调、流式处理、多个Future组合处理的能力，使Java在处理多任务的协同工作时更加顺畅便利。
 
 ### 创建异步任务
 
 #### runAsync/SupplyAsync
  这两方法各有一个重载版本，可以指定执行异步任务的Executor实现，如果不指定，默认使用`ForkJoinPool.commonPool()`，如果机器是单核的，则默认使用`ThreadPerTaskExecutor`，该类是一个内部类，每次执行execute都会创建一个新线程，
  - `runAsync`表示创建无返回值的异步任务，相当于ExecutorService submit(Runnable task)方法
- -   supplyAsync执行CompletableFuture任务，支持返回值
+ -  `supplyAsync`执行`CompletableFuture任务`，支持返回值
  
 ```java
 package com.java.bilibili.base;  
@@ -256,9 +256,61 @@ class NetMall{
 }
 ```
 
-**主动计算**
-- **getNow(T valueIfAbsent)** 没有计算完成的情况下valueifAbsent
-- **complete(T value)**  是否打断get 方法立即返回value
+### 主动计算
+- **getNow(T valueIfAbsent)** 没有计算完成的情况下返回默认的结果，如果计算完成返回正常的计算结果
+```java
+package com.java.bilibili.base;  
+  
+import java.util.concurrent.CompletableFuture;  
+import java.util.concurrent.TimeUnit;  
+  
+public class CompletableGetNowDemo {  
+  
+    public static void main(String[] args) {  
+  
+        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {  
+  
+            try {  
+                TimeUnit.SECONDS.sleep(1);  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+            return "abc";  
+        });  
+        System.out.println(completableFuture.getNow("xxx"));  
+    }  
+}
+
+//输出
+xxx
+```
+- **complete(T value)**  是否打断get() join()方法立即将complete 设置的value 作为get join 方法的结果返回
+```java
+package com.java.bilibili.base;  
+  
+import java.util.concurrent.CompletableFuture;  
+import java.util.concurrent.TimeUnit;  
+  
+public class CompletableCompleteDemo {  
+  
+    public static void main(String[] args) {  
+  
+        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {  
+  
+            try {  
+                TimeUnit.SECONDS.sleep(1);  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+            return "abc";  
+        });  
+        System.out.println(completableFuture.complete("xxxx")+ "\t" + completableFuture.join());  
+    }  
+}
+
+//输出 
+true	xxxx
+```
 
 ### 异步回调
 
@@ -292,8 +344,7 @@ null
 ```
 
 #### thenApply/thenApplyAsync 
- `thenApply` 表示某个任务执行完成后执行的动作，即回调方法，会将该任务的执行结果即方法返回值作为入参传递到回调方法中
- 如果使用thenApplyAsync，那么执行的线程是从ForkJoinPool.commonPool()中获取不同的线程进行执行，如果使用thenApply，如果supplyAsync方法执行速度特别快，那么thenApply任务就是主线程进行执行，如果执行特别慢的话就是和supplyAsync执行线程一样。
+ `thenApply` 表示某个任务执行完成后执行的动作，即回调方法，会将该任务的执行结果即方法返回值作为入参传递到回调方法中如果使用thenApplyAsync，那么执行的线程是从ForkJoinPool.commonPool()中获取不同的线程进行执行，如果使用thenApply，如果supplyAsync方法执行速度特别快，那么thenApply任务就是主线程进行执行，如果执行特别慢的话就是和supplyAsync执行线程一样。
 计算结果存在依赖关系，线程串行化，**当前步骤出现异常，不继续走下一步**
 ```java
 public class FutureThenApplyTest {
@@ -681,13 +732,83 @@ CompletableFuture.get(5, TimeUnit.SECONDS);
 
 #### 3. 默认线程池的注意点
 
-CompletableFuture代码中又使用了默认的线程池，处理的线程个数是电脑CPU核数-1。在**大量请求过来的时候，处理逻辑复杂的话，响应会很慢**。一般建议使用自定义线程池，优化线程池配置参数。
+`CompletableFuture`代码中又使用了默认的线程池，处理的线程个数是电脑CPU核数-1。在**大量请求过来的时候，处理逻辑复杂的话，响应会很慢**。一般建议使用自定义线程池，优化线程池配置参数。
+
+1. 没有传入自定义线程池，都用默认线程池ForkJoinPool
+2. 传入自定义线程池
+ - 非`Aysny`方法执行第二个任务时，第二个和第一个线程池共用一个线程池
+ - `Async`方法执行第二个任务时，第一个任务使用的是自定义线程池，第二个任务使用的是`ForkJoin`线程池
+ 3. 有可能处理太快，系统优化切换原则，直接使用main线程处理
+```java
+ExecutorService threadPool1 = new ThreadPoolExecutor(10, 10, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(100));  
+CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {  
+    System.out.println("supplyAsync 执行线程：" + Thread.currentThread().getName());  
+    //业务操作  
+    return "";  
+}, threadPool1);  
+//此时，如果future1中的业务操作已经执行完毕并返回，则该thenApply直接由当前main线程执行；否则，将会由执行以上业务操作的threadPool1中的线程执行。  
+future1.thenApply(value -> {  
+    System.out.println("thenApply 执行线程：" + Thread.currentThread().getName());  
+    return value + "1";  
+});  
+//使用ForkJoinPool中的共用线程池CommonPool  
+future1.thenApplyAsync(value -> {  
+//do something  
+  return value + "1";  
+});  
+//使用指定线程池  
+future1.thenApplyAsync(value -> {  
+//do something  
+  return value + "1";  
+}, threadPool1);
+```
 
 #### 4. 自定义线程池时，注意饱和策略
 
 `CompletableFuture`的get()方法是阻塞的，我们一般建议使用`future.get(3, TimeUnit.SECONDS)`。并且一般建议使用自定义线程池。
 
-但是如果线程池拒绝策略是`DiscardPolicy`或者`DiscardOldestPolicy，当线程池饱和时，会直接丢弃任务，不会抛弃异常。因此建议，CompletableFuture线程池策略**最好使用AbortPolicy**，然后耗时的异步线程，做好**线程池隔离**哈。
+但是如果线程池拒绝策略是`DiscardPolicy`或者`DiscardOldestPolicy`，当线程池饱和时，会直接丢弃任务，不会抛弃异常。因此建议，CompletableFuture线程池策略**最好使用AbortPolicy**，然后耗时的异步线程，做好**线程池隔离**哈。
+
+#### 5. 异步回调要传线程池
+**强制传线程池，且根据实际情况做线程池隔离，不同业务员可分配不同的线程池**。
+
+当不传递线程池时，会使用ForkJoinPool中的公共线程池CommonPool，这里所有调用将共用该线程池，核心线程数=处理器数量-1（单核核心线程数为1），所有异步回调都会共用该CommonPool，核心与非核心业务都竞争同一个池中的线程，很容易成为系统瓶颈。手动传递线程池参数可以更方便的调节参数，*并且可以给不同的业务分配不同的线程池*，以求资源隔离，减少不同业务之间的相互干扰。
+
+#### 6.线程循环引用导致死锁
+```java
+public Object doGet() {  
+  ExecutorService threadPool1 = new ThreadPoolExecutor(10, 10, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(100));  
+  CompletableFuture cf1 = CompletableFuture.supplyAsync(() -> {  
+  //do sth  
+    return CompletableFuture.supplyAsync(() -> {  
+        System.out.println("child");  
+        return "child";  
+      }, threadPool1).join();//子任务  
+    }, threadPool1);  
+  return cf1.join();  
+}
+```
+
+如上代码块所示，doGet方法第三行通过supplyAsync向threadPool1请求线程，并且内部子任务又向threadPool1请求线程。threadPool1大小为10，当同一时刻有10个请求到达，则threadPool1被打满，子任务请求线程时进入阻塞队列排队，但是父任务的完成又依赖于子任务，这时由于子任务得不到线程，父任务无法完成。主线程执行cf1.join()进入阻塞状态，并且永远无法恢复。
+
+为了修复该问题，需要将父任务与子任务做线程池隔离，两个任务请求不同的线程池，避免循环依赖导致的阻塞。
+
+#### 7.get与join 方法的区别
+
+**相同点**：
+- join()和get()方法都是阻塞调用它们的线程（通常为主线程）来获取`CompletableFuture`异步之后的返回值。
+```java
+CompletableFuture.get() 和 CompletableFuture.join() 这两个方法是获取异步守护线程的返回值的。
+```
+**不同点**：
+- get() 方法会抛出经检查的异常，可被捕获，自定义处理或者直接抛出，`ExecutionException`, `InterruptedException` 需要用户手动处理。
+- join() 会抛出未经检查的异常，会将异常包装成`CompletionException`异常 /`CancellationException`异常，但是本质原因还是代码内存在的真正的异常，。
+
+
+### 参考
+- [异步编程利器：CompletableFuture详解 ｜Java 开发实战 - 掘金 (juejin.cn)](https://juejin.cn/post/6970558076642394142#heading-25)
+- [尚硅谷2022版JUC并发编程（对标阿里P6-P7）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1ar4y1x727/?spm_id_from=333.999.0.0&vd_source=a93579eb32613bed04d8b58488ca962a)
+- [CompletableFuture原理与实践-美团外卖商家端API的异步化 (qq.com)](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
 
 
 ## 线程锁
@@ -697,6 +818,7 @@ CompletableFuture代码中又使用了默认的线程池，处理的线程个数
 1. 对于普通同步方法，锁的是当前实例对象，所有的普通同步方法用的都是同一把锁一>实例对象本身
 2. 对静态同步方法锁的是当前类的Class.对象，.class唯一的一个模板
 3. 对于同步方法块，锁的是synchronized括号内的对象
+
 
 ### 乐观锁
 适合在读操作场景
