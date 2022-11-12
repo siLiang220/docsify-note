@@ -200,3 +200,18 @@ public ChangePriceResponse changePrice(ChangePriceRequest request) {
 - 示例效果
 
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1663507898966.png)
+
+## Spring State Machine(状态机)
+
+
+状态机可以看做可以是表驱动的一种，其实就是当前状态和事件两者组合与处理函数的一种对应关系。当然，处理成功之后还会有一个状态转移处理。
+
+[使用JAVA状态机实现订单状态控制功能-云社区-华为云 (huaweicloud.com)](https://bbs.huaweicloud.com/blogs/228467)
+
+[spring statemachine 多个状态机实践_chenpei1990的博客-CSDN博客_statemachine 多状态](https://blog.csdn.net/chenpei1990/article/details/81636897)
+
+[spring statemachine-多个状态机共存 - 简书 (jianshu.com)](https://www.jianshu.com/p/ee8ecfacf6ed)
+
+[Spring Statemachine - Reference Documentation](https://docs.spring.io/spring-statemachine/docs/3.2.0/reference/#statemachine)
+
+[使用枚举实现状态机来优雅你的状态变更逻辑-云社区-华为云 (huaweicloud.com)](https://bbs.huaweicloud.com/blogs/344617)
