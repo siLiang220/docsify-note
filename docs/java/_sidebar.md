@@ -7,3 +7,4 @@
     * [如何优雅的记录操作日志](java/如何优雅的记录操作日志)
     * [表达式规则引擎Aviator](java/表达式规则引擎Aviator)
     * [SPI机制](java/SPI机制.md)
+     [《java8中文指南》](java/《java8中文指南》.md)

@@ -1,3 +1,3 @@
 # 目录
-- [MySql](DataBase/MySql/README.md)
+- [MySql](DataBase/MySQL/README.md)
 -  [Redis](DataBase/Redis/README.md)

@@ -280,11 +280,11 @@ public class CompletableGetNowDemo {
         System.out.println(completableFuture.getNow("xxx"));  
     }  
 }
-
 //输出
 xxx
 ```
-- **complete(T value)**  是否打断get() join()方法立即将complete 设置的value 作为get join 方法的结果返回
+
+- **complete(T value)**  是否打断get() join()方法立即将complete 设置的value 作为get join 方法的结果返回W
 ```java
 package com.java.bilibili.base;  
   
@@ -809,7 +809,7 @@ CompletableFuture.get() 和 CompletableFuture.join() 这两个方法是获取异
 - [异步编程利器：CompletableFuture详解 ｜Java 开发实战 - 掘金 (juejin.cn)](https://juejin.cn/post/6970558076642394142#heading-25)
 - [尚硅谷2022版JUC并发编程（对标阿里P6-P7）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1ar4y1x727/?spm_id_from=333.999.0.0&vd_source=a93579eb32613bed04d8b58488ca962a)
 - [CompletableFuture原理与实践-美团外卖商家端API的异步化 (qq.com)](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
-
+- [Java8 CompletableFuture 用法全解](https://blog.csdn.net/qq_31865983/article/details/106137777)
 
 ## 线程锁
 ### 悲观锁
