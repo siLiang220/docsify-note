@@ -377,7 +377,7 @@ Optional 是一个简单的容器，其值可能是null或者不是null。在Jav
 
 译者注：示例中每个方法的作用已经添加。
 
-```
+```java
 //of()：为非null的值创建一个Optional
 Optional<String> optional = Optional.of("bam");
 // isPresent()： 如果值存在返回true，否则返回false
@@ -398,7 +398,7 @@ optional.ifPresent((s) -> System.out.println(s.charAt(0)));     // "b"
 
 首先看看Stream是怎么用，首先创建实例代码需要用到的数据List：
 
-```
+```java
 List<String> stringList = new ArrayList<>();
 stringList.add("ddd2");
 stringList.add("aaa2");
@@ -416,7 +416,7 @@ Java 8扩展了集合类，可以通过 Collection.stream() 或者 Collection.pa
 
 过滤通过一个predicate接口来过滤并只保留符合条件的元素，该操作属于**中间操作**，所以我们可以在过滤后的结果来应用其他Stream操作（比如forEach）。forEach需要一个函数来对过滤后的元素依次执行。forEach是一个最终操作，所以我们不能在forEach之后来执行其他Stream操作。
 
-```
+```java
         // 测试 Filter(过滤)
         stringList
                 .stream()
@@ -430,7 +430,7 @@ forEach 是为 Lambda 而设计的，保持了最紧凑的风格。而且 Lambda
 
 排序是一个 **中间操作**，返回的是排序好后的 Stream。**如果你不指定一个自定义的 Comparator 则会使用默认排序。**
 
-```
+```java
         // 测试 Sort (排序)
         stringList
                 .stream()
@@ -441,7 +441,7 @@ forEach 是为 Lambda 而设计的，保持了最紧凑的风格。而且 Lambda
 
 需要注意的是，排序只创建了一个排列好后的Stream，而不会影响原有的数据源，排序之后原数据stringList是不会被修改的：
 
-```
+```java
     System.out.println(stringList);// ddd2, aaa2, bbb1, aaa1, bbb3, ccc, bbb2, ddd1
 ```
 
@@ -451,7 +451,7 @@ forEach 是为 Lambda 而设计的，保持了最紧凑的风格。而且 Lambda
 
 下面的示例展示了将字符串转换为大写字符串。你也可以通过map来将对象转换成其他类型，map返回的Stream类型是根据你map传递进去的函数的返回值决定的。
 
-```
+```java
         // 测试 Map 操作
         stringList
                 .stream()
@@ -460,11 +460,26 @@ forEach 是为 Lambda 而设计的，保持了最紧凑的风格。而且 Lambda
                 .forEach(System.out::println);// "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "BBB1", "AAA2", "AAA1"
 ```
 
+```java
+Map<String, Long> groupByGenderThenCount = pigs.stream()
+        .collect(
+                Collectors.groupingBy(
+                        Pig::getGender,
+                        Collectors.counting()
+                )
+        );
+
+groupByGenderThenCount.forEach((k, v) -> {
+    System.out.println(k + " -> " + v);
+});
+//F -> 2 M -> 2
+```
+
 ### Match(匹配)
 
 Stream提供了多种匹配操作，允许检测指定的Predicate是否匹配整个Stream。所有的匹配操作都是 **最终操作** ，并返回一个 boolean 类型的值。
 
-```
+```java
         // 测试 Match (匹配)操作
         boolean anyStartsWithA =
                 stringList
@@ -491,7 +506,7 @@ Stream提供了多种匹配操作，允许检测指定的Predicate是否匹配�
 
 计数是一个 **最终操作**，返回Stream中元素的个数，**返回值类型是 long**。
 
-```
+```java
       //测试 Count (计数)操作
         long startsWithB =
                 stringList
@@ -505,7 +520,7 @@ Stream提供了多种匹配操作，允许检测指定的Predicate是否匹配�
 
 这是一个 **最终操作** ，允许通过指定的函数来将stream中的多个元素规约为一个元素，规约后的结果是通过Optional 接口表示的：
 
-```
+```java
         //测试 Reduce (规约)操作
         Optional<String> reduced =
                 stringList
@@ -518,7 +533,7 @@ Stream提供了多种匹配操作，允许检测指定的Predicate是否匹配�
 
 **译者注：** 这个方法的主要作用是把 Stream 元素组合起来。它提供一个起始值（种子），然后依照运算规则（BinaryOperator），和前面 Stream 的第一个、第二个、第 n 个元素组合。从这个意义上说，字符串拼接、数值的 sum、min、max、average 都是特殊的 reduce。例如 Stream 的 sum 就相当于`Integer sum = integers.reduce(0, (a, b) -> a+b);`也有没有起始值的情况，这时会把 Stream 的前面两个元素组合起来，返回的是 Optional。
 
-```
+```java
 // 字符串连接，concat = "ABCD"
 String concat = Stream.of("A", "B", "C", "D").reduce("", String::concat); 
 // 求最小值，minValue = -3.0
@@ -543,7 +558,7 @@ concat = Stream.of("a", "B", "c", "D", "e", "F").
 
 首先我们创建一个没有重复元素的大表：
 
-```
+```java
 int max = 1000000;
 List<String> values = new ArrayList<>(max);
 for (int i = 0; i < max; i++) {
@@ -556,7 +571,7 @@ for (int i = 0; i < max; i++) {
 
 ### Sequential Sort(串行排序)
 
-```
+```java
 //串行排序
 long t0 = System.nanoTime();
 long count = values.stream().sorted().count();
@@ -568,14 +583,14 @@ long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);
 System.out.println(String.format("sequential sort took: %d ms", millis));
 ```
 
-```
+```java
 1000000
 sequential sort took: 709 ms//串行排序所用的时间
 ```
 
 ### Parallel Sort(并行排序)
 
-```
+```java
 //并行排序
 long t0 = System.nanoTime();
 
@@ -589,7 +604,7 @@ System.out.println(String.format("parallel sort took: %d ms", millis));
 
 ```
 
-```
+```java
 1000000
 parallel sort took: 475 ms//串行排序所用的时间
 ```
@@ -602,7 +617,7 @@ parallel sort took: 475 ms//串行排序所用的时间
 
 此外,Maps 支持各种新的和有用的方法来执行常见任务。
 
-```
+```java
 Map<Integer, String> map = new HashMap<>();
 
 for (int i = 0; i < 10; i++) {
@@ -616,7 +631,7 @@ map.forEach((id, val) -> System.out.println(val));//val0 val1 val2 val3 val4 val
 
 此示例显示如何使用函数在 map 上计算代码：
 
-```
+```java
 map.computeIfPresent(3, (num, val) -> val + num);
 map.get(3);             // val33
 
@@ -632,7 +647,7 @@ map.get(3);             // val33
 
 接下来展示如何在Map里删除一个键值全都匹配的项：
 
-```
+```java
 map.remove(3, "val3");
 map.get(3);             // val33
 map.remove(3, "val33");
@@ -673,7 +688,7 @@ Java 8在 `java.time` 包下包含一个全新的日期和时间API。新的Date
 
 Clock 类提供了访问当前日期和时间的方法，Clock 是时区敏感的，可以用来取代 `System.currentTimeMillis()` 来获取当前的微秒数。某一个特定的时间点也可以使用 `Instant` 类来表示，`Instant` 类也可以用来创建旧版本的`java.util.Date` 对象。
 
-```
+```java
 Clock clock = Clock.systemDefaultZone();
 long millis = clock.millis();
 System.out.println(millis);//1552379579043
@@ -687,7 +702,7 @@ System.out.println(legacyDate);//Tue Mar 12 16:32:59 CST 2019
 
 在新API中时区使用 ZoneId 来表示。时区可以很方便的使用静态方法of来获取到。 抽象类`ZoneId`（在`java.time`包中）表示一个区域标识符。 它有一个名为`getAvailableZoneIds`的静态方法，它返回所有区域标识符。
 
-```
+```java
 //输出所有区域标识符
 System.out.println(ZoneId.getAvailableZoneIds());
 
@@ -701,7 +716,7 @@ System.out.println(zone2.getRules());// ZoneRules[currentStandardOffset=-03:00]
 
 LocalTime 定义了一个没有时区信息的时间，例如 晚上10点或者 17:30:15。下面的例子使用前面代码创建的时区创建了两个本地时间。之后比较时间并以小时和分钟为单位计算两个时间的时间差：
 
-```
+```java
 LocalTime now1 = LocalTime.now(zone1);
 LocalTime now2 = LocalTime.now(zone2);
 System.out.println(now1.isBefore(now2));  // false
@@ -715,7 +730,7 @@ System.out.println(minutesBetween);     // -239
 
 LocalTime 提供了多种工厂方法来简化对象的创建，包括解析时间字符串.
 
-```
+```java
 LocalTime late = LocalTime.of(23, 59, 59);
 System.out.println(late);       // 23:59:59
 DateTimeFormatter germanFormatter =
@@ -731,7 +746,7 @@ System.out.println(leetTime);   // 13:37
 
 LocalDate 表示了一个确切的日期，比如 2014-03-11。该对象值是不可变的，用起来和LocalTime基本一致。下面的例子展示了如何给Date对象加减天/月/年。另外要注意的是这些对象是不可变的，操作返回的总是一个新实例。
 
-```
+```java
 LocalDate today = LocalDate.now();//获取现在的日期
 System.out.println("今天的日期: "+today);//2019-03-12
 LocalDate tomorrow = today.plus(1, ChronoUnit.DAYS);
@@ -745,7 +760,7 @@ System.out.println("今天是周几:"+dayOfWeek);//TUESDAY
 
 从字符串解析一个 LocalDate 类型和解析 LocalTime 一样简单,下面是使用 `DateTimeFormatter` 解析字符串的例子：
 
-```
+```java
     String str1 = "2014==04==12 01时06分09秒";
         // 根据需要解析的日期、时间字符串定义解析所用的格式器
         DateTimeFormatter fomatter1 = DateTimeFormatter
@@ -764,7 +779,7 @@ System.out.println("今天是周几:"+dayOfWeek);//TUESDAY
 
 再来看一个使用 `DateTimeFormatter` 格式化日期的示例
 
-```
+```java
 LocalDateTime rightNow=LocalDateTime.now();
 String date=DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(rightNow);
 System.out.println(date);//2019-03-12T16:26:48.29
@@ -776,7 +791,7 @@ System.out.println(formatter.format(rightNow));//2019-03-12 16:26:48
 
 跨年导致日期显示错误示例：
 
-```
+```java
 LocalDateTime rightNow = LocalDateTime.of(2020, 12, 31, 12, 0, 0);
 String date= DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(rightNow);
 // 2020-12-31T12:00:00
@@ -798,7 +813,7 @@ System.out.println(formatterOfYyyy.format(rightNow));
 
 LocalDateTime 同时表示了时间和日期，相当于前两节内容合并到一个对象上了。LocalDateTime 和 LocalTime还有 LocalDate 一样，都是不可变的。LocalDateTime 提供了一些能访问具体字段的方法。
 
-```
+```java
 LocalDateTime sylvester = LocalDateTime.of(2014, Month.DECEMBER, 31, 23, 59, 59);
 
 DayOfWeek dayOfWeek = sylvester.getDayOfWeek();
@@ -813,7 +828,7 @@ System.out.println(minuteOfDay);    // 1439
 
 只要附加上时区信息，就可以将其转换为一个时间点Instant对象，Instant时间点对象可以很容易的转换为老式的`java.util.Date`。
 
-```
+```java
 Instant instant = sylvester
         .atZone(ZoneId.systemDefault())
         .toInstant();
@@ -824,7 +839,7 @@ System.out.println(legacyDate);     // Wed Dec 31 23:59:59 CET 2014
 
 格式化LocalDateTime和格式化时间和日期一样的，除了使用预定义好的格式外，我们也可以自己定义格式：
 
-```
+```java
 DateTimeFormatter formatter =
     DateTimeFormatter
         .ofPattern("MMM dd, yyyy - HH:mm");
@@ -839,7 +854,7 @@ System.out.println(string);     // Nov 03, 2014 - 07:13
 
 在Java 8中支持多重注解了，先看个例子来理解一下是什么意思。 首先定义一个包装类Hints注解用来放置一组具体的Hint注解：
 
-```
+```java
 @Retention(RetentionPolicy.RUNTIME)
 @interface Hints {
     Hint[] value();
@@ -854,14 +869,14 @@ Java 8允许我们把同一个类型的注解使用多次，只需要给该注�
 
 例 1: 使用包装类当容器来存多个注解（老方法）
 
-```
+```java
 @Hints({@Hint("hint1"), @Hint("hint2")})
 class Person {}
 ```
 
 例 2：使用多重注解（新方法）
 
-```
+```java
 @Hint("hint1")
 @Hint("hint2")
 class Person {}
@@ -869,7 +884,7 @@ class Person {}
 
 第二个例子里java编译器会隐性的帮你定义好@Hints注解，了解这一点有助于你用反射来获取这些信息：
 
-```
+```java
 Hint hint = Person.class.getAnnotation(Hint.class);
 System.out.println(hint);                   // null
 Hints hints1 = Person.class.getAnnotation(Hints.class);
