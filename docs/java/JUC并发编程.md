@@ -1220,8 +1220,9 @@ Found 1 deadlock.
 
 
 
-## 6. 线程中断机制
+## 6. 线程中断
 
+### 线程中断机制
 什么是中断机制
 - 一个线程不应该由其他线程来强制中断或停止，而是应该由线程自己自行停止，自己来决定自己的命运。所以，Thread.stop,Thread.suspend,Thread.resume都已经被废弃了。
 
@@ -1234,22 +1235,70 @@ Found 1 deadlock.
 
 - 每个线程对象中都有一个中断标识位，用于表示线程是否被中断；该标识位为true表示中断，为false表示未中断；通过调用线程对象的interrupt方法将该线程的标识位设为true;可以在别的线程中调用，也可以在自己的线程中调用。
 
-### 中断API
+#### 中断API
 
-#### interrupt()实例方法
-仅仅设置线程的中断状态为true,发起一个协商而不会立即停止线程
+##### interrupt()实例方法
+- **如果线程处于正常状态**，仅仅设置线程的中断状态为true,发起一个协商而不会立即停止线程，可当前线程中断，也可其他线程中断
 
-#### interrupted()静态方法
+- 如果该线程处于被阻塞状态wait(),wait(long),或wait(long,int)的方法0bject类，或join(),join(long),join(long,int),sleep(long),或sleep(Long,int),在别的线程中调用当前线程的 `interrupt` 方法那么当前线程的**中断状态将被清除**，并且抛出`InterruptedException`。简单来说就是当**阻塞**方法收到**中断**请求的时候就会抛出 `InterruptedException` 异常，并清除中断状态 .
+ >[!tip]
+ > 要切记在catch 需要再做`interrupt` 防止线程死循环
+
+- **中断不活动的线程不受影响**
+
+
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20210314182351852.png)
+
+```java
+public class InterruptDemo3
+{
+    public static void main(String[] args)
+    {
+        Thread t1 = new Thread(() -> {
+            while (true)
+            {
+                if(Thread.currentThread().isInterrupted())
+                {
+                    System.out.println(Thread.currentThread().getName()+"\t " +
+                            "中断标志位："+Thread.currentThread().isInterrupted()+" 程序停止");
+                    break;
+                }
+
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt(); //sleep阻塞状态下被t2线程调用interuppt,会抛出InterruptedException 并清除线程的中断状态，所以需要再中断一次.如果不处理isInterrupted = false会导致死循环
+                    e.printStackTrace();
+                }
+
+                System.out.println("-----hello InterruptDemo3");
+            }
+        }, "t1");
+        t1.start();
+
+        //暂停几秒钟线程
+        try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        new Thread(() -> t1.interrupt(),"t2").start();
+    }
+}
+```
+
+##### interrupted()静态方法
 判断线程是否中断并清除当前的中断状态
 1. 返回当前线程的中断状态，测试当前线程是否已被中断
 2. 将当前线程的中断状态清零并重新设置为false，清除线程的中断状态
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1669604554068.png)
 
-#### isInterrupted()实例方法
-判断当前线程是否被中断（通过检查中断标志位）
 
-### 如何中断运行中的线程
+##### isInterrupted()实例方法
+- 判断当前线程是否被中断（通过检查中断标志位）
+- 已经销毁的线程不受影响,返回false
 
-#### volatile变量实现
+#### 如何中断运行中的线程
+
+##### volatile变量实现
 ```java   
 public class InterruptDemo
 {
@@ -1281,7 +1330,7 @@ public class InterruptDemo
 }    
 ```
 
-#### AtomicBoolean实现
+##### AtomicBoolean实现
 ```java
 public class InterruptDemo
 {
@@ -1312,7 +1361,7 @@ public class InterruptDemo
 }
 ```
 
-#### interrupt实现
+##### interrupt实现
 ```java
 public class InterruptDemo
 {
@@ -1348,3 +1397,162 @@ public class InterruptDemo
     }
 }  
 ```
+
+### 线程等待和唤醒
+
+#### 线程唤醒的方法
+
+##### 1. 使用Object 的wait()方法让线程等待，使用Object 的 notify()方法唤醒
+```java
+    private static void syncWaitNotify()
+    {
+        Object objectLock = new Object();
+
+        new Thread(() -> {
+            //try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); } //测试先执行notify 后执行wait
+            synchronized (objectLock){
+                System.out.println(Thread.currentThread().getName()+"\t ----come in");
+                try {
+                    objectLock.wait(); //wait 会释放锁 所以t2线程可以执行synchroized
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName()+"\t ----被唤醒");
+            }
+        },"t1").start();
+
+        //暂停几秒钟线程
+        try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        new Thread(() -> {
+            synchronized (objectLock){
+                objectLock.notify();
+                System.out.println(Thread.currentThread().getName()+"\t ----发出通知");
+            }
+        },"t2").start();
+    }
+//输出
+t1   ----come in
+t2   ----发出通知
+t1   ----被唤醒
+如果去掉 synchronized (objectLock) 代码块 会报管程状态异常，wait 和notify必须使用synchronized 包裹
+如果notify方法先执行，wait方法后会导致程序无法唤醒
+```
+
+##### 2.使用JUC包中**Condition**的await()方法让线程等待，使用signal()方法唤醒
+```java
+private static void lockAwaitSignal()
+{
+	Lock lock = new ReentrantLock();
+	Condition condition = lock.newCondition();
+
+	new Thread(() -> {
+		//测试先执行signal 后执行await 也是会导致程序线程阻塞
+		//try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
+		lock.lock();
+		try
+		{
+			System.out.println(Thread.currentThread().getName()+"\t ----come in");
+			condition.await(); //让线程进入等待队列并释放锁
+			System.out.println(Thread.currentThread().getName()+"\t ----被唤醒");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+	},"t1").start();
+
+	//暂停几秒钟线程
+	try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
+
+	new Thread(() -> {
+		lock.lock();
+		try
+		{
+			condition.signal();
+			System.out.println(Thread.currentThread().getName()+"\t ----发出通知");
+		}finally {
+			lock.unlock();
+		}
+	},"t2").start();
+}
+//输出
+t1   ----come in
+t2   ----发出通知
+t1   ----被唤醒
+```
+
+await 和signal 也必须在加锁的情况下使用
+
+##### 3.`LockSupport` 类可以阻塞当前线程以及唤醒指定被阻塞的线程
+`LockSupport` 类使用了一种名为Permit（许可）的概念来做到阻塞和唤醒线程的功能，每个线程都有关联一个许可（permit）
+
+###### park 阻塞线程或阻塞传入的线程
+- 如果有许可证，则直接消耗这个许可证，然后正常退出
+- 如果无许可证，就必须等待许可证
+-
+###### unpark(Thread thread) 唤醒处于阻塞状态的指定线程
+会增加一个许可证，但许可证最多只能有1个，累加无效
+
+```java
+public static void main(String[] args)
+    {
+        Thread t1 = new Thread(() -> {
+		    //测试t2提前唤醒，程序可以正常执行，upspark会为其提供凭证
+            //try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { e.printStackTrace(); }
+            System.out.println(Thread.currentThread().getName() + "\t ----come in"+System.currentTimeMillis());
+            LockSupport.park();
+            System.out.println(Thread.currentThread().getName() + "\t ----被唤醒"+System.currentTimeMillis());
+        }, "t1");
+        t1.start();
+
+        //暂停几秒钟线程
+	    try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        new Thread(() -> {
+            LockSupport.unpark(t1);
+            System.out.println(Thread.currentThread().getName()+"\t ----发出通知");
+        },"t2").start();
+
+    }
+```
+
+
+**总结**
+
+- 通过对象Object 和`Condition` 使用的限制条件
+	 - 线程先要获得并持有锁，必须在锁块（`synchroinzed`或`lock`）中
+	- 必须要先等待后唤醒，线程才能够被唤醒 
+- `LockSupport`唤醒
+	- 无论先唤醒还是先等待程序都可以执行，但先执行了`upspark`就会导致`park`方法形同虚设无效 没有`park`拦截了
+	- 每个线程只有一个关联许可证，不会累计最多只有一个
+
+## 7. java内存模型 JMM
+
+CPU的运行并不是直接操作内存（cpu和物理内存的速度不一致）而是先把内存里边的数据先写到缓存，而内存的读和写操作就会造成不一致的问题
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1669636168023.png)
+
+
+java内存模型是抽象的概念描述的是一组约定或规范，是**屏蔽各种硬件和操作系统的内存访问差异**，以实现让java程序在各种平台下都能达到一致的内存访问效果 
+
+**原则：** *JMM 的关键技术是围绕多线程的原子性、可见性和有序性*展开的
+
+### JMM 三大特性
+
+#### 可见性
+- 当一个线程修改了某一个共享变量，其他线程能够立即知道变更，JM M规定了所有的变量存储在**主内存**中
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1669639345066.png)
+
+
+#### 原子性
+-   指一个操作是不可中断的,即多线程坏境下,操作不能被其他线程干扰
+
+#### 有序性
+- 计算机在执行程序时,为了提高性能,编译器和处理器常常会做指令重排，只要程序最终的执行结果与它顺序化执行的结果相同
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1669641937019.png)
+
+- 单线程坏境里面确保程序最终执行结果和代码顺序执行的结果一致
+- 处理器在进行重新排序是必须要考虑指令之间的数据依赖性
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1669642135274.png)
+
+- 多线程坏境中线程交替执行,由于编译器优化重排的存在,两个线程使用的变量能否保持一致是无法确认的,结果无法预测（在特殊场景下要禁止指令重排，保证程序执行的有序性）
