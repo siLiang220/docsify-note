@@ -128,15 +128,15 @@
   },
   "active": "4c52f51a39018439",
   "lastOpenFiles": [
+    "docs/_sidebar.md",
+    "docs/java/JUC并发编程.md",
     "docs/java/jvm虚拟机.md",
     "docs/java/_sidebar.md",
     "docs/java/README.md",
-    "docs/java/JUC并发编程.md",
     "docs/java/SPI机制.md",
     "docs/java/《java8中文指南》.md",
     "docs/java/spring/SpringCloud.md",
     "docs/DataBase/MySQL/README.md",
-    "docs/DataBase/MySQL/_sidebar.md",
-    "docs/DataBase/_sidebar.md"
+    "docs/DataBase/MySQL/_sidebar.md"
   ]
 }
