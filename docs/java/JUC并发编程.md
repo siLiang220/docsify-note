@@ -940,7 +940,7 @@ public class SaleTicketDemo {
 总结就是公平和效率
 
 
-#### 可重入锁
+### 可重入锁
 **可重入锁**： 也叫递归锁，是指在同一个线程中，在外层函数中获取到了该锁之后，再进入内层方法会自动获取锁（前提锁对象是同一把锁），不会因为之前获取到锁还没有释放而阻塞，`ReentrantLock` 和 `Synchronized` 都是可重入锁。
 
 **例如：** 如果有一个  修饰的递归方法，程序进入第二次进入的时候被自己阻塞，出现作茧自缚。 
@@ -1439,7 +1439,7 @@ t1   ----被唤醒
 如果notify方法先执行，wait方法后会导致程序无法唤醒
 ```
 
-##### 2.使用JUC包中**Condition**的await()方法让线程等待，使用signal()方法唤醒
+##### 2.使用JUC包中Condition的await()方法让线程等待，使用signal()方法唤醒
 ```java
 private static void lockAwaitSignal()
 {
@@ -1562,7 +1562,7 @@ java内存模型是抽象的概念描述的是一组约定或规范，是**屏�
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1669687881077.png)
 
 
-### 多线程先行发生原则happen-before
+### 多线程先行发生原则happens-before
 
 #### 先行发生原则说明
 - 如果Java内存模型中有序性仅靠volatile和synchronized来完成,那么有很多操作都将会变得非常啰嗦,但是我们在编写Java并发代码的时候并没有察觉到这一点
@@ -1575,7 +1575,7 @@ java内存模型是抽象的概念描述的是一组约定或规范，是**屏�
 
 
 
-#### heppen-before 总原则
+#### heppens-before 总原则
  - 如果一个操作happens-before另一个操作,那么第一个操作的执行结果对第二个操作可见,而且第一个操作的执行顺序排在第二个操作之前(可见性,有序性)
 - 两个操作之间存在happens-before关系,并不意外着一定要按照happens-before原则制定的顺序来执行。如果重排序之后的执行结果与按照happens-before关系来执行的结果一致,那么这种重排序并不非法(可以指令重排)
 
@@ -1608,7 +1608,7 @@ java内存模型是抽象的概念描述的是一组约定或规范，是**屏�
 ⑧. 对象终结规则(Finalizer Rule)
 (对象没有完成初始化之前,是不能调用finalized( )方法的 )
 
-## Volatile
+## 8. Volatile
 特点：可见性、有序性（通过禁止重排序）
 
 ### Volatile 内存语义
@@ -1635,3 +1635,197 @@ java内存模型是抽象的概念描述的是一组约定或规范，是**屏�
 
 ##### 写屏障
 在写指令之后插入写屏障，强制把写缓冲区的数 据刷回到主内存中
+
+## ThreadLocal
+
+### ThreadLocal 是什么
+
+-  ThreadLocal本地线程变量,线程自带的变量副本(实现了每一个线程副本都有一个专属的本地变量,主要解决的就是让每一个线程绑定自己的值,自己用自己的,不跟别人争抢。通过使用get()和set()方法,获取默认值或将其值更改为当前线程所存的副本的值从而避免了线程安全的问题)
+- synchronized或者lock,有个管理员,好比,现在大家签到,多个同学(线程),但是只有一只笔,只能同一个时间,只有一个线程(同学)签到,加锁(同步机制是以时间换空间,执行时间不一样,类似于排队)
+- ThreadLocal,人人有份,每个同学手上都有一支笔,自己用自己的,不用再加锁来维持秩序(同步机制是以空间换时间,为每一个线程都提供了一份变量的副本,从而实现同时访问,互不干扰同时访问,肯定效率高啊)
+
+### API介绍
+
+1. protected T initialValue():initialValue():返回此线程局部变量的当前线程的"初始值"
+(对于initialValue()较为老旧,jdk1.8又加入了withInitial()方法)
+
+2. `static <S> ThreadLocal<S> withInitial(Supplier<? extends S> supplier)`:创建线程局部变量
+
+3. T get():返回当前线程的此线程局部变量的副本中的值
+
+4. void set(T value):将当前线程的此线程局部变量的副本设置为指定的值
+
+5. void remove():删除此线程局部变量的当前线程的值
+
+## JUC强大的工具类
+
+### CountDownLatch(闭锁) 做减法
+
+-   `CountDownLatch`主要有两个方法,当一个或多个线程调用await方法时,这些线程会阻塞
+    
+-   其它线程调用`countDown`方法会将计数器减1(调用`countDown`方法的线程不会阻塞)
+    
+-   计数器的值变为0时,因`await`方法阻塞的线程会被唤醒,继续执行
+
+```java
+//需求:要求6个线程都执行完了,mian线程最后执行
+public class CountDownLatchDemo {
+    public static void main(String[] args) throws Exception{
+        CountDownLatch countDownLatch=new CountDownLatch(6);
+        for (int i = 1; i <=6; i++) {
+            new Thread(()->{
+                System.out.println(Thread.currentThread().getName()+"\t");
+                countDownLatch.countDown();
+            },i+"").start();
+        }
+        countDownLatch.await();
+        System.out.println(Thread.currentThread().getName()+"\t班长关门走人,main线程是班长");
+    }
+}
+```
+
+- 利用枚举减少if else 判断
+```java
+public enum CountryEnum {
+
+    one(1,"齐"),two(2,"楚"),three(3,"燕"),
+    four(4,"赵"),five(5,"魏"),six(6,"韩");
+
+    private Integer retCode;
+    private String retMessage;
+
+    private CountryEnum(Integer retCode,String retMessage){
+        this.retCode=retCode;
+        this.retMessage=retMessage;
+    }
+
+    public static CountryEnum getCountryEnum(Integer index){
+        CountryEnum[] countryEnums = CountryEnum.values();
+        for (CountryEnum countryEnum : countryEnums) {
+            if(countryEnum.getRetCode()==index){
+                return countryEnum;
+            }
+        }
+        return null;
+    }
+
+    public Integer getRetCode() {
+        return retCode;
+    }
+
+    public String getRetMessage() {
+        return retMessage;
+    }
+}
+```
+
+```java
+/*
+	楚	**国,被灭
+	魏	**国,被灭
+	赵	**国,被灭
+	燕	**国,被灭
+	齐	**国,被灭
+	韩	**国,被灭
+	main	**秦国一统江湖
+* */
+public class CountDownLatchDemo {
+    public static void main(String[] args) throws Exception{
+        CountDownLatch countDownLatch=new CountDownLatch(6);
+        for (int i = 1; i <=6; i++) {
+            new Thread(()->{
+                System.out.println(Thread.currentThread().getName()+"\t"+"**国,被灭");
+                countDownLatch.countDown();
+            },CountryEnum.getCountryEnum(i).getRetMessage()).start();
+
+        }
+        countDownLatch.await();
+        System.out.println(Thread.currentThread().getName()+"\t"+"**秦国一统江湖");
+    }
+}
+
+```
+
+```java
+/*
+	楚	**国,被灭
+	魏	**国,被灭
+	赵	**国,被灭
+	燕	**国,被灭
+	齐	**国,被灭
+	韩	**国,被灭
+	main	**秦国一统江湖
+* */
+public class CountDownLatchDemo {
+    public static void main(String[] args) throws Exception{
+        CountDownLatch countDownLatch=new CountDownLatch(6);
+        for (int i = 1; i <=6; i++) {
+            new Thread(()->{
+                System.out.println(Thread.currentThread().getName()+"\t"+"**国,被灭");
+                countDownLatch.countDown();
+            },CountryEnum.getCountryEnum(i).getRetMessage()).start();
+
+        }
+        countDownLatch.await();
+        System.out.println(Thread.currentThread().getName()+"\t"+"**秦国一统江湖");
+    }
+}
+```
+
+### CyclicBarrier 做加法
+
+- `CyclicBarrier`的字面意思是可循环(Cyclic) 使用的屏障(barrier)。它要做的事情是,让一组线程到达一个屏障(也可以叫做同步点)时被阻塞,知道最后一个线程到达屏障时,屏障才会开门,所有被屏障拦截的线程才会继续干活,线程进入屏障通过`CyclicBarrier`的await()方法
+```java
+   //集齐7颗龙珠就能召唤神龙
+public class CyclicBarrierDemo {
+    public static void main(String[] args) {
+        // public CyclicBarrier(int parties, Runnable barrierAction) {}
+        CyclicBarrier cyclicBarrier=new CyclicBarrier(7,()->{
+            System.out.println("召唤龙珠");
+        });
+        for (int i = 1; i <=7; i++) {
+            final int temp=i;
+            new Thread(()->{
+                System.out.println(Thread.currentThread().getName()+"\t收集到了第"+temp+"颗龙珠");
+                try {
+                    cyclicBarrier.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+    }
+}
+```
+
+### Semaphore 信号量
+
+1. `acquire`(获取)当一个线程调用acquire操作时,它要么通过成功获取信号量(信号量减1),要么一直等下去,直到有线程释放信号量,或超时。
+
+2. release(释放)实际上会将信号量的值加1,然后唤醒等待的线程。
+
+3. 信号量主要用于两个目的,一个是用于多个共享资源的互斥使用,另一个用于并发线程数的控制。
+
+```java
+public class SemaphoreDemo {
+    public static void main(String[] args) {
+        Semaphore semaphore=new Semaphore(3);
+        for (int i = 1; i <=6; i++) {
+            new Thread(()->{
+                try {
+                    System.out.println(Thread.currentThread().getName()+"\t抢占了车位");
+                    semaphore.acquire();
+                    System.out.println(Thread.currentThread().getName()+"\t离开了车位");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    semaphore.release();
+                }
+            },String.valueOf(i)).start();
+        }
+    }
+}
+```
+

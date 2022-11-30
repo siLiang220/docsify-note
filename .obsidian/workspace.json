@@ -61,7 +61,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#CountDownLatch",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -70,7 +70,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -126,7 +127,7 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "4c52f51a39018439",
+  "active": "550d7007f55ef127",
   "lastOpenFiles": [
     "docs/_sidebar.md",
     "docs/java/JUC并发编程.md",
