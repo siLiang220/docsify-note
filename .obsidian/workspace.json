@@ -73,7 +73,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Nginx/README.md",
+                "file": "docs/MQ/RabbtiMQ.md",
                 "mode": "source",
                 "source": false
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Nginx/README.md",
+                "file": "docs/MQ/RabbtiMQ.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -155,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Nginx/README.md"
+                "file": "docs/MQ/RabbtiMQ.md"
               }
             }
           },
@@ -176,12 +176,12 @@
   },
   "active": "0a84a24ff7ccafac",
   "lastOpenFiles": [
-    "docs/README.md",
+    "docs/Nginx/Nginx基本使用.md",
     "docs/Nginx/README.md",
+    "docs/README.md",
     "docs/_sidebar.md",
     "docs/Nginx/_sidebar.md",
     "docs/MQ/README.md",
-    "docs/Nginx/Nginx基本使用.md",
     "docs/MQ/_sidebar.md",
     "docs/java/JUC并发编程.md",
     "docs/干货/README.md",
