@@ -7,4 +7,4 @@
 * 提效、提效、提效
 
 [GitHub](https://github.com/wonliang/docsify-note.git)
-[Get Started](docs/README.md)
+[Get Started](README.md)
