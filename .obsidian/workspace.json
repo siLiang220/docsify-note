@@ -69,7 +69,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/MQ/RabbitMq.md",
+                "file": "docs/MQ/_sidebar.md",
                 "mode": "source",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/MQ/RabbitMq.md",
+                "file": "docs/MQ/_sidebar.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/MQ/RabbitMq.md"
+                "file": "docs/MQ/_sidebar.md"
               }
             }
           },
@@ -172,10 +172,10 @@
   },
   "active": "8b0eb8cd34e4bc57",
   "lastOpenFiles": [
-    "docs/MQ/_sidebar.md",
-    "docs/MQ/RabbitMq.md",
     "docs/MQ/README.md",
     "docs/MQ/RocketMq.md",
+    "docs/MQ/RabbitMq.md",
+    "docs/MQ/_sidebar.md",
     "MQ/RabbitMq.md",
     "docs/MQ/Middleware.md",
     "docs/README.md",
