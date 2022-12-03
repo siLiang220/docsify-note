@@ -4,79 +4,35 @@
     "type": "split",
     "children": [
       {
-        "id": "a601bfa94cc36d00",
+        "id": "41d339080ec33ceb",
         "type": "tabs",
         "children": [
           {
-            "id": "0c4093741b998d47",
+            "id": "c71a71737dd4b43e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/MQ/README.md",
+                "file": "docs/DataBase/MySQL/索引介绍.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "4da8ea2a22fad0c7",
+            "id": "bc8e0ba34524867d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/MQ/README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "cdb1ad93432986ec",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "81eb919b383d99bb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/MQ/README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "dea7616579bcea29",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/MQ/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "8b0eb8cd34e4bc57",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/MQ/_sidebar.md",
+                "file": "docs/DataBase/MySQL/优化SQL步骤.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -134,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/MQ/_sidebar.md",
+                "file": "docs/DataBase/MySQL/优化SQL步骤.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -151,7 +107,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/MQ/_sidebar.md"
+                "file": "docs/DataBase/MySQL/优化SQL步骤.md"
               }
             }
           },
@@ -170,17 +126,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "8b0eb8cd34e4bc57",
+  "active": "bc8e0ba34524867d",
   "lastOpenFiles": [
+    "docs/DataBase/MySQL/索引介绍.md",
+    "docs/DataBase/MySQL/优化SQL步骤.md",
+    "docs/BigData/Spark/Spark.md",
     "docs/MQ/README.md",
+    "docs/MQ/_sidebar.md",
+    "docs/MQ/Middleware.md",
     "docs/MQ/RocketMq.md",
     "docs/MQ/RabbitMq.md",
-    "docs/MQ/_sidebar.md",
     "MQ/RabbitMq.md",
-    "docs/MQ/Middleware.md",
-    "docs/README.md",
-    "docs/_coverpage.md",
-    "docs/Nginx/Nginx基本使用.md",
-    "docs/Nginx/README.md"
+    "docs/README.md"
   ]
 }

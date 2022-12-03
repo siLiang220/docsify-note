@@ -6,8 +6,7 @@
 
 ### Spark框架模块
 - **Spark Core**：Spark Core以RDD 为数据抽象，提供Python Java、Scala、R语言的api
-- **SparkSQL**：基于Sprirk Core 之上，提供结构化的数据处理模块，SprakSQL本省针对离线计算场景。同时基于
-- **SparkSQL**，sprark提供了`StructredStreaming`模块，可以基于SparkSQL进行数据的流式计算。
+- **SparkSQL**：基于Sprirk Core 之上，提供结构化的数据处理模块，SprakSQL本省针对离线计算场景。同时基SparkSQL，sprark提供了`StructredStreaming`模块，可以基于SparkSQL进行数据的流式计算。
 - **SparkStreaming**：以Spark Core为基础，提供数据的流式计算。
 - **MLlib**：以Spark为基础，进行机器学习。
 - **Graphx**：以SparkCore为基础，进行图计算。
