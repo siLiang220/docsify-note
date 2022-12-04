@@ -30,9 +30,33 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "5da409a259e38fde",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/DataBase/MySQL/_sidebar.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "9e604374be175fdf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/DataBase/MySQL/SQL语句优化.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -74,7 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 290.5
+    "width": 291.5
   },
   "right": {
     "id": "16c03617cb4fcd6a",
@@ -90,7 +114,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/DataBase/MySQL/优化SQL步骤.md",
+                "file": "docs/DataBase/MySQL/SQL语句优化.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -107,7 +131,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/DataBase/MySQL/优化SQL步骤.md"
+                "file": "docs/DataBase/MySQL/SQL语句优化.md"
               }
             }
           },
@@ -126,17 +150,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "bc8e0ba34524867d",
+  "active": "9e604374be175fdf",
   "lastOpenFiles": [
-    "docs/DataBase/MySQL/索引介绍.md",
+    "docs/DataBase/MySQL/索引的使用.md",
     "docs/DataBase/MySQL/优化SQL步骤.md",
+    "docs/DataBase/MySQL/索引介绍.md",
+    "docs/DataBase/MySQL/README.md",
+    "docs/DataBase/MySQL/从杀慢查询入手来预防MySQL雪崩的办法.md",
+    "docs/DataBase/MySQL/_sidebar.md",
+    "docs/DataBase/MySQL/SQL语句优化.md",
+    "docs/DataBase/_sidebar.md",
     "docs/BigData/Spark/Spark.md",
-    "docs/MQ/README.md",
-    "docs/MQ/_sidebar.md",
-    "docs/MQ/Middleware.md",
-    "docs/MQ/RocketMq.md",
-    "docs/MQ/RabbitMq.md",
-    "MQ/RabbitMq.md",
-    "docs/README.md"
+    "docs/MQ/README.md"
   ]
 }

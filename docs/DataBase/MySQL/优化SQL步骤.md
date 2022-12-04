@@ -220,6 +220,7 @@ explain select * from t_user where id='1' union select * from  t_user where id='
 
 ###  explain 之 type
 type 显示的是访问类型，是较为重要的一个指标，可取值为：
+
 | type | 含义 |
 | --- | --- |
 | NULL | MySQL不访问任何表，索引，直接返回结果 |
