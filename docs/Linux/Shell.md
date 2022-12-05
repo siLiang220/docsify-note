@@ -2,10 +2,10 @@
 
 ### source .  sh bash  ./ 的区别
 
-- **source** 是在当前的shell 内执行,通常用于重新执行刚修改的初始化文档
-- **.** source 命令简写
-- **sh/bash** 打开一个subShell 执行，通常在subShell 里运行脚本设置变量，不会影响到父shell
-- **./** 打开一个subShell执行，但需要权限
+- **source** ：是在当前的shell 内执行,通常用于重新执行刚修改的初始化文档
+- **.** ：是source 命令简写
+- **sh/bash** ：打开一个subShell 执行，通常在subShell 里运行脚本设置变量，不会影响到父shell
+- **./** ：打开一个subShell执行，但需要权限
 
 ## 变量
 

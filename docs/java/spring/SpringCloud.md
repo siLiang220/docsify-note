@@ -1,5 +1,12 @@
 ## Ribbon
+### Ribbon 本地负载均衡客户端 VS Nginx 服务端负载均衡区别
 
+-   Nginx 是服务器负载均衡，客户端所有请求都会交给nginx， 然后 nginx 实现转发请求。即负载均衡是由服务端实现的。
+    
+-   Ribbon 本地负载均衡，在调用微服务接口的时候，会在注册中心上获取注册信息服务列表后缓存到JVM 本地，从而在本地实现RPC远程 服务调用技术。
+
+
+### Ribbon 集成
 source: [6. Client Side Load Balancer: Ribbon (spring.io)](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-ribbon.html)
 
 - 配置类方式配置
@@ -75,3 +82,6 @@ RestTemplate restTemplate() {
 ## 熔断机制：应对雪崩效应的链路自我保护机制
 
 熔断机制是应对雪崩的一种微服务链路保护机制，当扇出链路的某个微服务出现不可用或者响应时间过长，会进行服务的降级，进而熔断该节点微服务的调用，快速返回错误的响应信息。当检查到该节点微服务调用响应正常后，恢复调用链路。
+
+
+[(225条消息) Sentinel集成Nacos数据源_sermonlizhi的博客-CSDN博客_sentinel-datasource-nacos](https://blog.csdn.net/sermonlizhi/article/details/123009182)
