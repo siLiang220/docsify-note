@@ -8,115 +8,18 @@
         "type": "tabs",
         "children": [
           {
-            "id": "c71a71737dd4b43e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "2e73a2419777552e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/Linux/README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0734719f05585e86",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/MQ/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "71305a760a17ccf8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Linux/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "a0470ae50a512eb1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "bc8e0ba34524867d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/DataBase/MySQL/优化SQL步骤.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5da409a259e38fde",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/DataBase/MySQL/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9e604374be175fdf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/java/JUC并发编程.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ca48eec11389dbaf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/java/spring/SpringCloud.md",
+                "file": "docs/java/《java8中文指南》.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -174,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/_sidebar.md",
+                "file": "docs/java/《java8中文指南》.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -191,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/_sidebar.md"
+                "file": "docs/java/《java8中文指南》.md"
               }
             }
           },
@@ -210,17 +113,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "a0470ae50a512eb1",
+  "active": "71305a760a17ccf8",
   "lastOpenFiles": [
-    "docs/README.md",
-    "docs/_sidebar.md",
-    "docs/_coverpage.md",
-    "docs/Linux/Shell.md",
+    "docs/Docker/Docker杂记.md",
+    "docs/java/《java8中文指南》.md",
+    "docs/java/JUC并发编程.md",
     "docs/Linux/_sidebar.md",
-    "docs/Linux/README.md",
-    "docs/MQ/_sidebar.md",
-    "docs/MQ/README.md",
-    "docs/DataBase/MySQL/索引介绍.md",
-    "docs/java/JUC并发编程.md"
+    "docs/java/spring/SpringCloud/State.md",
+    "docs/java/spring/SpringCloud/Nacos.md",
+    "docs/java/spring/SpringCloud.md",
+    "docs/java/spring/SpringFramework.md",
+    "docs/DataBase/MySQL/README.md",
+    "docs/DataBase/MySQL/从杀慢查询入手来预防MySQL雪崩的办法.md"
   ]
 }

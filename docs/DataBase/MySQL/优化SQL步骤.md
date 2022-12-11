@@ -164,6 +164,7 @@ EXPLAIN SELECT * FROM t_role r , (SELECT * FROM user_role ur WHERE ur.`user_id` 
 
 ### explain 之 select_type
 表示 SELECT 的类型，常见的取值，如下表所示：
+
 | select\_type | 含义                                                                                                             |
 | ------------ | ---------------------------------------------------------------------------------------------------------------- |
 | SIMPLE       | 简单的select查询，查询中不包含子查询或者UNION                                                                    |
@@ -260,6 +261,7 @@ type 显示的是访问类型，是较为重要的一个指标，可取值为：
 ### explain 之 extra
 
 其他的额外的执行计划信息，在该列展示 。
+
 | extra | 含义 |
 | --- | --- |
 | using filesort | 说明mysql会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取， 称为 “文件排序”, 效率低。 |

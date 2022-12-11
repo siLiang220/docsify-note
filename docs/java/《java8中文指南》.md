@@ -1,7 +1,6 @@
----
+
 source: https://javaguide.cn/java/new-features/java8-tutorial-translate.html
 
-___
 
 ### 接口的默认方法(Default Methods for Interfaces)
 
@@ -375,6 +374,212 @@ Optional不是函数式接口，而是用于防止 NullPointerException 的漂�
 
 Optional 是一个简单的容器，其值可能是null或者不是null。在Java 8之前一般某个函数应该返回非空对象但是有时却什么也没有返回，而在Java 8中，你应该返回 Optional 而不是 null。
 
+假设有一个 `Zoo` 类，里面有个属性 `Dog`，需求要获取 `Dog` 的 `age`。
+```java
+class Zoo {
+   private Dog dog;
+}
+
+class Dog {
+   private int age;
+}
+```
+传统解决 NPE 的办法如下
+```java
+Zoo zoo = getZoo();
+if(zoo != null){
+   Dog dog = zoo.getDog();
+   if(dog != null){
+      int age = dog.getAge();
+      System.out.println(age);
+   }
+}
+```
+
+`Optional` 是这样的实现的：
+```java
+Optional.ofNullable(zoo).map(o -> o.getDog()).map(d -> d.getAge()).ifPresent(age ->
+    System.out.println(age)
+);
+```
+### 如何创建一个Optional 对象
+```java
+/**
+* Common instance for {@code empty()}. 全局EMPTY对象
+*/
+private static final Optional<?> EMPTY = new Optional<>();
+
+/**
+* Optional维护的值
+*/
+private final T value;
+
+/**
+* 如果value是null就返回EMPTY，否则就返回of(T)
+*/
+public static <T> Optional<T> ofNullable(T value) {
+   return value == null ? empty() : of(value);
+}
+/**
+* 返回 EMPTY 对象
+*/
+public static<T> Optional<T> empty() {
+   Optional<T> t = (Optional<T>) EMPTY;
+   return t;
+}
+/**
+* 返回Optional对象
+*/
+public static <T> Optional<T> of(T value) {
+    return new Optional<>(value);
+}
+/**
+* 私有构造方法，给value赋值
+*/
+private Optional(T value) {
+  this.value = Objects.requireNonNull(value);
+}
+/**
+* 所以如果of(T value) 的value是null，会抛出NullPointerException异常，这样貌似就没处理NPE问题
+*/
+public static <T> T requireNonNull(T obj) {
+  if (obj == null)
+         throw new NullPointerException();
+  return obj;
+}
+```
+
+`ofNullable` 方法和`of`方法唯一区别就是当 value 为 null 时，`ofNullable` 返回的是`EMPTY`，of 会抛出 `NullPointerException` 异常。如果需要把 `NullPointerException` 暴漏出来就用 `of`，否则就用 `ofNullable`。
+
+### `map()`相关方法
+
+```java
+/**
+* 如果value为null，返回EMPTY，否则返回Optional封装的参数值
+*/
+public<U> Optional<U> map(Function<? super T, ? extends U> mapper) {
+        Objects.requireNonNull(mapper);
+        if (!isPresent())
+            return empty();
+        else {
+            return Optional.ofNullable(mapper.apply(value));
+        }
+}
+/**
+* 如果value为null，返回EMPTY，否则返回Optional封装的参数值，如果参数值返回null会抛 NullPointerException
+*/
+public<U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper) {
+        Objects.requireNonNull(mapper);
+        if (!isPresent())
+            return empty();
+        else {
+            return Objects.requireNonNull(mapper.apply(value));
+        }
+}
+```
+
+**map() 和 `flatMap()` 有什么区别的**
+
+**1.参数不一样，`map` 的参数上面看到过，`flatMap` 的参数是这样 **
+```java
+class ZooFlat {
+        private DogFlat dog = new DogFlat();
+
+        public DogFlat getDog() {
+            return dog;
+        }
+    }
+
+class DogFlat {
+        private int age = 1;
+        public Optional<Integer> getAge() {
+            return Optional.ofNullable(age);
+        }
+}
+
+//多层Optioanl嵌套结构时需要flatmap()
+ZooFlat zooFlat = new ZooFlat();
+Optional.ofNullable(zooFlat).map(o -> o.getDog()).flatMap(d -> d.getAge()).ifPresent(age ->
+    System.out.println(age)
+);
+```
+** 2.`flatMap()` 参数返回值如果是 null 会抛 `NullPointerException`，而 `map()` 返回`EMPTY`。**
+
+### 判断 value 是否为 null
+```java
+/**
+* value是否为null
+*/
+public boolean isPresent() {
+    return value != null;
+}
+/**
+* 如果value不为null执行consumer.accept
+*/
+public void ifPresent(Consumer<? super T> consumer) {
+   if (value != null)
+    consumer.accept(value);
+}
+```
+### 获取value
+```java
+/**
+* Return the value if present, otherwise invoke {@code other} and return
+* the result of that invocation.
+* 如果value != null 返回value，否则返回other的执行结果,是延迟加载，只有当Optional中没有值才会被调用
+*/
+public T orElseGet(Supplier<? extends T> other) {
+    return value != null ? value : other.get();
+}
+
+/**
+* 如果value != null 返回value，否则返回T
+*/
+public T orElse(T other) {
+    return value != null ? value : other;
+}
+
+/**
+* 如果value != null 返回value，否则抛出参数返回的异常
+*/
+public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
+        if (value != null) {
+            return value;
+        } else {
+            throw exceptionSupplier.get();
+        }
+}
+/**
+* value为null抛出NoSuchElementException，不为空返回value。
+*/
+public T get() {
+  if (value == null) {
+      throw new NoSuchElementException("No value present");
+  }
+  return value;
+}
+```
+
+### 过滤值
+```java
+/**
+* 1. 如果是empty返回empty
+* 2. predicate.test(value)==true 返回this，否则返回empty
+*/
+public Optional<T> filter(Predicate<? super T> predicate) {
+        Objects.requireNonNull(predicate);
+        if (!isPresent())
+            return this;
+        else
+            return predicate.test(value) ? this : empty();
+}
+```
+
+```java
+Optional.ofNullable(zoo).map(o -> o.getDog()).map(d -> d.getAge()).filter(v->v==1).orElse(3);
+```
+
+
 译者注：示例中每个方法的作用已经添加。
 
 ```java
@@ -389,6 +594,9 @@ optional.orElse("fallback");    // "bam"
 //ifPresent()：如果Optional实例有值则为其调用consumer，否则不做处理
 optional.ifPresent((s) -> System.out.println(s.charAt(0)));     // "b"
 ```
+
+### 小结
+看完 `Optional` 源码，`Optional` 的方法真的非常简单，值得注意的是如果坚决不想看见 `NPE`，就不要用 `of()` 、 `get()` 、`flatMap(..)`。最后再综合用一下 `Optional` 的高频方法。
 
 推荐阅读：[\[Java8\]如何正确使用Optionalopen in new window](https://blog.kaaass.net/archives/764)
 

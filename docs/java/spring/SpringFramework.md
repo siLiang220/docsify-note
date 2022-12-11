@@ -215,3 +215,38 @@ public ChangePriceResponse changePrice(ChangePriceRequest request) {
 [Spring Statemachine - Reference Documentation](https://docs.spring.io/spring-statemachine/docs/3.2.0/reference/#statemachine)
 
 [使用枚举实现状态机来优雅你的状态变更逻辑-云社区-华为云 (huaweicloud.com)](https://bbs.huaweicloud.com/blogs/344617)
+
+
+---
+## 事务的传播特性
+
+### 什么是事务的传播特性?
+A,B两个方法都有事务，在A方法中去调用B方法，此时事务方法应该如何进行处理。
+比如 A方法里面调用B方法。
+情况一：A方法出现异常，A方法需要回滚，那么B方法需不需要回滚呢？
+情况二：B方法出现异常，B方法需要回滚，那么A方法需不需要回滚呢？
+
+
+### spring总共给出了7种事务隔离级别:
+1. PROPAGATION_REQUIRED:默认事务类型，如果没有，就新建一个事务;如果有，就加入当前事务。适合绝大多数情况。
+
+解释：方法A中调用方法B，B方法的事务传播设置为PROPAGATION_REQUIRED，则如果A方法上有事务，B就用A的事务，没有的话，B就自己新建一个事务。
+2. PROPAGATION_REQUIRES_NEW:如果没有，就新建一个事务;如果有，就将当前事务挂起。
+
+解释：方法A中调用方法B，B方法的事务传播设置为PROPAGATION_REQUIRES_NEW，则如果A方法上有事务，则将A方法的事务挂起，B用自己的事务。A方法没有事务的话，B自己就新建一个事务。
+3. PROPAGATION_NESTED:如果没有，就新建一个事务;如果有，就在当前事务中嵌套其他事务。
+
+解释：方法A中调用方法B，B方法的事务传播设置为PROPAGATION_NESTED，则如果A方法上有事务，则B方法的事务嵌套在A方法事务中。A方法没有事务的话，B自己就新建一个事务。
+嵌套导致的结果是 如果A回滚了，会导致B回滚，B回滚，则不会导致A回滚。
+4. PROPAGATION_SUPPORTS:如果没有，就以非事务方式执行;如果有，就使用当前事务。
+
+解释：方法A中调用方法B，B方法的事务传播设置为PROPAGATION_SUPPORTS，则如果A方法上有事务，B就用A的事务，没有的话，B就以非事务方式执行。
+5. PROPAGATION_NOT_SUPPORTED:如果没有，就以非事务方式执行;如果有，就将当前事务挂起。即无论如何不支持事务。
+
+解释：方法A中调用方法B，B方法的事务传播设置为PROPAGATION_NOT_SUPPORTED，则如果A方法上有事务，则将A方法的事务挂起(因为A,B方法是在同一个线程中执行的)以非事务方式执行，以非事务方式执行。A没有事务，就以非事务方式执行.
+6. PROPAGATION_NEVER:如果没有，就以非事务方式执行;如果有，就抛出异常。
+
+解释：方法A中调用方法B，B方法的事务传播设置为PROPAGATION_NEVER，则要求A方法上不能有事务，有的话，就报错。A没有事务，就以非事务方式执行，B始终是以非事务方式执行。
+7. PROPAGATION_MANDATORY:如果没有，就抛出异常;如果有，就使用当前事务。
+
+解释：方法A中调用方法B，B方法的事务传播设置为PROPAGATION_MANDATORY，则要求A方法上有事务，有的话，B用A的事务。A没有的话，就报错。
