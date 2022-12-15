@@ -302,6 +302,8 @@ BFF 微服务只有应用层和用户接口层的职能，适配不同前端和�
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/wechat_20221005191218.jpg)
 
 
+[标准化思想及组装式架构在后端BFF中的实践 - 美团技术团队 (meituan.com)](https://tech.meituan.com/2022/04/28/composable-architecture-in-bff-2022.html)
+
 ## 事件风暴构建领域模型
 领域建模过程中需要关注，某些业务动作或行为（事件）是否触发下一个业务动作，这个动作（领域事件）的输入输出是什么？是谁（实体）发出的动作（命令），触发了这个动作（事件）
 
@@ -405,3 +407,4 @@ BFF 微服务只有应用层和用户接口层的职能，适配不同前端和�
 
 ## 参考文章
 - [DDD 概念参考 (domain-driven-design.org)](https://domain-driven-design.org/zh/ddd-concept-reference.html)
+- [标准化思想及组装式架构在后端BFF中的实践 - 美团技术团队 (meituan.com)](https://tech.meituan.com/2022/04/28/composable-architecture-in-bff-2022.html)
