@@ -142,6 +142,9 @@ public class FutureAPIDemo {
 ### 创建异步任务
 
 #### runAsync/SupplyAsync
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1671191944490.png)
+
+
  这两方法各有一个重载版本，可以指定执行异步任务的Executor实现，如果不指定，默认使用`ForkJoinPool.commonPool()`，如果机器是单核的，则默认使用`ThreadPerTaskExecutor`，该类是一个内部类，每次执行execute都会创建一个新线程，
  - `runAsync`表示创建无返回值的异步任务，相当于ExecutorService submit(Runnable task)方法
  -  `supplyAsync`执行`CompletableFuture任务`，支持返回值
@@ -644,6 +647,31 @@ ForkJoinPool.commonPool-worker-2
 
 `thenCompose`方法会在某个任务执行完成后，将该任务的执行结果作为方法入参然后执行指定的方法，该方法会返回一个新的CompletableFuture实例
 
+-   如果该CompletableFuture实例的result不为null，则返回一个基于该result新的CompletableFuture实例；
+-   如果该CompletableFuture实例为null，然后就执行这个新任务
+
+```java
+public class ThenComposeTest {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+        CompletableFuture<String> f = CompletableFuture.completedFuture("第一个任务");
+        //第二个异步任务
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        CompletableFuture<String> future = CompletableFuture
+                .supplyAsync(() -> "第二个任务", executor)
+                .thenComposeAsync(data -> {
+                    System.out.println(data); return f; //使用第一个任务作为返回
+                }, executor);
+        System.out.println(future.join());
+        executor.shutdown();
+
+    }
+}
+//输出
+第二个任务
+第一个任务
+```
+
 #### allOf
 所有任务都执行完成后，才执行 allOf返回的CompletableFuture。如果任意一个任务异常，allOf的CompletableFuture，执行get方法，会抛出异常
 ```java
@@ -699,7 +727,7 @@ public class AnyOfFutureTest {
 finish
 ```
 
-### CompletableFuture使用有哪些注意点
+### CompletableFuture使用注意点
 #### 1. Future需要获取返回值，才能获取异常信息
 
 ```java
@@ -805,12 +833,46 @@ CompletableFuture.get() 和 CompletableFuture.join() 这两个方法是获取异
 - get() 方法会抛出经检查的异常，可被捕获，自定义处理或者直接抛出，`ExecutionException`, `InterruptedException` 需要用户手动处理。
 - join() 会抛出未经检查的异常，会将异常包装成`CompletionException`异常 /`CancellationException`异常，但是本质原因还是代码内存在的真正的异常，。
 
+### 实践
+
+- 多线程处理List 数据
+```java
+@Test
+    public void Test31(){
+        // 1. 创建线程池
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        List<Integer> list = Arrays.asList(1, 2, 3);
+        // 2. 提交任务，并调用join()阻塞等待所有任务执行完成
+        CompletableFuture
+                .allOf(
+                        list.stream().map(key ->
+                                CompletableFuture.runAsync(() -> {
+                                    // 模拟处理业务
+                                    try {
+                                        Thread.sleep(1000L);
+                                    } catch (InterruptedException e) {
+                                    }
+                                    System.out.println("多线程处理" + key);
+                                }, executorService))
+                                .toArray(CompletableFuture[]::new))
+                .join();
+        executorService.shutdown();
+    }
+```
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20221216193925.jpg)
+
+- 多线程处理指定范围内数据
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20221216194134.jpg)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20221216194143.jpg)
 
 ### 参考
 - [异步编程利器：CompletableFuture详解 ｜Java 开发实战 - 掘金 (juejin.cn)](https://juejin.cn/post/6970558076642394142#heading-25)
 - [尚硅谷2022版JUC并发编程（对标阿里P6-P7）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1ar4y1x727/?spm_id_from=333.999.0.0&vd_source=a93579eb32613bed04d8b58488ca962a)
 - [CompletableFuture原理与实践-美团外卖商家端API的异步化 (qq.com)](https://mp.weixin.qq.com/s/GQGidprakfticYnbVYVYGQ)
 - [Java8 CompletableFuture 用法全解](https://blog.csdn.net/qq_31865983/article/details/106137777)
+- [ 多线程的利器：CompletableFuture 你还可以这样使用多线程_Java编程Code的博客-CSDN博客](https://blog.csdn.net/qq_39664892/article/details/128297003#:~:text=1%20%E9%81%8D%E5%8E%86list%E9%9B%86%E5%90%88%EF%BC%8C%E6%8F%90%E4%BA%A4CompletableFuture%E4%BB%BB%E5%8A%A1%EF%BC%8C%E6%8A%8A%E7%BB%93%E6%9E%9C%E8%BD%AC%E6%8D%A2%E6%88%90%E6%95%B0%E7%BB%84%202%20%E5%86%8D%E6%8A%8A%E6%95%B0%E7%BB%84%E6%94%BE%E5%88%B0CompletableFuture%E7%9A%84allOf,%28%29%E6%96%B9%E6%B3%95%E9%87%8C%E9%9D%A2%203%20%E6%9C%80%E5%90%8E%E8%B0%83%E7%94%A8join%20%28%29%E6%96%B9%E6%B3%95%E9%98%BB%E5%A1%9E%E7%AD%89%E5%BE%85%E6%89%80%E6%9C%89%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%88%90)
 
 ## 4. 线程锁
 ### 悲观锁

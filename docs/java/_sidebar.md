@@ -1,8 +1,7 @@
 * **目录**
     * [根目录（/）](/README)
     * [回到上一级(../)](../README)
-    * [java线程池](java/java线程池)
-    * [JUC并发编程](java/JUC并发编程)
+    * [并发编程](java/并发编程/README.md)
     * [Spring](java/spring/README.md)
     * [设计模式](java/DesignPatterns/README.md)
     * [如何优雅的记录操作日志](java/如何优雅的记录操作日志)

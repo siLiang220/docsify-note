@@ -122,7 +122,7 @@ public class ThreadPoolExecutorDemo {
 }
 ```
 
-## 几种对比
+## 线程池几种方法对比
 
 ### 实现 Runnable 接口和 Callable 接口的区别
 
@@ -183,20 +183,17 @@ ThreadFactory threadFactory = new ThreadFactoryBuilder()
 ExecutorService threadPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MINUTES, workQueue, threadFactory)
 ```
 
-2. 自定义
+2. **自定义**
+
 ```java
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
-/**
- * 线程工厂，它设置线程名称，有利于我们定位问题。
- */
+
 public final class NamingThreadFactory implements ThreadFactory {
 
     private final AtomicInteger threadNum = new AtomicInteger();
     private final ThreadFactory delegate;
     private final String name;
-
     /**
      * 创建一个带名字的线程池生产工厂
      */
@@ -211,7 +208,6 @@ public final class NamingThreadFactory implements ThreadFactory {
         t.setName(name + " [#" + threadNum.incrementAndGet() + "]");
         return t;
     }
-
 }
 ```
 
@@ -223,4 +219,6 @@ public final class NamingThreadFactory implements ThreadFactory {
 
 [Java 并发常见面试题总结（下） (javaguide.cn)](https://javaguide.cn/java/concurrent/java-concurrent-questions-03.html#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0)
 
-
+### 多线程处理数据
+[线程池多线程快速处理List集合](https://blog.csdn.net/qililong88/article/details/114320641)
+[ 多线程的利器：CompletableFuture 你还可以这样使用多线程_Java编程Code的博客-CSDN博客](https://blog.csdn.net/qq_39664892/article/details/128297003#:~:text=1%20%E9%81%8D%E5%8E%86list%E9%9B%86%E5%90%88%EF%BC%8C%E6%8F%90%E4%BA%A4CompletableFuture%E4%BB%BB%E5%8A%A1%EF%BC%8C%E6%8A%8A%E7%BB%93%E6%9E%9C%E8%BD%AC%E6%8D%A2%E6%88%90%E6%95%B0%E7%BB%84%202%20%E5%86%8D%E6%8A%8A%E6%95%B0%E7%BB%84%E6%94%BE%E5%88%B0CompletableFuture%E7%9A%84allOf,%28%29%E6%96%B9%E6%B3%95%E9%87%8C%E9%9D%A2%203%20%E6%9C%80%E5%90%8E%E8%B0%83%E7%94%A8join%20%28%29%E6%96%B9%E6%B3%95%E9%98%BB%E5%A1%9E%E7%AD%89%E5%BE%85%E6%89%80%E6%9C%89%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%88%90)

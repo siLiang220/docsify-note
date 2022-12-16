@@ -1,6 +1,5 @@
 # 目录
-* [java线程池](java/java线程池)
-* [JUC并发编程](java/JUC并发编程)
+* [并发编程](java/并发编程/README.md)
 * [spring](java/README.MD)
 * [设计模式](java/DesignPatterns/README.md)
 * [如何优雅的记录操作日志](java/如何优雅的记录操作日志)
