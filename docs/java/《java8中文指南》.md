@@ -603,6 +603,22 @@ optional.ifPresent((s) -> System.out.println(s.charAt(0)));     // "b"
 ## Streams(流)
 
 `java.util.Stream` 表示能应用在一组元素上一次执行的操作序列。Stream 操作分为中间操作或者最终操作两种，最终操作返回一特定类型的计算结果，而中间操作返回Stream本身，这样你就可以将多个操作依次串起来。Stream 的创建需要指定一个数据源，比如 `java.util.Collection` 的子类，List 或者 Set， Map 不支持。Stream 的操作可以串行执行或者并行执行。
+>获取一个数据源（source）→ 数据转换 → 执行操作获取想要的结果，每次转换原有 Stream 对象不改变，返回一个新的 Stream 对象（可以有多次转换），这就允许对其操作可以像链条一样排列，变成一个管道。
+
+## Stream的操作可以分为两大类：中间操作、终结操作
+
+中间操作可分为：
+
+- 无状态（Stateless）操作：指元素的处理不受之前元素的影响
+- 有状态（Stateful）操作：指该操作只有拿到所有元素之后才能继续下去
+
+终结操作可分为：
+
+- 短路（Short-circuiting）操作：指遇到某些符合条件的元素就可以得到最终结果
+- 非短路（Unshort-circuiting）操作：指必须处理完所有元素才能得到最终结果
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1671193683954.png)
+
 
 首先看看Stream是怎么用，首先创建实例代码需要用到的数据List：
 
@@ -818,6 +834,11 @@ parallel sort took: 475 ms//串行排序所用的时间
 ```
 
 上面两个代码几乎是一样的，但是并行版的快了 50% 左右，唯一需要做的改动就是将 `stream()` 改为`parallelStream()`。
+
+## collect 收集器的操作
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/utools_2022203911124.jpeg)
+
 
 ## Maps
 
@@ -1109,6 +1130,5 @@ System.out.println(hints2.length);          // 2
 @interface MyAnnotation {}
 ```
 
-## Where to go from here?
-
-关于Java 8的新特性就写到这了，肯定还有更多的特性等待发掘。JDK 1.8里还有很多很有用的东西，比如`Arrays.parallelSort`, `StampedLock`和`CompletableFuture`等等。
+## 参考文章
+- [Stream详解，看这一篇就够啦](https://blog.csdn.net/yy339452689/article/details/110956119?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167119268816782428698421%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167119268816782428698421&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-110956119-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=java%20stream&spm=1018.2226.3001.4187)
