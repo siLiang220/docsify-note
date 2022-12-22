@@ -156,7 +156,8 @@ create index idx_emp_age_salary on emp(age,salary);
 2. 第二种通过有序索引顺序扫描直接返回有序数据，这种情况即为 using index，不需要额外排序，操作效率高。
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/mysql_1556335866539.png)
 
-多字段排序
+对多字段排序
+
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/mysql_1556336352061.png)
 
 了解了MySQL的排序方式，优化目标就清晰了：**尽量减少额外的排序，通过索引直接返回有序数据。where 条件和Order by 使用相同的索引，并且Order By 的顺序和索引顺序相同， 并且Order by 的字段都是升序，或者都是降序。否则肯定需要额外的操作，这样就会出现 FileSort。**
@@ -211,6 +212,7 @@ Mysql4.1版本之后，开始支持SQL的子查询。这个技术可以使用SEL
 ```
 
 执行计划为 :
+
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/mysql_1556359399199.png)
 
 优化后 :

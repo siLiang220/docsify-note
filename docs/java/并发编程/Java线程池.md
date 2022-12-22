@@ -66,20 +66,23 @@ public ThreadPoolExecutor(int corePoolSize,
 ### ThreadPoolExecutor参数说明
 
 - **`CorePoolSize`** : 核心线程数定义了最小可以运行的线程数
-- **`maximumPoolSize`**: 当队列中存放的任务容量的时候，当前可以同时运行的线程数量变为最大线程数。
-- **`workQueue`** : 当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中
+- **`maximumPoolSize`**: 当队列中存放的任务容量满的时候，当前可以同时运行的线程数量变为最大线程数。当阻塞队列是无界队列, 则`maximumPoolSize`则不起作用, 因为无法提交至核心线程池的线程会一直持续地放入`workQueue`
+- **`workQueue`** : 用来保存阻塞的队列，当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。.
 -  **`keepAliveTime`**:当线程池中的线程数量大于 `corePoolSize` 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了 `keepAliveTime`才会被回收销毁；
 -   **`unit`** : `keepAliveTime` 参数的时间单位。
 -   **`threadFactory`** :executor 创建新线程的时候会用到。
 -   **`handler`** :饱和策略。
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1671111973043.png)
 
+#### workQueue
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1671715706298.png)
 
 #### 饱和策略
 
 如果当前同时运行的线程数量达到最大线程数量并且队列也已经被放满了任务时，`ThreadPoolTaskExecutor` 定义一些策略:
 -   **`ThreadPoolExecutor.AbortPolicy`：** 抛出 `RejectedExecutionException`来拒绝新任务的处理。
--   **`ThreadPoolExecutor.CallerRunsPolicy`：** 调用执行自己的线程运行任务，也就是直接在调用`execute`方法的线程中运行(`run`)被拒绝的任务，如果执行程序已关闭，则会丢弃该任务。因此这种策略会降低对于新任务提交速度，影响程序的整体性能。如果您的应用程序可以承受此延迟并且你要求任何一个任务请求都要被执行的话，你可以选择这个策略。
+-   **`ThreadPoolExecutor.CallerRunsPolicy`：** 由调用线程（提交任务的线程处理），也就是直接在调用`execute`方法的线程中运行(`run`)被拒绝的任务，如果执行程序已关闭，则会丢弃该任务。因此这种策略会降低对于新任务提交速度，影响程序的整体性能。如果您的应用程序可以承受此延迟并且你要求任何一个任务请求都要被执行的话，你可以选择这个策略。
 -   **`ThreadPoolExecutor.DiscardPolicy`：** 不处理新任务，直接丢弃掉。
 -   **`ThreadPoolExecutor.DiscardOldestPolicy`：** 此策略将丢弃最早的未处理的任务请求。
 
@@ -212,13 +215,21 @@ public final class NamingThreadFactory implements ThreadFactory {
 ```
 
 ### 线程池动态监控
-
+- [Java线程池实现原理及其在美团业务中的实践 - 美团技术团队 (meituan.com)](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
 - [dynamic-tp](https://github.com/dromara/dynamic-tp?spm=a2c6h.12873639.article-detail.7.35382f48TQbhxp)
 - [Hippo4j](https://github.com/opengoofy/hippo4j)
-- [Java线程池实现原理及其在美团业务中的实践 - 美团技术团队 (meituan.com)](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
-
-[Java 并发常见面试题总结（下） (javaguide.cn)](https://javaguide.cn/java/concurrent/java-concurrent-questions-03.html#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0)
 
 ### 多线程处理数据
 [线程池多线程快速处理List集合](https://blog.csdn.net/qililong88/article/details/114320641)
 [ 多线程的利器：CompletableFuture 你还可以这样使用多线程_Java编程Code的博客-CSDN博客](https://blog.csdn.net/qq_39664892/article/details/128297003#:~:text=1%20%E9%81%8D%E5%8E%86list%E9%9B%86%E5%90%88%EF%BC%8C%E6%8F%90%E4%BA%A4CompletableFuture%E4%BB%BB%E5%8A%A1%EF%BC%8C%E6%8A%8A%E7%BB%93%E6%9E%9C%E8%BD%AC%E6%8D%A2%E6%88%90%E6%95%B0%E7%BB%84%202%20%E5%86%8D%E6%8A%8A%E6%95%B0%E7%BB%84%E6%94%BE%E5%88%B0CompletableFuture%E7%9A%84allOf,%28%29%E6%96%B9%E6%B3%95%E9%87%8C%E9%9D%A2%203%20%E6%9C%80%E5%90%8E%E8%B0%83%E7%94%A8join%20%28%29%E6%96%B9%E6%B3%95%E9%98%BB%E5%A1%9E%E7%AD%89%E5%BE%85%E6%89%80%E6%9C%89%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%88%90)
+
+## 线程池可能带来的问题
+
+1.  频繁申请/销毁资源和调度资源，将带来额外的消耗，可能会非常巨大。
+2.  对资源无限申请缺少抑制手段，易引发系统资源耗尽的风险。
+3.  系统无法合理管理内部的资源分布，会降低系统的稳定性。
+
+## 参考文章
+- [8000字详解Thread Pool Executor - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/593365020)
+- [Java 并发常见面试题总结（下） (javaguide.cn)](https://javaguide.cn/java/concurrent/java-concurrent-questions-03.html#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0)
+- [Java线程池实现原理及其在美团业务中的实践 - 美团技术团队 (meituan.com)](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)

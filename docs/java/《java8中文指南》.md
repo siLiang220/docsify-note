@@ -478,9 +478,9 @@ public<U> Optional<U> flatMap(Function<? super T, Optional<U>> mapper) {
 }
 ```
 
-**map() 和 `flatMap()` 有什么区别的**
+**`map()` 和 `flatMap()` 有什么区别的**
 
-**1.参数不一样，`map` 的参数上面看到过，`flatMap` 的参数是这样 **
+**1.参数不一样，`map` 的参数上面看到过，`flatMap` 的参数是这样**
 ```java
 class ZooFlat {
         private DogFlat dog = new DogFlat();
@@ -503,7 +503,7 @@ Optional.ofNullable(zooFlat).map(o -> o.getDog()).flatMap(d -> d.getAge()).ifPre
     System.out.println(age)
 );
 ```
-** 2.`flatMap()` 参数返回值如果是 null 会抛 `NullPointerException`，而 `map()` 返回`EMPTY`。**
+**2.`flatMap()` 参数返回值如果是 null 会抛 `NullPointerException`，而 `map()` 返回`EMPTY`。**
 
 ### 判断 value 是否为 null
 ```java
@@ -839,6 +839,10 @@ parallel sort took: 475 ms//串行排序所用的时间
 
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/utools_2022203911124.jpeg)
 
+## 参考文章
+
+- [Stream详解，看这一篇就够啦](https://blog.csdn.net/yy339452689/article/details/110956119?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167119268816782428698421%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167119268816782428698421&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-110956119-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=java%20stream&spm=1018.2226.3001.4187)
+
 
 ## Maps
 
@@ -885,13 +889,13 @@ map.get(3);             // null
 
 另外一个有用的方法：
 
-```
+```java
 map.getOrDefault(42, "not found");  // not found
 ```
 
 对Map的元素做合并也变得很容易了：
 
-```
+```java
 map.merge(9, "val9", (value, newValue) -> value.concat(newValue));
 map.get(9);             // val9
 map.merge(9, "concat", (value, newValue) -> value.concat(newValue));
@@ -1130,5 +1134,4 @@ System.out.println(hints2.length);          // 2
 @interface MyAnnotation {}
 ```
 
-## 参考文章
-- [Stream详解，看这一篇就够啦](https://blog.csdn.net/yy339452689/article/details/110956119?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167119268816782428698421%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167119268816782428698421&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-110956119-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=java%20stream&spm=1018.2226.3001.4187)
+
