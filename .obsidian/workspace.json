@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/分布式/README.md",
+                "file": "docs/Distributed/README.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,14 +85,50 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/DataBase/MySQL/_sidebar.md",
+                "file": "docs/Distributed/README.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "c39e6eba94d5534c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/Distributed/_sidebar.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "305a24c5e2488373",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/_sidebar.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "9559f037f0d4926c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/README.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 9
       }
     ],
     "direction": "vertical"
@@ -150,7 +186,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/DataBase/MySQL/_sidebar.md",
+                "file": "docs/README.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -167,7 +203,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/DataBase/MySQL/_sidebar.md"
+                "file": "docs/README.md"
               }
             }
           },
@@ -196,17 +232,17 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "4986e08afb9b394d",
+  "active": "9559f037f0d4926c",
   "lastOpenFiles": [
-    "docs/DataBase/MySQL/README.md",
+    "docs/_sidebar.md",
+    "docs/Distributed/README.md",
+    "docs/Distributed/CAP.md",
+    "docs/Distributed/_sidebar.md",
+    "docs/DataBase/README.md",
+    "docs/DataBase/_sidebar.md",
     "docs/DataBase/MySQL/_sidebar.md",
+    "docs/DataBase/MySQL/README.md",
     "docs/DataBase/MySQL/常用SQL技巧.md",
-    "docs/DataBase/MySQL/MySQL批量插入优化.md",
-    "docs/DataBase/MySQL/从杀慢查询入手来预防MySQL雪崩的办法.md",
-    "docs/DataBase/MySQL/SQL语句优化.md",
-    "docs/java/并发编程/README.md",
-    "docs/java/并发编程/_sidebar.md",
-    "docs/java/并发编程/Java线程池.md",
-    "docs/分布式/CAP.md"
+    "docs/DataBase/MySQL/MySQL批量插入优化.md"
   ]
 }
