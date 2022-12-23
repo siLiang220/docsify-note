@@ -1,12 +1,5 @@
----
-created: 2022-12-04T13:52:05 (UTC +08:00)
-tags: [oddfar,zhiyuan]
-source: https://note.oddfar.com/mysql/common-use-sql-skill/#sql%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F
-author: zhiyuan
----
 
-
-##  SQL执行顺序
+## SQL执行顺序
 
 编写顺序
 
@@ -29,7 +22,6 @@ LIMIT
 <limit_params>
 ```
 
-  
 
 执行顺序
 
