@@ -5,10 +5,7 @@ source: https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_reque
 author: 
 ---
 
-# (244条消息) 大数据ETL开发之图解Kettle工具（入门到精通）_无 羡ღ的博客-CSDN博客_kettle工具
-
-> ## Excerpt
-> 0 ETL简介ETL (Extract-Transform-Load 的缩写，即数据抽取、转换、装载的过程)，对于企业或行业应用来说，我们经常会遇到各种数据的处理，转换，迁移，所以了解并掌握一种ETL工具的使用，必不可少。市面上常用的ETL工具有很多，比如Sqoop，DataX, Kettle, Talend 等，作为一个大数据工程师，我们最好要掌握其中的两到三种，这里我们要学习的ETL工具是Kettle!1 Kettle简介1.1 Kettle是什么Kettle是一款国外开源的ETL工具，纯ja
+# 大数据ETL开发之图解Kettle工具（入门到精通）
 
 ---
 ### 文章目录
@@ -220,7 +217,8 @@ Kettle(现在已经更名为PDI, Pentaho Data Integration Pentaho数据集成)
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1672753707737.png)
 
 **3）按住键盘 shift 键，并且点击鼠标左键将两个控件链接起来,链接时选择 “主输出步骤”**  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1dc93f84fea242c78eaebb82e4937dd0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1672755274348.png)
+
 
 **4）双击Excel输出控件，在弹出的设置框里设置文件输出路径和文件名称，然后点击上的字段框，依次点击下面的获取字段和最小宽度，获取到输出字段**  
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1672753791971.png)
@@ -343,7 +341,8 @@ Kettle(现在已经更名为PDI, Pentaho Data Integration Pentaho数据集成)
 > CSV 文件是一个用逗号分隔的固定格式的文本文件，这种文件后缀名为.csv，可以用Excel或者文本编辑器打开。在企业里面一般最常见的 ETL 需求就是将 csv 文件转换为 excel 文件，如果用 Kettle 来做这个 ETL工作，就需要用到本章节讲解的CSV文件输入控件。
 
 任务：熟悉CSV文件输入控件，并尝试将CSV文件转换成Excel文件(可参考上面的快速体验案例)。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/dd1110d78ece4fd583b5329ef8f1ef05.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673011593592.png)
+
 
 -   **步骤名称**：可以修改，但是在同一个转换里面要保证唯一 性， 见名知意
     
@@ -375,17 +374,17 @@ Kettle(现在已经更名为PDI, Pentaho Data Integration Pentaho数据集成)
 **使用文本文件输入控件步骤：**
 
 1） 添加需要转换的日志文件  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3027ca3c88304e62a92116a06d910373.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673011697715.png)
 
 2）按照日志文件格式，指定分隔符  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/25f26961dcd548a0b4542e871bb3ed85.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673011729502.png)
 
 3）获取下字段，并给字段设置合适的格式（数字类型的数据尽量选Integer，因为number类型有两位小数点）
 
 4）最后点下预览记录，看看能否读到数据
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/47b1631013554606b07ebac1031bb00f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/61472ab493f645c599bd50a383b0ee47.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673011891377.png)
+
 
 ### 3.1.3 Excel文件输入
 
@@ -396,23 +395,27 @@ Kettle(现在已经更名为PDI, Pentaho Data Integration Pentaho数据集成)
 **使用Excel输入控件步骤如下**：
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/15eef3fe40354bd5884ab2b33c5ac33d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a6632bc4135a4dff80bf53e2875a724d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
 
 1）按照读取的源文件格式指定对应的表格类型为 xls 还是 xlsx
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012035730.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012060850.png)
+
 
 2）选择并添加对应的excel文件  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/70f95e53fcb546be848fd425315cd212.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012120089.png)
 
 3）获取excel的sheet工作表  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e23993db9a4d4a64a44c961544210631.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/eaf9eb22432842ef9d1d51123dcb6ef0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012196610.png)
+
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012258359.png)
 
 4）获取字段，并给每个字段设置合适的格式  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d6a08b81d4be49a09c87528587c9507f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012293750.png)
 
 5）预览数据  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9dc22706cffd454ca913435961bfb0ad.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012293750.png)
 
 ### 3.1.4 XML输入
 
@@ -420,13 +423,14 @@ Kettle(现在已经更名为PDI, Pentaho Data Integration Pentaho数据集成)
 
 > XML可扩展标记语言eXtensible MarkupLanguage，由W3C组织发布，目前推荐遵守的是W3C组织于2000年发布的XML1.0规范。XML用来传输和存储数据，就是以一个统一的格式，组织有关系的数据，为不同平台下的应用程序服务。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/339e357edbf942279b42bc1cde818a24.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012361482.png)
+
 
 **2）XPath简介**
 
 > XPath即为XML路径语言(XML Path Language)，它是一种用来确定XML文档中某部分位置的语言。XPath基于XML的树状结构，提供在数据结构树中找寻节点的能力。XPath使用路径表达式在XML文档中选取节点。下面列出了最有用的路径表达式
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9033c0ff0dfe4766a0d7fa8761bcf47b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012449608.png)
 
 **3）XML输入控件**
 
@@ -435,16 +439,18 @@ Kettle(现在已经更名为PDI, Pentaho Data Integration Pentaho数据集成)
 任务：熟悉XML输入控件，将XML文件的学生数据写到excel文件中
 
 1.浏览获取xml文件，将xml文件添加到kettle中  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/93e6d0b2f0df4032a75afe25e7e6fae3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012602595.png)
+
 
 2.获取 xml文档的所有路径，设置合适的循环读取路径  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1750423f6d914f3b88a33f820421a116.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012633477.png)
 
 3.获取字段，获得自己想要读取的所有字段，并且设置适当的格式  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4dc22a09e3f1486e904e80d9c9ca229c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012746406.png)
+
 
 4.预览数据，看看能否读取到自己想要的数据  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/238fcb1b2f2c4622a4713407d95ea064.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012806336.png)
 
 ### 3.1.5 JSON输入
 
@@ -470,8 +476,8 @@ JSON核心概念：
 -   点记法：$.store.book\[0\]title
     
 -   括号记法：$\[‘store’\]\[‘book’ \]\[0\]\[ ‘ title’ \]  
-    ![在这里插入图片描述](https://img-blog.csdnimg.cn/2ba5ec7d5cff4e55a22f9018524ca150.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
-    
+    ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012868729.png)
+
 
 **3）JSON 输入控件**
 
@@ -480,52 +486,58 @@ JSON核心概念：
 任务：获取到JSON文件里面的id，field，value字段，写到excel文件中
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2b5eb619166240e79cd65a2950d9617e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673012972144.png)
 
 1.浏览获取JSON文件（注意文件路径不能有中文），将json文件获取到kettle中  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b49da6884f9e4e888ff7484f82d9e6dd.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013074615.png)
 
 2.根据JSON Path点记法，获取到需要的字段，并且设置合适格式  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/acabd8d7c84b43d0ab2103e5da10af94.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013103168.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/46a6526166ad41d8b953e2eaa3fb955b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013139937.png)
+
 3）新建JSON输入控件2
 
 第二步的数据内容为：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d3e21372b82341f390e70bff0ea9f4b4.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013297069.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2c823dc512514b5382bf71d753b9bfdd.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013365642.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/dcde368f99874593848f58d303b1f1e7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013399049.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/10455a66219d46d1b26c6dec7f55b6df.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013436978.png)
 
 ### 3.1.6 表输入
 
 > 表输入可以说是kettle中用到最多的一种输入控件, 因为企业中大部分的数据都会存在数据库中。kettle可以连接市面上常见的各种数据库，比如Oracle，Mysql, SqlServer等。但是在连接各个数据库之前，我们需要先配置好对应的数据库驱动，本教程以mysql为例，给大家讲解kettle连接mysql数据库的过程。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/066f4d866a80400d8abe253abc0ec471.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_19,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013465427.png)
+
 **1）创建数据库连接**
 
 MySQL驱动下载（一定要下载对应数据库版本）：[官网下载地址](https://dev.mysql.com/downloads/connector/j/)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e422e2393ee74a0cbb8fb0a6f9a041d3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013521755.png)
+
 
 首先我们要将对应版本的mysql连接驱动放到kettle 安装目录下面的lib文件夹下，然后重启kettle 的客户端Spoon
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3f7e57e84e0b47c39adb60eb28a81f82.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013555538.png)
 
 重启Spoon客户端以后，我们就可以创建对应的数据库连接了，在转换视图的主对象树目录下，有个DB连接，右键然后选择新建，在打开数据库连接框里，填写正确的数据库信息，然后测试，测试无误后，可以保存此数据库连接。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/bbdf73412f954bc39cf22d0819215722.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013581014.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/0f7680974391425aa143feaa53451a54.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013616617.png)
+
 
 数据库连接默认只对本转换有效，换一个转换以后，这个连接就没法用了，还需要新建数据库连接，所以我们需要将建好的这个数据库连接进行共享下，共享以后，其他的转换也能用我们提前建好的这个数据库连接了。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/39fc17f7b45e4fffb18d01fdb97d6026.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013638392.png)
 
 **2）表输入**
 
 创建好数据库连接以后，我们就可以使用表输入控件了，双击表输入控件，选择刚刚创建的数据库连接，然后在SQL框里输入合适的查询语句，然后点击预览按钮，看能否预览到我们期望的数据  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/61b30a529f3c46038c03744878b7b6de.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013815315.png)
+
 
 ## 3.2 Kettle输出控件
 
@@ -543,7 +555,8 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 **1）选择合适的扩展名**
 
 **2）点击浏览，补全输出文件的路径已经文件名**  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/7cdd4f3325f94f11853871e065af7131.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_19,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013860292.png)
+
 
 ### 3.2.2 文本文件输出
 
@@ -552,13 +565,15 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 **1．设置对应的目录和文件名**
 
 **2．设置合适的扩展名，比如txt，csv等**  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/8b8acdb1267c4dc58c48e3a0431a6228.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013894343.png)
+
 
 **3．在内容框里设置合适的分隔符，比如分号，逗号，TAB等**  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3ce7bf581232444680731fc4c66cffea.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013937609.png)
 
 **4．在字段框里获取字段，并且给每个字段设置合适的格式**  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4cf687d3616c4674b559f0658eb26273.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673013963977.png)
+
 
 ### 3.2.3 SQL文件输出
 
@@ -573,7 +588,7 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 4．填写输出文件的路径和文件名
 
 5．扩展名默认为sql，这个不需要更改  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9a3912167d3c4b8695a6ac54af6474af.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014000023.png)
 
 ### 3.2.4 表输出
 
@@ -585,8 +600,10 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 3．如果目标表的表结构和输入的数据结构不一致，还可以自己指定数据库字段
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/51fdfb1e9fba4145beae8d0a693259ee.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/8fd487e3517d4198966bbaef019b76f5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014234899.png)
+  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014293016.png)
+
 
 ### 3.2.5 更新&插入/更新
 
@@ -607,9 +624,9 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 4．输入要更新的字段
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/66cc4b8167dc44b78606f8b33ef797d7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014324581.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/17bc3ac96530432eb51d299bbe23fe52.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014389424.png)
 
 ### 3.2.6 删除
 
@@ -620,16 +637,16 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 2．选择目标表
 
 3．设置数据流跟目标表要删除数据的对应字段  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5d083afd23f74e519643411fca9d1393.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014438461.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/13aab4fb84f14fb6bcc4736a2a52042e.png)
 
 ## 3.3 Kettle转换控件
 
 > 转换控件是转换里面的第四个分类，转换控件也是转换中的第三大控件，用来转换数据。转换是ETL里面的T（Transform），主要做**数据转换，数据清洗**的工作。ETL整个过程中，Transform的工作量最大，耗费的时间也比较久，大概可以占到整个ETL的三分之二。
 
 由于Kettle中自带的转换控件比较多，本文只挑出开发中经常使用的几个转换控件来进行讲解，详情如下图。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/96281769768d4e1784f5a01df3b32758.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014526581.png)
+
 
 ### 3.3.1 Concat fields
 
@@ -638,11 +655,10 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：将staff表的firstname和lastname拼接起来，形成name字段，然后再将数据插入到新表emp中
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/563c3d962a0e4cd0adce4d8328ba31c3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014591865.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ff6d691f6a7f4d3d98ee72f2b1769c8f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/682d824ba8e04b3dbf4060d15fa54321.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014645258.png)
 
 ### 3.3.2 值映射
 
@@ -651,7 +667,7 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：将staff表的sex字段，映射成男or女，然后再插入到emp表中
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/393c733244074fe0adf0b774c615db38.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_13,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014701997.png)
 
 1．选择映射的字段
 
@@ -660,9 +676,11 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 3．可以设置不匹配时的默认值
 
 4．设置映射的值  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/02b50e499c0b4f5f96ce02dac095182a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014737205.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/71f65340b6b846ed8b829c688d8b7df0.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014792311.png)
+
 
 ### 3.3.3 增加常量&增加序列
 
@@ -672,28 +690,26 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 任务：给表staff的数据加一列固定值slary和一个递增的number序列，在控制台预览下数据即可，不用输出
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d93ebcce212b489ab3462729a67aa93f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014842314.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1bdf0381b35e48038b33a37d607fa99c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/7e6336935fa14f31adba0b15ce10fdc0.png)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ac44a7efcf8e4540919871cb163387be.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673014891391.png)
 
 ### 3.3.4 字段选择
 
 > 字段选择是从数据流中选择字段、改变名称、修改数据类型。
 
 任务：在上一章节的转换之后，添加字段选择控件，移除掉firstname字段，并且将lastname重命名为name，将slary重命名为money，然后再次预览数据，查看数据的变化  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ae74e9ee0f21415a82277ba26bf69260.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015379703.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e530e3d73157477eb537de56b064a624.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015511760.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e0e091e319fe418db09efbe6cd78b24a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/686101ef343447b0b42be4acb34e7e18.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015455446.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/95f3d67ed4e1449d9a64dbc595c0b854.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)
+
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015588873.png)
 
 ### 3.3.5 计算器
 
@@ -701,28 +717,33 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 任务：在上一节的任务基础之上，添加计算器控件对money和number字段进行相乘，得出新字段acount，然后预览数据
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6edbca54e539416aa5babccc848642c8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015623738.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1e99137ce0424c63a5c12f64e2d50e26.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015665225.png)
+
 
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2c95bd289e0e4bc2b540575b179ef7f3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015692319.png)
 
 ### 3.3.6 字符串剪切&替换&操作
 
 > 转换控件中有三个关于字符串的控件，分别是剪切字符串，字符串操作，字符串替换
 
 剪切字符串是指定输入流字段裁剪的位置剪切出新的字段  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c756dd16914643b48dba9ef3c4cdbf72.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015717721.png)
 
 字符串替换是指定搜索内容和替换内容，如果输入流的字段匹配上搜索内容就进行替换生成新字段  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f1fb6a5ff6cc48e48701b2555c671bb5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015746616.png)
+
 
 字符串操作是去除字符串两端的空格和大小写切换，并生成新的字段  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/717ac720d3034fb89f205910ed02ad3b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015850251.png)
+
 
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a44c826522ee4b1bb12e7052a6d01525.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673015956392.png)
+
 
 ### 3.3.7 排序记录&去除重复记录
 
@@ -731,23 +752,23 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：利用excel输入控件读取input目录下的06\_去除重复记录.xlsx，然后对里面重复的数据进行按照id排序并去重
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d1a7368d7ace47828cfb1c5583d6ff28.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_11,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f453122e0aef40d5acae08a74d04c12c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/240647bcc0de49a6a0357cb7e0d4e236.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016419942.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016462346.png)
 
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/34e3007247f74f509793552b2f0bd88a.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016502867.png)
 
 ### 3.3.8 唯一行（哈希值）
 
 > 唯一行（哈希值）就是删除数据流重复的行。此控件的效果和（排序记录+去除重复记录）的效果是一样的，但是实现的原理不同。排序记录+去除重复记录对比的是每两行之间的数据，而唯一行（哈希值）是给每一行的数据建立哈希值，通过哈希值来比较数据是否重复，因此唯一行（哈希值）去重效率比较高，也更建议大家使用。
 
 任务：利用唯一行（哈希值）控件对06\_去除重复记录.xlsx去重，并且查看最后输出的数据跟上个任务有何区别  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6ec93b4074c5443c8ee2346ba61f6d11.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016554373.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2e5ac82daedc4f0fbce827ea20b26f54.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)  
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c1cf8a9c822b40ccbbaf423c241f7381.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016589240.png)
 
 ### 3.3.9 拆分字段
 
@@ -756,23 +777,22 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：将拆分字段.xlsx里面的NBA球星的姓名，拆分成姓跟名
 
 文件内容：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/df3f0ba2322649d3b1620fd23e9c4d16.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016641259.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d0547cd4297c416f91af95f36eeef8e9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1def9b927b934777b7f8697ac211f5d8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)  
-执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9dbdf60fc221436daf6825ad4767199f.png)
+执行结果：
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016676148.png)
 
 ### 3.3.10 列拆分为多行
 
 > 列拆分为多行就是把**指定字段**按指定**分隔符**进行拆分为**多行**，然后其他字段直接复制。具体效果如下图：
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016719859.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/fe4190ef364c40f482ed3942de187857.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+
 任务：对08\_列拆分为多行.xlsx的数据按照hobby字段进行拆分为多行，然后将新数据输出到excel文件中，查看数据
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2576a5dc4cd241f0a0a97733e331bdf6.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016770713.png)
+
 
 1．选择要拆分的字段
 
@@ -781,10 +801,10 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 3．设置分割以后的新字段名
 
 4．选择是否输出新数据的排列行号，行号是否重置  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/894faa55f66742259c34ccb027692388.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4f44acddc23a41939b7ae84d4ed61af4.png)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016803046.png)
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/06b6f2fd658f47bdb140f07bbe532f96.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_8,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016857314.png)
 
 ### 3.3.11 行扁平化
 
@@ -799,8 +819,8 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：将09\_行扁平化.xlsx的数据按照hobby字段进行扁平化
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/19b10520f06b4b0f8e50d9d0068dd1e3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_9,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/05de5f1766694a1382e94d7496d596c7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_19,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673017490358.png)
+
 1．选择扁平化的字段
 
 2．填写目标字段，字段个数跟每个分组的数据一致
@@ -809,16 +829,16 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 > 列转行，顾名思义多列转一行，就是如果数据一列有相同的值，按照指定的字段，将其中一列的字段内容变成不同的列，然后把多行数据转换为一行数据的过程。具体效果如下图
 
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673017527113.png)
 ：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/201f2077147d45c1b981660315f0928e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
 注意：列转行之前数据流必须按照分组字段进行排序，否则数据会错乱！
 
 任务：将input目录下的10\_列转行.xlsx的数据进行列转行，熟悉列转行控件的使用
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4a01a6e7252b491a9e8bb87da41fbe67.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_9,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673017751555.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f645f41152b541f3af0a1302b1761bb2.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_19,color_FFFFFF,t_70,g_se,x_16)  
+
 1．关键字段：从数据内容变成列名的字段
 
 2．分组字段：列转行，转变以后的分组字段
@@ -830,9 +850,10 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 5．关键字值：数据字段查询时的关键字，也可以理解为key
 
 6．类型：要给目标字段设置合适的类型，否则会报错  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b1a566b4cd31408ea07e8f72905aba59.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673017845444.png)
+  
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5bfb52459fcd4e5ab0e1c459316566a6.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673017872978.png)
 
 ### 3.3.13 行转列
 
