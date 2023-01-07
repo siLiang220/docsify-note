@@ -1,110 +1,13 @@
----
-created: 2023-01-03T21:30:04 (UTC +08:00)
-tags: [kettle工具]
-source: https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187
-author: 
----
 
 # 大数据ETL开发之图解Kettle工具（入门到精通）
 
 ---
-### 文章目录
-
--   [第0章 ETL简介](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#0_ETL_6)
--   [第1章 Kettle简介](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#1_Kettle_11)
--   -   [1.1 Kettle是什么](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#11_Kettle_12)
-    -   [1.2 Kettle的两种设计](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#12_Kettle_23)
-    -   [1.3 Kettle的核心组件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#13_Kettle_34)
-    -   [1.4 Kettle的特点](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#14_Kettle_42)
--   [第2章 Kettle安装部署](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#2_Kettle_45)
--   -   [2.1 Kettle 下载](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#21_Kettle__46)
-    -   -   [2.1.1 下载地址](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#211__47)
-        -   [2.1.2 Kettle目录说明](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#212_Kettle_56)
-        -   [2.1.2 Kettle 文件说明](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#212_Kettle__59)
-    -   [2.2 Kettle 安装部署](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#22_Kettle__64)
-    -   -   [2.2.1 概述](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#221__66)
-        -   [2.2.2 安装](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#222__69)
-    -   [2.3 Kettle 界面介绍](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#23_Kettle__77)
-    -   -   [2.3.1 主界面](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#231__78)
-        -   [2.3.2 转换](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#232__80)
-        -   [2.3.3 作业](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#233__82)
-    -   [2.4 Kettle转换初次体验](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#24_Kettle_85)
-    -   [2.5 Kettle 核心概念](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#25_Kettle__110)
-    -   -   [2.5.1 可视化编程](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#251__111)
-        -   [2.5.2 转换](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#252__119)
-        -   [2.5.3 步骤](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#253__125)
-        -   [2.5.4 跳（Hop）](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#254_Hop_140)
-        -   [2.5.5 元数据](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#255__148)
-        -   [2.5.6 数据类型](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#256__163)
-        -   [2.5.7 并行](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#257__177)
-        -   [2.5.8 作业](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#258__184)
--   [第3章 Kettle的转换](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#3_Kettle_188)
--   -   [3.1 Kettle输入控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#31_Kettle_189)
-    -   -   [3.1.1 CSV文件输入](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#311_CSV_200)
-        -   [3.1.2 文本文件输入](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#312__226)
-        -   [3.1.3 Excel文件输入](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#313_Excel_250)
-        -   [3.1.4 XML输入](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#314_XML_285)
-        -   [3.1.5 JSON输入](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#315_JSON_321)
-        -   [3.1.6 表输入](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#316__376)
-    -   [3.2 Kettle输出控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#32_Kettle_410)
-    -   -   [3.2.1 Excel输出](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#321_Excel_417)
-        -   [3.2.2 文本文件输出](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#322__429)
-        -   [3.2.3 SQL文件输出](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#323_SQL_448)
-        -   [3.2.4 表输出](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#324__462)
-        -   [3.2.5 更新&插入/更新](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#325__474)
-        -   [3.2.6 删除](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#326__496)
-    -   [3.3 Kettle转换控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#33_Kettle_510)
-    -   -   [3.3.1 Concat fields](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#331_Concat_fields_517)
-        -   [3.3.2 值映射](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#332__531)
-        -   [3.3.3 增加常量&增加序列](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#333__551)
-        -   [3.3.4 字段选择](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#334__568)
-        -   [3.3.5 计算器](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#335__585)
-        -   [3.3.6 字符串剪切&替换&操作](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#336__598)
-        -   [3.3.7 排序记录&去除重复记录](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#337__615)
-        -   [3.3.8 唯一行（哈希值）](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#338__631)
-        -   [3.3.9 拆分字段](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#339__642)
-        -   [3.3.10 列拆分为多行](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#3310__656)
-        -   [3.3.11 行扁平化](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#3311__677)
-        -   [3.3.12 列转行](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#3312__696)
-        -   [3.3.13 行转列](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#3313__725)
-    -   [3.4 Kettle应用控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#34_Kettle_747)
-    -   -   [3.4.1 替换NULL值](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#341_NULL_751)
-        -   [3.4.2 写日志](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#342__768)
-    -   [3.5 Kettle流程控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#35_Kettle_784)
-    -   -   [3.5.1 Switch/case](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#351_Switchcase_788)
-        -   [3 .5.2 过滤记录](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#3_52__809)
-        -   [3.5.3 空操作](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#353__829)
-        -   [3.5.3 中止](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#353__836)
-    -   [3.6 Kettle查询控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#36_Kettle_844)
-    -   -   [3.6.1 数据库查询](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#361__848)
-        -   [3.6.2 流查询](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#362__870)
-    -   [3.7 Kettle连接控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#37_Kettle_887)
-    -   -   [3.7.1 合并记录](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#371__891)
-        -   [3.7.2 记录集连接](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#372__920)
-    -   [3.8Kettle统计控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#38Kettle_947)
-    -   -   [3.8.1 分组](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#381__951)
-        -   [3.9 Kettle映射控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#39_Kettle_967)
-    -   [3.9.1 映射](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#391__971)
-    -   [3.10 Kettle脚本控件](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#310_Kettle_990)
-    -   -   [3.10.1执行SQL脚本](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#3101SQL_994)
--   [第4章 Kettle作业](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#4_Kettle_1005)
--   -   [4.1 作业简介](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#41__1006)
-    -   -   [4.1.1作业项](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#411_1012)
-        -   [4.1.2 作业跳](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#412__1025)
-    -   [4.2 作业初体验](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#42__1039)
--   [第5章 Kettle使用案例](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#5_Kettle_1058)
--   -   [5.1 转换案例](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#51__1059)
-    -   [5.2 作业案例](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#52__1089)
--   [第6章 Kettle资源库](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#6_Kettle_1108)
--   -   [6.1 数据库资源库](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#61__1109)
--   [第7章 Kettle调优](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#7_Kettle_1134)
--   [第八章 案例数据](https://blog.csdn.net/yuan2019035055/article/details/120409547?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167266172116782427482157%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167266172116782427482157&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-120409547-null-null.142^v68^pc_new_rank,201^v4^add_ask,213^v2^t3_esquery_v1&utm_term=kettle&spm=1018.2226.3001.4187#__1169)
 
 ## 第0章 ETL简介
 
 ETL (Extract-Transform-Load 的缩写，即**数据抽取、转换、装载的过程**)，对于企业或行业应用来说，我们经常会遇到各种数据的处理，转换，迁移，所以了解并掌握一种ETL工具的使用，必不可少。
 
-市面上常用的ETL工具有很多，比如Sqoop，DataX, [Kettle](https://so.csdn.net/so/search?q=Kettle&spm=1001.2101.3001.7020), Talend 等，作为一个大数据工程师，我们最好要掌握其中的两到三种，这里我们要学习的ETL工具是Kettle!
+市面上常用的ETL工具有很多，比如Sqoop，DataX, Kettle, Talend 等，作为一个大数据工程师，我们最好要掌握其中的两到三种，这里我们要学习的ETL工具是Kettle!
 
 ## 第1章 Kettle简介
 
@@ -756,7 +659,8 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016462346.png)
 
-执行结果：  
+执行结果：
+	
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016502867.png)
 
 ### 3.3.8 唯一行（哈希值）
@@ -767,7 +671,8 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016554373.png)
 
 
-执行结果：  
+执行结果：
+	
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016589240.png)
 
 ### 3.3.9 拆分字段
@@ -780,6 +685,7 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016641259.png)
 
 执行结果：
+	
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016676148.png)
 
 ### 3.3.10 列拆分为多行
@@ -804,6 +710,7 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016803046.png)
 
 执行结果：  
+	
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673016857314.png)
 
 ### 3.3.11 行扁平化
@@ -852,19 +759,21 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 6．类型：要给目标字段设置合适的类型，否则会报错  
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673017845444.png)
   
-执行结果：  
+执行结果： 
+	
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673017872978.png)
 
 ### 3.3.13 行转列
 
 > 行转列，一行转多列，就是把数据字段的字段名转换为一列，把**数据行**变为**数据列**。我们也可以简单理解为**行转列控件是列转行控件的逆向操作**。具体如下图：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/47e57f78b773452aa9d9c74a5057fb06.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065412422.png)
+  
 任务：将行转列.xlsx用excel控件输入，然后行转列，熟悉行转列控件的使用。
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5a487b83476549b9a8d46ed460bd54ec.png)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c8615eda8aac4235a0a6f03afc38322d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_19,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065505666.png)
+
 1．Key字段：行转列，生成的列名字段名
 
 2．字段名称：原本数据流中的字段名
@@ -873,9 +782,11 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 4．Value字段：对应的Key值的数据列的列名
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/96c734ea0feb4629a63de55f769d3302.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065679541.png)
+
+  
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/7ee2c24537dd43ea945a472c19535761.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065709238.png)
 
 ## 3.4 Kettle应用控件
 
@@ -892,12 +803,13 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：替换excel数据12\_替换NULL值.xlsx的bonus列的null值为0
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/71f42b104f0440aa866a20f844e42b5d.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065795377.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/328684d5fd4e43d1a630603776639979.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)![在这里插入图片描述](https://img-blog.csdnimg.cn/8c8022734f1c40d99aec2bdab1c6c26e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_13,color_FFFFFF,t_70,g_se,x_16)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8c8022734f1c40d99aec2bdab1c6c26e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_13,color_FFFFFF,t_70,g_se,x_16)
 
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/70c723a13fc7466ca2384fab0e9fdb66.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_9,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065885634.png)
+
 
 ### 3.4.2 写日志
 
@@ -910,10 +822,11 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 3．选择要输出打印的字段
 
 任务：在上个任务的基础之上，添加写日志控件，在控制台输出查看数据  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/8578d6c18a7a49b483ed94be25239660.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)  
-执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/10f223435e514b408b929b3d8e0fbc89.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6b0ed11e12db4cbba3866c0f594062d3.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065977528.png)
+
+执行结果：    
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066087134.png)
+
 
 ## 3.5 Kettle流程控件
 
@@ -926,18 +839,20 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：将excel：13\_Switch-Case.xlsx的数据按照部门字段进行分类，将同一个部门的数据输出到一个excel中
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/7e02969270cb468a9da1dcc628cc444e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066313004.png)
+
 
 1．选择需要判断的字段
 
 2．选择判断字段的值的类型
 
 3．填写分类数据的判断条件和目标步骤  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5b926139497b48efa52f6f31a036dd74.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/de95231f50a644fea9a58eca932188db.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066415276.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066446121.png)
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1818e3d456b1424f926f7d382bcf5b0e.png)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/49aff910546844fb858d256719b775c1.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066491860.png)
 
 ### 3 .5.2 过滤记录
 
@@ -946,34 +861,33 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：将数据按照工资字段进行判断，将工资在20000及以上的数据输出到一个excel中，将工资小于20000的输出到另外一个excel中
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/edad7b61ea4d4f3caf6316fcabdf85d3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066606585.png)
+
 
 1.在下面先填写数据的判断条件
 
 2.然后再上面选择下判断条件为true或者false的输出步骤  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/bf77baf1c46f480a847b35d8b7fdf354.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)![在这里插入图片描述](https://img-blog.csdnimg.cn/3908aad4357b49c081d59d7ed4ab07ac.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066772526.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/88f4793ff76f4f2286a721e19fec4929.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066836757.png)
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/97697ddd04c5465da02c31e37790847e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_13,color_FFFFFF,t_70,g_se,x_16)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9263d34c88744a72824a7a2a26f5f27e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_13,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066910526.png)
 
 ### 3.5.3 空操作
 
 > 空操作，顾名思义就是什么也不做，此控件一般作为数据流的终点。
 
 任务：修改上节的转换任务，将工资大于等于20000的数据输出，小于20000的数据直接丢弃，熟悉空操作控件的使用。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3c66dc32cbc54dd2bafd952a5444a6fa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)![在这里插入图片描述](https://img-blog.csdnimg.cn/f88216f653ba43e1b47e7ca5f327bc43.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673066994196.png)
+
 
 ### 3.5.3 中止
 
 > 中止是数据流的终点，如果有数据流到此控件处，整个转换程序将中止，并且在控制台输出报错信息。此控件一般用来**校验数据**，或者**调试程序**。
 
 任务：使用中止控件判断上节任务中是否有人的工资低于20000，如果发现有人的工资低于20000的话，中止程序，并在控制台输出信息。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/df1dd05749044f8ba5349f37b1ed1823.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_10,color_FFFFFF,t_70,g_se,x_16)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ebc33ee3e7894dfcae4b158a132077ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067048891.png)
 
 ## 3.6 Kettle查询控件
 
@@ -986,8 +900,7 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：利用表输入控件获取到staff表的数据，然后利用数据库查询控件查询到department表的数据，然后对两个表按照dept\_id字段进行左连接，并预览数据
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b29cc51fc3a64d988ed038bc47546804.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d80036b8edf349a591a0eec14a23777f.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067129931.png)
 
 1.选择合适的数据库链接
 
@@ -997,10 +910,12 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 4.获取返回字段，得到查询表返回的值
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/001176d505c740849e9f78185fc9bb04.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_19,color_FFFFFF,t_70,g_se,x_16)![在这里插入图片描述](https://img-blog.csdnimg.cn/e64129dbf6c744ed9ab22d725cdb9293.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067214829.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067255629.png)
 
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/741a443d501441d197772e1413b41f66.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067304871.png)
 
 ### 3.6.2 流查询
 
@@ -1013,11 +928,12 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 2.输入两个流进行匹配的字段（等值匹配）
 
 3.输入查询出的字段  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e76681d9e86040b781f8a776a92669da.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9e3f7c650a2841a4a2308bb132c98864.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067372496.png)
+
 
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2272af8f7977492b9f5090154d45d6cb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067403892.png)
+
 
 ## 3.7 Kettle连接控件
 
@@ -1031,9 +947,11 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：利用合并记录控件比较合并记录-新旧excel的数据，并预览数据，查看标志字段的内容
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c0590da9c71f4e50be2d55b60d61840f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067571129.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/47a34fe95c414e3f94f55b03520202c7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067599093.png)
+
+
 1.旧数据源：选择旧数据来源的步骤
 
 2.新数据源：选择新数据来源的步骤
@@ -1048,9 +966,11 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 4.关键字段：用于定位判断两个数据源中的同一条记录的字段。
 
 5.比较字段：对于两个数据源中的同一条记录，指定需要比较的字段  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/fcfb780ce4c445c9a1e8fab1971212ae.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067687111.png)
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9509069865254f0fb11d41a3c8404a2a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_13,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067749234.png)
+
 
 ### 3.7.2 记录集连接
 
@@ -1059,24 +979,25 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：使用记录集连接控件对数据库表satff和department按照部门id分别进行内连接，左连接，右连接，外连接，查看数据的不同
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/280e2bbd2d12409ea9e9a4adbeee7efa.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067886851.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ef5c3b749fdc41f094229f75c47b7245.png)
 
 注意：两个表进行排序记录的时候，排序的字段一定要选择部门id，否则数据会不正确  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/43231ae325ca4d75bc0602d4694d26f3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067937044.png)
+  
 1.选择需要连接的两个数据流的步骤
 
 2.选择连接类型，一共有四个：INNER，LEFT OUTER，RIGHT OUTER，FULL OUTER
 
 3.从两个数据流步骤里面选出连接字段  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/34bb3288f3724caf8cb9d9977ebcfc91.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6ff5c726ac41408b9f892814fcad389b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673067982756.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/acca1b14d48c4ac88d684e3217fa1682.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ccbbe9c2f95f422584cad37a1b013c89.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4b9d7185def944ee840b1e3d3616d101.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+执行结果：  
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068068052.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068106944.png)
+
 
 ## 3.8Kettle统计控件
 
@@ -1089,14 +1010,17 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 任务：给表staff的数据按照部门进行分组，求出各部门人数以及各部门员工的平均年龄。
 
 原始数据：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/735d6b5a0b5e4889857c7b7b32e54233.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b3df201a9e0949ae861860c9be667660.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)  
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068163389.png)
+
 1.选择分组字段
 
 2.给其余字段选择合适的聚合函数进行计算  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3bae376b1a8b438eb44d71e711839bf9.png)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068208804.png)
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c297558a8c1446eda62ea028c71c819f.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068271949.png)
+
 
 ### 3.9 Kettle映射控件
 
@@ -1106,21 +1030,25 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 > 映射（子转换）是用来配置子转换，**对子转换进行调用**的一个步骤。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4302a746d0494fbcb7ae01821e19019c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068535399.png)
+ 
 映射输入规范是输入字段，由调用的转换输入。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b4aa7436656b4713878302993899ffd0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068575184.png)
+ 
 映射输出规范是向调用的转换输出所有列，不做任何处理  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ab550717ab124ecbb1a6b39ce25550e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068625018.png)
+
 任务：封装一个子转换能够通过dept\_id求出dept\_name，然后使用另外一个转换调用此子转换，求出数据库staff表id=3的员工的姓名，年龄，部门id，部门姓名，并输出到控制台。
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068666465.png)
+  
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6ee7b78fcfbb4676a5379cb9541936b8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_14,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3958ea0a2bda4c7eb3cfc4d41a44d188.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_14,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/41bae4aeac104c51bed0c8833acb0d8c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/47244023108642b8892491f99ba09f4f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068791777.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/57b0b762020a4581bf47d0d61bbf64d2.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068836456.png)
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5b54ca32c14b4a62bf6bdf4ef7790c95.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673068873731.png)
+
 
 ## 3.10 Kettle脚本控件
 
@@ -1132,7 +1060,8 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 任务：利用执行sql脚本控件将student表数据的atguigu的年龄更新为18
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/cf47f781b4944b309bc3288bc06e08e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069212056.png)
+  
 1.选择合适的数据库连接
 
 2.填入要执行的sql语句
@@ -1166,11 +1095,14 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 **作业跳一共分为下面三种情况：**
 
 ①无条件执行：不论上一个作业项执行成功还是失败，下一个作业项都会执行。这是一种蓝色的连接线，上面有一个锁的图标。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/0b3bcad134c841bfbe50f2bb29575e10.png)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069258820.png)
+  
 ②当运行结果为真时执行：当上一个作业项的执行结果为真时，执行下一个作业项。通常在需要无错误执行的情况下使用。这是一种绿色的连接线，上面有一个对钩号的图标。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ed29caa796124aba8289cc718465ae32.png)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069278956.png)
+
 ③当运行结果为假时执行：当上一个作业项的执行结果为假或者没有成功执行是，执行下一个作业项。这是一种红色的连接线，上面有一个红色的停止图标。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b872d7c731354b8f906f069eaa6199d5.png)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069309784.png)
+ 
 在图标上单击就可以对跳进行设置。
 
 ## 4.2 作业初体验
@@ -1178,20 +1110,27 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 作业案例：将3.10.1章节的转换嵌入作业中执行，执行成功或者失败都发送邮件提醒
 
 1）点击左上角的文件，新建一个作业  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/668174ca9bd54e2ca9ff1147ccda7d21.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069343828.png)
+
 2）按照下图设置作业项和作业跳  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e021885077b545078a274ecd2ba348f0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069380220.png)
+
 
 3）转换作业项设置，选择要嵌入的转换文件  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2a0127525c63482cb616161e9dece679.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069432792.png)
+
 
 4）发送邮件作业项设置  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ebd852b486834d76b66b3c6971c6dfce.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1bb3c34c9c7c43c0913c23714028d724.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-5）分别尝试作业执行成功和失败，查看kettle发送的邮件信息  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ab278e444c184126b40ab82b41a02625.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069467861.png)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6c50817000c64cadb6b3b4e86ca5ff2d.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069510072.png)
+  
+5）分别尝试作业执行成功和失败，查看kettle发送的邮件信息  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069543994.png)
+
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/utools_6c50817000c64cadb6b3b4e86ca5ff2d.png)
+
 
 ## 第5章 Kettle使用案例
 
@@ -1201,7 +1140,7 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 
 (1) 在mysql中创建两张表
 
-```
+```sql
 mysql> create database kettle;
 mysql> use kettle;
 mysql> create table stu1(id int,name varchar(20),age int);
@@ -1210,44 +1149,59 @@ mysql> create table stu2(id int,name varchar(20));
 
 (2) 往两张表中插入一些数据
 
-```
+```sql
 mysql> insert into stu1 values(1001,'zhangsan',20),(1002,'lisi',18), (1003,'wangwu',23);
 mysql> insert into stu2 values(1001,'wukong');
 ```
 
 (3) 在kettle中新建转换  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/654ef8b9522f407f94f97eef438ab650.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_18,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069666459.png)
+
 (4) 分别在输入和输出中拉出表输入和插入/更新  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d6a140af40de4e1fb3e2c558eaa0bdec.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069715531.png)
+  
 (5) 双击表输入对象，填写相关配置，测试是否成功  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/832b9147d67540ba85df32771baeff84.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069752855.png)
+
 (6) 双击 更新/插入对象，填写相关配置  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/23f45443669a489bbb7a952bbc9fb4f1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069844120.png)
+
 (7) 保存转换，启动运行，去mysql表查看结果  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/cd93c9c8b6fc4ac196c4c1dda2a23cd0.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069892780.png)
+
 执行结果：  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e863271ce0f24c75a21d2b26f9b54f94.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069919772.png)
 
 ## 5.2 作业案例
 
 案例二：使用作业执行上述转换，并且额外在表stu2中添加一条数据，整个作业运行成功的话发邮件提醒
 
 (1)新建一个作业  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/121f31158970411bacf979e0da426b07.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069966276.png)
+
 (2) 按图示拉取组件  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d176579dedfc45c8a8523cd6a0f8d6b5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673069997395.png)
+  
 (3) 双击Start编辑Start  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/61f33f4fdc1945d18644025df2ac4bb7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_13,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070052370.png)
+ 
 (4) 双击转换，选择案例1保存的文件  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5fe48ce0a32a4d65b583dbc075ed54c8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_19,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070083087.png)
+
 (5) 双击SQL，编辑SQL语句  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9f17b49924444084aad2ec6bc0548269.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070274694.png)
+ 
 (6) 双击发送邮件，编辑发送邮件的设置信息  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/08df3158fa2c48ceacc2fd7374bc5457.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/29ce188eaedc4e638a1db36fe4fa1b86.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_15,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070316278.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070402876.png)
+
 (7) 保存作业并执行，然后去mysql查看结果和邮件信息  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/46f67796cfa04067b428cefc23150a60.png)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/874ff3795b804df4854a5ff7df6bc359.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070440828.png)
+
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/utools_874ff3795b804df4854a5ff7df6bc359.png)
+
 
 ## 第6章 Kettle资源库
 
@@ -1256,31 +1210,42 @@ mysql> insert into stu2 values(1001,'wukong');
 > 数据库资源库是将作业和转换相关的信息存储在数据库中，执行的时候直接去数据库读取信息，很容易跨平台使用
 
 1）点击右上角connect，选择Other Resporitory  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/9813183894af4e45a6f86867f7ad689c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070510339.png)
+
 2) 选择Database Repository  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/630c09746c874166adabfb434f9fec82.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070681385.png)
+
 3) 建立新连接  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a480b679dd034f39859070c90e6b2abf.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_17,color_FFFFFF,t_70,g_se,x_16)  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/828b17dddae646e5a4eb6d3f62b3ae55.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070732702.png)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070780233.png)
+
 4) 填好之后，点击finish，会在指定的库中创建很多表，至此数据库资源库创建完成  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3e25074cd2ed47a4bb083e24b5a8a362.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673070821928.png)
+
 5) 连接资源库，默认账号密码为admin  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/c89796c89a414fd2ac8e19aa8000e7b6.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_16,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673071056888.png)
+
 6) 将之前做过的转换导入资源库
 
 (1)选择从xml文件导入  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6d2a5769716b468e92ce28ed76d05a05.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_11,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673071519099.png)
+
 (2)随便选择一个转换  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/b9f80893ae8c48ab8387efb4bfe72d36.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673071702403.png)
+
 (3)点击保存，选择存储位置及文件名  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/cd39554cdaaa4956a66465008e9de47a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673071744986.png)
+
 (4)打开资源库查看保存结果  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/0e583a33f8f14d3f8cbe343fca014aaf.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5aSn5pWw5o2uX-Wwj-iigQ==,size_20,color_FFFFFF,t_70,g_se,x_16)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673071833571.png)
+
 
 ## 第7章 Kettle调优
 
 1、调整JVM大小进行性能优化，修改Kettle根目录下的Spoon脚本。  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a998f159df3e4d59afe5ca07e753a8af.png)  
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673071865269.png)
+
 参数参考：
 
 \-Xmx2048m：设置JVM最大可用内存为2048M。
@@ -1317,4 +1282,4 @@ mysql> insert into stu2 values(1001,'wukong');
 
 **案例数据下载地址**：[https://pan.baidu.com/s/1\_lzc93xprEaJt6IyflxcZg?pwd=ydao](https://pan.baidu.com/s/1_lzc93xprEaJt6IyflxcZg?pwd=ydao)，提取码：ydao
 
-> 本文根据尚硅谷视频学习写的博客笔记，如有侵权联系删除
+> 本文根据尚硅谷视频及CSDN收集，如有侵权请联系删除

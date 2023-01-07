@@ -4,131 +4,69 @@
     "type": "split",
     "children": [
       {
-        "id": "41d339080ec33ceb",
+        "id": "9034b6ba6bfc690b",
         "type": "tabs",
         "children": [
           {
-            "id": "56fd904002dd938b",
+            "id": "290c21db698c739f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/java/《java8中文指南》.md",
+                "file": "docs/中台/数据中台.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "24894830df09d111",
+            "id": "c913e8ec8c74d5e4",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.1.9"
+              }
+            }
+          },
+          {
+            "id": "71976db1de04baad",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Distributed/README.md",
+                "file": "docs/BigData/Kettle/README.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "0bdbfae1016a35cc",
+            "id": "9d6eab11b18f0ea5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/java/并发编程/_sidebar.md",
+                "file": "docs/BigData/Kettle/Kettle.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "2a91e211e1159585",
+            "id": "7859896a058cbc66",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Docker/Docker杂记.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "542c117f6755ef88",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/java/并发编程/Java线程池.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "08411de6ce578998",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/DataBase/MySQL/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "4986e08afb9b394d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/Distributed/README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "c39e6eba94d5534c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/Distributed/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "305a24c5e2488373",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9559f037f0d4926c",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/README.md",
+                "file": "docs/BigData/Kettle/README.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 9
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -186,7 +124,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/README.md",
+                "file": "docs/BigData/Kettle/Kettle.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -203,7 +141,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/README.md"
+                "file": "docs/BigData/Kettle/Kettle.md"
               }
             }
           },
@@ -232,17 +170,17 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "9559f037f0d4926c",
+  "active": "9d6eab11b18f0ea5",
   "lastOpenFiles": [
-    "docs/_sidebar.md",
+    "docs/BigData/Kettle/README.md",
+    "docs/BigData/离线数仓/README.md",
+    "docs/BigData/Kettle/_sidebar.md",
+    "docs/BigData/Hive/_sidebar.md",
+    "docs/BigData/README.md",
+    "docs/BigData/_sidebar.md",
+    "docs/BigData/Hive/README.md",
+    "docs/BigData/Kettle/Kettle.md",
     "docs/Distributed/README.md",
-    "docs/Distributed/CAP.md",
-    "docs/Distributed/_sidebar.md",
-    "docs/DataBase/README.md",
-    "docs/DataBase/_sidebar.md",
-    "docs/DataBase/MySQL/_sidebar.md",
-    "docs/DataBase/MySQL/README.md",
-    "docs/DataBase/MySQL/常用SQL技巧.md",
-    "docs/DataBase/MySQL/MySQL批量插入优化.md"
+    "docs/Docker/Docker杂记.md"
   ]
 }
