@@ -8,7 +8,8 @@
 
 持续集成Continuous integration（CI）是一种软件开发实践，即团队开发成员经常集成他们的工作，通常每个成员至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试）来验证，从而尽快地发现集成错误。许多团队发现这个过程可以大大减少集成的问题，让团队能够更快的开发内聚的软件。
 
-![image-20220818115226144](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F5054468486d06c7d132320a15db6afe9.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/5054468486d06c7d132320a15db6afe9.png)
+
 
 ### 1.2 持续集成的原则
 
@@ -38,7 +39,8 @@ Jenkins官网：https://www.jenkins.io/
 
 ### 2.2 Jenkins自动化部署实现原理
 
-![image-20220818115255514](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F82a45194256a354e111a7382b40006de.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/82a45194256a354e111a7382b40006de.png)
+
 
 ## 3 Jenkins部署环境
 
@@ -323,7 +325,8 @@ EOF
 
 > 打开浏览器，访问：http://192.168.3.6
 
-![image-20220817131424838](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Febdef5949d51aed85c2695a61d7e8c10.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/ebdef5949d51aed85c2695a61d7e8c10.png)
+
 
 ```markdown
 - 当首次运行出现502错误的时候,排查两个原因：
@@ -333,7 +336,8 @@ EOF
 
 > 登录极狐GitLab
 
-![image-20220817131714932](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fca27455f5d4307854095f75429460131.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/ca27455f5d4307854095f75429460131.png)
+
 
 查看root用户密码:
 
@@ -358,13 +362,15 @@ Password: emhRJuC33vCea41OmIojD+ZZ7nWT8DxNS68oXCrT0wc=
 
 在极狐GitLab登录页面上，输入用户名和密码，单击_登录_，登录至极狐GitLab。
 
-![image-20220817132625479](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fb5590f17874dba7a45c8a0633286b24d.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/b5590f17874dba7a45c8a0633286b24d.png)
+
 
 > 修改GitLab帐户密码
 
 单击_个人中心 >> 编辑个人资料 >> 密码_，更改administrator密码。
 
-![image-20220817133344545](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F82de9f98e7009d8c832af97e740cbcb4.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/82de9f98e7009d8c832af97e740cbcb4.png)
+
 
 #### 3.1.3 GitLab常用命令
 
@@ -382,65 +388,74 @@ gitlab-ctl tail                   # 查看日志
 
 登录到GitLab。
 
-![image-20220819115819721](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F7142b85f63e2cb4c59b2f60790faf984.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/7142b85f63e2cb4c59b2f60790faf984%20(1).png)
+
 
 点击新建项目，进入创建新项目界面。
 
-![image-20220819115857488](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F32f92e67eaf670c05ac9d40f7edf37a5.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/32f92e67eaf670c05ac9d40f7edf37a5%20(1).png)
+
 
 点击创建空白项目，填写相关信息。
 
-![image-20220819115952589](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F791d4d39d03a9c3f20d37d249fa222ec.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/791d4d39d03a9c3f20d37d249fa222ec.png)
+
 
 #### 3.1.5 IDEA集成GitLab
 
 -   在IDEA的Settings >> Plugins中，检查GitLab插件是否安装。
 
-![image-20220819103431065](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Ff931228bddc9ceca2cc6604a0fca7c3a.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/f931228bddc9ceca2cc6604a0fca7c3a.png)
+
 
 -   打开IDEA菜单栏：VCS >> Create Git Repository。
 
-![image-20220819103923360](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fe121caebf8d39d31353b9f9117d16ace.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/e121caebf8d39d31353b9f9117d16ace.png)
+
 
 Create Git Repository弹出框，项目目录最好不要改变。
 
 点击Ok后，项目目录下多了一个.git隐藏文件夹。
 
-![image-20220819104459402](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F67f6a88c68e6ce80ddfda944952e72c9.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/67f6a88c68e6ce80ddfda944952e72c9.png)
+
 
 这个时候选中项目右键，多出一个git菜单。
 
 -   执行git >> Add操作，图标由红色变成绿色。
 
-![image-20220819104735226](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fef423753d281a0d91d0c2d705aee453a.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/ef423753d281a0d91d0c2d705aee453a.png)
 
-![image-20220819104812195](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F85900dcdc0ce83e50c64e01730cd112e.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/85900dcdc0ce83e50c64e01730cd112e.png)
+
 
 -   执行git >> commit操作。
 
-![image-20220819104948347](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F18f12d0811b5d71dda31a15e6afdb082.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/18f12d0811b5d71dda31a15e6afdb082.png)
 
-![image-20220819105059339](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fe1cc4cf564c54a3c54cc2ccb36e5cee0.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/e1cc4cf564c54a3c54cc2ccb36e5cee0.png)
+
 
 commit后，图标由绿色变成黑色。
 
-![image-20220819105250384](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F12b7fff39a5b06f0ad5c41920c728661.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/12b7fff39a5b06f0ad5c41920c728661.png)
+
 
 -   执行git >> push操作。
 
-![image-20220819110307202](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F4a6a31ffaa39f6e0301946230608c9ac.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
 第一次push需要配置：
 
-![image-20220819110501012](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fe30d955301005b5315d84b6166be5560.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
 点击Define remote，并把GitLab服务器上project的http地址复制到URL。
 
-![image-20220819110630104](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Feec5320d24a8b117e4aea4403ace02e2.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/eec5320d24a8b117e4aea4403ace02e2.png)
+
 
 点击Ok后，执行push操作，将代码push到远程GitLab仓库上。
 
-![image-20220819110744341](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F547bd77ffb744bd95f5290fcca31b120.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
 IDEA报错了：
 
@@ -535,6 +550,8 @@ export PATH=${JAVA_HOME}/bin:$PATH
 ```
 
 > 下载Jenkins并将jenkins.war上传至所在服务器/home/appop目录下
+
+[jenkins下载地址](https://get.jenkins.io/war-stable/)
 
 ```shell
 1.下载jenkins.war安装包
@@ -1102,7 +1119,7 @@ running
 
 ### 4.1 _Global Tool Configuration (全局工具配置 )_
 
-**Global Tool Configuration (全局工具配置 )**主要对一些常用工具的名称、版本、路径和配置文件进行设定。
+**Global Tool Configuration (全局工具配置 )** 主要对一些常用工具的名称、版本、路径和配置文件进行设定。
 
 在面板左侧的导航栏中点击“系统管理”，进入到“管理Jenkins”界面，选择界面中的System Configuration —> Global Tool Configuration后进入到“全局工具配置”界面，依次对Maven配置、JDK、Git、Maven等进行配置。
 
@@ -1318,7 +1335,7 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 # 几种构建方式：
 
 - 快照依赖构建/Build whenever a SNAPSHOT dependency is built
-  - 当依赖的快照被构建时执行本job
+  - 如果是使用相同的POM文件，则使用之前的依赖快照构建执行本job
   
 - 触发远程构建 (例如,使用脚本)
   - 远程调用本job的restapi时执行本job
@@ -1437,7 +1454,7 @@ H(40-48) 3-5 * * 1-6        在40~48之间取值 其他同上
 
 ```markdown
 在“Send files or execute commands over SSH”模块中，设置“Exec command”选项：./clean.sh demo
-
+  
 clean.sh脚本文件在Tomcat服务器上创建，具体如下：
 
 #!/bin/bash
@@ -1539,6 +1556,37 @@ nohup java -jar /home/appop/xxoo/demo*.jar >mylog.log 2>&1 &
 输出命令时一定要注意不要让窗口卡主，不然Jenkins会认为一直没完成。
 
 ![image-20220818181552901](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fb03554d41960ea2912cfc702c338d55c.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+
+> Execute shell配置
+
+该方式可以直接部署本地服务
+
+```shell
+#!/bin/bash 
+#export BUILD_ID=dontKillMe这一句很重要，这样指定了，项目启动之后才不会被Jenkins杀掉。
+
+export BUILD_ID=dontKillMe
+
+
+#执行jar包的路径
+jar_path=/kkx/service/       
+
+
+#Jenkins中编译好的jar名称
+jar_name=jeecg-system-start-3.4.4.jar
+
+#获取并杀掉以前的进程
+ps aux|grep ${jar_name}|grep -v grep|awk '{print $2}'|xargs kill -9
+
+# 复制jar 包到指定目录执行
+cp -rf ${WORKSPACE}/jeecg-module-system/jeecg-system-start/target/*.jar ${jar_path}
+
+#进入指定的编译好的jar的位置
+cd  ${jar_path}
+
+#启动jar，后台启动
+nohup java -jar ${jar_name} &
+```
 
 ### 5.8 构建后操作
 
