@@ -591,11 +591,13 @@ running
 
 打开浏览器，访问 `http://192.168.3.3:8080`，并等待 **解锁 Jenkins** 页面出现。
 
-![image-20220816213242392](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fa5aff562d523e5a9c6cdf4878a6a43df.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/a5aff562d523e5a9c6cdf4878a6a43df.png)
+
 
 在 **解锁Jenkins** 页面上，将此 **密码** 粘贴到管理员密码字段中，然后单击 **继续** 。
 
-![image-20220817163548936](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F0e43ef82841b569693f124b6153c11c9.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/0e43ef82841b569693f124b6153c11c9.png)
+
 
 从Jenkins控制台日志输出中，复制自动生成的字母数字密码（在两组*之间）：
 
@@ -623,23 +625,26 @@ This may also be found at: /home/appop/.jenkins/secrets/initialAdminPassword
 -   **安装建议的插件** - 安装推荐的一组插件，这些插件基于最常见的用例.
 -   **选择要安装的插件** - 选择安装的插件集。当你第一次访问插件选择页面时，默认选择建议的插件。
 
-![image-20220816215945417](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Ffece700b29db6079013a132556470420.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/fece700b29db6079013a132556470420.png)
+
 
 选择"安装Jenkins社区推荐的插件"。
 
-![image-20220816221154181](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F976b4a9537815f537fa2681f34e8389d.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/976b4a9537815f537fa2681f34e8389d.png)
+
 
 jenkins插件安装完成后，Jenkins要求我们创建第一个管理员账户。填入相关信息，并单击 **保存并完成** 按钮，Jenkins即可初始化完成。
 
-![image-20220816221507438](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F4982f61fb3c16882c0c52a87733e3088.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/c2b8c726d9ea175374e05f7a38d82f72.png)
 
-![image-20220816221607163](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fc2b8c726d9ea175374e05f7a38d82f72.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
-![image-20220816221714224](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fa8749ebf714c51561f6588668974573a.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/a8749ebf714c51561f6588668974573a.png)
+
 
 当 **Jenkins已就绪！** 出现时，单击**开始使用 Jenkins**。
 
-![image-20220816221821162](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F27552834a6cfbd3928534122c00fd947.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/27552834a6cfbd3928534122c00fd947.png)
+
 
 #### 3.2.3 Maven安装
 
@@ -958,14 +963,14 @@ under the License.
 
 在Linux/Centos服务器上，如果使用的git版本过低，使用的时候可能会由于低版本不支持遇到各种问题。部署Gitlab+Maven+Jenkins持续集成环境，在Jenkins中新建项目的源码管理"Repository URL"中添加git地址环节出现了问题，信息为"**Failed to connect to repository : Error performing command: git ls-remote -h http://×××××××××.git HEAD**"。
 
-原因分析：**这是由于没有安装git，网上说是git客户端版本过低造成的！**
+原因分析：**这是由于没有安装git或git 账号密码错误，网上说是git客户端版本过低造成的！**
 
 **一. 安装git后重试**
 ```shell
 yum install -y git
 ```
 
-**二.使用网上的办法更新git（该方法应该没有什么用）**
+**二.使用网上的办法更新git（[git安装](/CICD/Git.md)）**
 Jenkins本机默认使用"yum install -y git" 安装的git版本比较低，应该自行安装更高版本的git。
 
 > 更新yum源
@@ -1102,17 +1107,16 @@ running
 
 > 打开浏览器，访问：http://192.168.3.8:8080/
 
-![image-20220817213153629](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F91abe3b452ca49dd4bfe84fb4c7dae26.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/91abe3b452ca49dd4bfe84fb4c7dae26.png)
+
 
 ### 3.4 邮箱授权码
 
 在Jenkins设置**邮件提醒**前，需先获取邮箱授权码。这里使用163邮箱：
 
-![image-20220821130936415](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F2c3103064ca8c33424deb275d34b245b.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
-
 登录163邮箱后，在"设置"找到"POP3/SMTP/IMAP"，开启SMTP服务。  
 使用手机扫描二维码快速发送短信，然后点击“我已发送”进行验证。  
-![image-20220821130819600](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F427117578775daa80413ba383b31a830.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)  
+
 成功开启SMTP服务，在第三方客户端登录时，登录密码输入以下授权密码。
 
 ## 4 Jenkins 配置
@@ -1135,27 +1139,31 @@ User Maven Settings — ${user.HOME}/.m2/settings.xml。
 
 如果两个文件都存在，会对内容进行合并，优先应用当前目录下settings.xml中的设定。
 
-![image-20220817174139996](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F566558f183619786070bd4f31a0a945e.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/566558f183619786070bd4f31a0a945e.png)
+
 
 #### 4.1.2 **JDK**
 
 如果已经安装过JDK，这里需要配置JDK的JAVA_HOME。
 
-![image-20220817174307143](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F0b682f8a3ca82aa05095a426d196ab50.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/0b682f8a3ca82aa05095a426d196ab50.png)
+
 
 #### 4.1.3 **Git**
 
 Git的配置也很重要，因为大多数的任务都要获取Git仓库中的代码，所以这里需要配置Git的执行路径。
 
-![image-20220817174414625](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Ff04795501817f61880710dd69f9f7d20.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/f04795501817f61880710dd69f9f7d20.png)
 
-注：git的安装目录获取方式：whereis git ，要精确到 /bin/git。
+
+注：git的安装目录获取方式：whereis git ，也直接git也可。
 
 #### 4.1.4 **Maven**
 
 主要用于配置Maven的主目录，可以添加多个，用Name来区分。如果系统中已经安装Maven，这里直接填写MAVEN_HOME对应的路径，Jenkins会在Master节点上进行检查，查看该目录是否有效。
 
-![image-20220817174602994](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F09df1cce7b4d30c8df4bfe5941b580fa.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/09df1cce7b4d30c8df4bfe5941b580fa.png)
+
 
 ### 4.2 _Manager Plugin（插件管理）_
 
@@ -1182,21 +1190,19 @@ Jenkins提供了大量的插件，这些插件使Jenkins能实现很多复杂的
 
 进入 Manage Jenkins >> Manage Plugins 中，单击“可选插件”选项卡，在输入框中填写需要安装的插件名字_Maven Integration_。
 
-![image-20220817215011959](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fd747c8fa89ee314fe45c479125a8acff.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/d747c8fa89ee314fe45c479125a8acff.png)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/94d64c4ded7ae4611699f0bd74036b66.png)
 
-![image-20220818214140891](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F94d64c4ded7ae4611699f0bd74036b66.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
 安装好`Maven Integration`插件，在新建Item时，才有"构建一个maven项目"选项，可用于Maven项目创建。
 
-![image-20220817000254537](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50147c9de45da414bbefc6f5868067d9.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/50147c9de45da414bbefc6f5868067d9.png)
+
 
 #### 4.2.2 安装`Publish over SSH`插件
 
 进入 Manage Jenkins >> Manage Plugins 中，单击“可选插件”选项卡，在输入框中填写需要安装的插件名字_Publish over SSH_。
-
-![image-20220817215011959](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F333a87591ebdb79ee3ed336921c3f096.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
-
-![image-20220817215114040](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F154a3a9b15654ec6b03889c0b83d923c.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/154a3a9b15654ec6b03889c0b83d923c.png)
 
 安装好`Publish over SSH`插件，可用于远程服务器发布，将编译生成的jar、war等文件推送到远程服务器中指定的目录。
 
@@ -1204,9 +1210,7 @@ Jenkins提供了大量的插件，这些插件使Jenkins能实现很多复杂的
 
 进入 Manage Jenkins >> Manage Plugins 中，单击“可选插件”选项卡，在输入框中填写需要安装的插件名字_Build Authorization Token Root_。
 
-![image-20220817215011959](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fa99206f8c7908ca3608198038381e792.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
-
-![image-20220818224105168](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F8aed71a2457171dbb6f6984172c0d82d.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/8aed71a2457171dbb6f6984172c0d82d.png)
 
 安装好`Publish over SSH`插件，可用于匿名构建，如：GitLab钩子自动构建项目。
 
@@ -1214,25 +1218,24 @@ Jenkins提供了大量的插件，这些插件使Jenkins能实现很多复杂的
 
 进入 Manage Jenkins >> Manage Plugins 中，单击“可选插件”选项卡，在输入框中填写需要安装的插件名字_Blue Ocean_。
 
-![image-20220817215011959](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fcc64a3d39f61b8761f38abc773ba2aae.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/f19416fb39d7caa0407af6a5bc6f1f14.png)
 
-![image-20220821195653233](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Ff19416fb39d7caa0407af6a5bc6f1f14.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
 安装好`Blue Ocean`插件，在面板左侧的导航栏中，才有"打开Blue Ocean"选项。
 
-![image-20220821200642652](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F2ce4547b78abf077ff68fa7c6be5b310.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/2ce4547b78abf077ff68fa7c6be5b310.png)
 
 ### 4.3 _Configure System(系统设置)_
 
 在Jenkins主面板左侧的导航栏中选择“Manage Jenkins”，进入到“管理Jenkins”界面，点击此界面中“系统设置”选项，进入到“配置”界面，设置完成后点击**保存**即可，为后面我们配置自动化部署做准备。
 
-![image-20220817220948605](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fa7036bd390c0356f0115ca65c57633a8.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/a7036bd390c0356f0115ca65c57633a8.png)
 
 #### 4.3.1 Publish over SSH
 
 **Publish over SSH**：若要将构建后生成的jar包（后端）或dist目录文件（前端）推送到远程服务器中，需配置此模块。可以配置多台远程服务器，在此我们选择用户名和密码来连接远程服务器。
 
-![image-20220817221343604](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Ff665113d0c914241c8dbbda88643689f.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/f665113d0c914241c8dbbda88643689f.png)
 
 ```markdown
 - Name：自定义一个名称。在Job中使用Publish over SSH插件时，此名称将出现在“SSH Server”中“Name”选项的下拉列表中
@@ -1242,7 +1245,7 @@ Jenkins提供了大量的插件，这些插件使Jenkins能实现很多复杂的
 - Use password authentication,or use a different key：勾选此选项，并在“Passphrase/Password”中输入与Username匹配的密码
 ```
 
-![image-20220817221447754](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fdb30d28e362659d3e6f3c39ede610134.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/db30d28e362659d3e6f3c39ede610134.png)
 
 配置完后点击“Test Configuration”，测试是否可以连接成功。
 
@@ -1252,15 +1255,17 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 
 系统管理员邮箱地址：填写发送邮件的账号，否则无法发送邮件。
 
-![image-20220818155922098](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fd6c6f0f79c952db4916ff0a37a84dc62.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/d6c6f0f79c952db4916ff0a37a84dc62.png)
 
 #### 4.3.3 邮件通知
 
 进入Jenkins，依次点击Manage Jenkins >> Configure System >> 邮件通知 >> 高级。
 
-![image-20220819124200384](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fc34ff5eb01452caa3cc2e5f72cb3fff2.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/c34ff5eb01452caa3cc2e5f72cb3fff2.png)
 
-![image-20220821131117096](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F5eaf76c23db78ebff7d5668d4af3142f.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/5eaf76c23db78ebff7d5668d4af3142f.png)
+
+
 
 ```markdown
 - SMTP Server：SMTP服务器的地址；
@@ -1276,9 +1281,9 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 
 进入Jenkins，依次点击Manage Jenkins >> Configure System >> Extended E-mail Notification >> 高级。
 
-![image-20220819124200384](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F4d2e6c79d58e07b27041d1c4b6ebda1c.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
-![image-20220821131148997](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F1efe7a6f245be6caa96409d2756b130a.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/1efe7a6f245be6caa96409d2756b130a.png)
+
 
 ```markdown
 - SMTP Server：SMTP服务器的地址；
@@ -1299,27 +1304,30 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 
 进入Jenkins主界面，在面板左侧的导航栏中点击“新建任务”，进入“新建任务”界面后，在“任务名称”文本框中输入一个合法的名称（该名称最好能简短、清晰地描述所要构建的项目，且不能与已有的任务名称重合），然后选择“构建一个Maven项目”，点击左下角的“确定”按钮，进入任务配置界面。
 
-![image-20220817000254537](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F04ca1dd0c6760f7490f2ecee7967b2e5.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/04ca1dd0c6760f7490f2ecee7967b2e5.png)
+
 
 ### 5.2 General
 
 在“General”选项卡下勾选“丢弃旧的构建”，填写需要保留的构建天数和构建的最大个数。若不及时清理旧的构建，则会消耗服务器的磁盘空间。“保持构建天数” 和"保持构建的最大个数"是可以自定义的，需要根据实际情况确定一个合理的值。
 
-![image-20220819160021535](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fa9639f427fbb6537193601d796decb13.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/a9639f427fbb6537193601d796decb13.png)
 
 ### 5.3 源码管理
 
 源码管理就是配置你代码的存放位置。在“源码管理”模块中选择Git。
 
-![image-20220819155910954](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F23729d1ae3370db14015b1414cfd9849.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/23729d1ae3370db14015b1414cfd9849.png)
+
 
 **Repository URL**：要构建的项目在GitLab中的HTTP地址。首先进入到所要构建的项目在GitLab中的主界面，在项目的URL下拉选框中选择“HTTP”，并点击右侧的“复制”按钮，将复制的HTTP地址粘贴到“Repository URL”文本框中即可。
 
-![image-20220817180148294](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F694963123fd203d07dc1456a711f06b9.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/694963123fd203d07dc1456a711f06b9.png)
 
 **Credentials**：凭证。点击右侧的“添加”按钮，选择“Jenkins”选项后会弹出一个“添加凭据”弹窗。
 
-![image-20220817180322159](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F5283392d84ada55ebcb018a3d15086b2.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/5283392d84ada55ebcb018a3d15086b2.png)
+
 
 添加凭据时，类型选择“Username with password”，然后在“用户名”文本框中输入GitLab的登陆账户，“密码”文本框中输入与账户相匹配的密码，“ID”文本框中填入自定义的名称，但不能与已有的凭据ID重合。填写完毕后，点击“添加”按钮，所添加的凭据就会出现在“Credentials”的下拉选框中，在选框中选择相应的凭据即可。
 
@@ -1329,7 +1337,7 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 
 构建触发器，顾名思义，就是构建任务的触发器。
 
-![image-20220819155801409](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F77864f68e8a2538f08376e056242c49e.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/77864f68e8a2538f08376e056242c49e.png)
 
 ```markdown
 # 几种构建方式：
@@ -1363,7 +1371,8 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 
 -   在构建触发器中配置接口和token
 
-![image-20220819155815054](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Faa8dee375d16246de80576f6e42e9086.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/aa8dee375d16246de80576f6e42e9086.png)
+
 
 `Build Authorization Token Root`插件安装成功后，到GitLab设置Webhooks。
 
@@ -1373,18 +1382,19 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 
 网址：http://192.168.3.3:8080/buildByToken/build?job=first&token=123qwe
 
-![image-20220818225718058](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fe26768ff64f45e26b37cb2606ff217fa.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/e26768ff64f45e26b37cb2606ff217fa.png)
 
 ```markdown
 问题描述：Url is blocked: Requests to the local network are not allowed
 问题解决：通过“菜单-管理员-设置-网络”，将“出站请求”中<允许来自 web hooks 和服务对本地网络的请求>勾选上，并保存更改。
 ```
 
-![image-20220818230219759](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F1025c4909e27c0769d62d2fb5d935bc2.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/1025c4909e27c0769d62d2fb5d935bc2.png)
+
 
 构建验证：
 
-![image-20220818231213579](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Ffe3e985753148b2a5824f45dbc47d88e.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/fe3e985753148b2a5824f45dbc47d88e.png)
 
 #### 5.4.2 定时构建 Build periodically
 
@@ -1392,7 +1402,8 @@ Jenkins URL是指定安装Jenkins的HTTP地址，这个值用来在邮件中生�
 
 日程表类似 linux crontab书写格式。如下图的设置，表示每小时进行一次构建。
 
-![image-20220819000437889](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F40fa9eddec2dbaa20087b15f392c2b5c.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/40fa9eddec2dbaa20087b15f392c2b5c.png)
+
 
 标准cron：https://crontab.guru
 
@@ -1440,23 +1451,25 @@ H(40-48) 3-5 * * 1-6        在40~48之间取值 其他同上
 
 会主动定期检查代码托管服务器上是否有变化，一旦发生变化执行job构建。
 
-![image-20220819000358539](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F2e54aa19fe313f07ba036c82b2c6da49.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/2e54aa19fe313f07ba036c82b2c6da49.png)
+
 
 ### 5.5 Pre Steps
 
-![image-20220818181156019](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F7aae007cebd2a39e2fa24199af82bc55.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/7aae007cebd2a39e2fa24199af82bc55.png)
+
 
 > 配置运行前清理
 
 在“Add post-build step”下拉选框中选择“**Send files or execute commands over SSH**”，选择后会在“Pre Steps”中出现“_**Send files or execute commands over SSH**_”模块。
 
-![image-20220819155637615](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F0c65d69b0f0eba368a1161fe4e1e3cf3.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/0c65d69b0f0eba368a1161fe4e1e3cf3.png)
 
-```markdown
 在“Send files or execute commands over SSH”模块中，设置“Exec command”选项：./clean.sh demo
   
 clean.sh脚本文件在Tomcat服务器上创建，具体如下：
 
+```shell
 #!/bin/bash
 
 #删除历史数据
@@ -1498,12 +1511,13 @@ fi
 
 ### 5.6 Build
 
-![image-20220819160253314](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F2ee8a2c41c70d9f644c4abdb178f36ef.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/2ee8a2c41c70d9f644c4abdb178f36ef.png)
+
 
 ```markdown
 - Root POM：最上层pom.xml文件的路径，这里是相对于${WORKSPACE}的路径。如果不做设置，默认是在工作目录的根目录下，填写pom.xml即可。如果不是默认路径，例如，在${WORKSPACE}/my-project/pom.xml下，这里写上/my-project/pom.xml。
 
-- Goals and options：这里就是mvn指令后面的部分，如clean package，也可以带参数。比如，要跳过单元测试，就使用-Dmaven.test.skip=true。
+- Goals and options：这里就是mvn指令后面的部分，如clean package，也可以带参数。比如，要跳过单元测试，就使用-Dmaven.test.skip=true 或 clean package -DskipTests
 ```
 
 ### 5.7 Post Steps
@@ -1512,9 +1526,11 @@ fi
 
 在“Add post-build step”下拉选框中选择“**Send files or execute commands over SSH**”，选择后会在“Post Steps”中出现“_**Send files or execute commands over SSH**_”模块。
 
-![image-20220817235640543](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fc89c13e3482010c31c90a3407176b049.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/c89c13e3482010c31c90a3407176b049.png)
 
-![image-20220819160158805](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F9345e90bcb1787844990f2920abb9610.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/9345e90bcb1787844990f2920abb9610.png)
+
 
 在“Send files or execute commands over SSH”模块中，设置“Source files”、“Remove prefix”、“Remote directory”和“Exec command”选项：
 
@@ -1555,7 +1571,7 @@ nohup java -jar /home/appop/xxoo/demo*.jar >mylog.log 2>&1 &
 
 输出命令时一定要注意不要让窗口卡主，不然Jenkins会认为一直没完成。
 
-![image-20220818181552901](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fb03554d41960ea2912cfc702c338d55c.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/b03554d41960ea2912cfc702c338d55c.png)
 
 > Execute shell配置
 
@@ -1594,7 +1610,8 @@ nohup java -jar ${jar_name} &
 
 在“增加构建后操作步骤”下拉选框中选择“Editable Email Notification”，选择后会在“构建后操作”中出现“Editable Email Notification”模块。
 
-![image-20220822001854353](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F921d041af3b2371124b8b9404305e421.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/921d041af3b2371124b8b9404305e421.png)
+
 
 ```markdown
 - Project Recipient List：收件人的邮箱地址。若有多个收件人时用英文逗号隔开。也可使用系统配置中的默认设置：$DEFAULT_RECIPIENTS。
@@ -1606,15 +1623,13 @@ nohup java -jar ${jar_name} &
 
 -   配置完成后，点击构建项目，执行构建。
 
-![image-20220819161138955](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fa7a0fea764cf4033a73935f635b5823d.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/a7a0fea764cf4033a73935f635b5823d.png)
+
 
 -   构建成功后，会接收到构建成功的邮件。
-
-![image-20220821131255135](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F8940b9419642e50a296729c821945edc.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/8940b9419642e50a296729c821945edc.png)
 
 -   构建成功后，浏览器上访问，看是否能正常访问。
-
-![image-20220819161440474](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F8dfc08543b56ff17abdbf013db0e8a49.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
 ## 6 自动化部署到docker容器中
 
@@ -1731,7 +1746,7 @@ sudo chmod a+rw /var/run/docker.sock
 
 在“Add post-build step”下拉选框中选择“**Send files or execute commands over SSH**”，选择后会在“Pre Steps”中出现“_**Send files or execute commands over SSH**_”模块。
 
-![image-20220821121447880](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F98714651309417af891c0c573d35705d.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/98714651309417af891c0c573d35705d.png)
 
 在“Send files or execute commands over SSH”模块中，设置“Remote directory”和“Exec command”选项：
 
@@ -1748,7 +1763,8 @@ docker stop demo-out
 
 在“Add post-build step”下拉选框中选择“**Send files or execute commands over SSH**”，选择后会在“Post Steps”中出现“_**Send files or execute commands over SSH**_”模块。
 
-![image-20220821121536587](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fb9d6b68715fb5d428e867a7f2d81eea6.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/b9d6b68715fb5d428e867a7f2d81eea6.png)
+
 
 在“Send files or execute commands over SSH”模块中，设置“Source files”、“Remove prefix”、“Remote directory”和“Exec command”选项：
 
@@ -1777,7 +1793,8 @@ docker start demo-out
 
 -   打开IDEA，在demo下创建Dockerfile文件
 
-![image-20220821105118232](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fe3c506c7b5f8614e3da43eba8287eec5.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/e3c506c7b5f8614e3da43eba8287eec5.png)
+
 
 Dockerfile:
 
@@ -1793,13 +1810,15 @@ ENTRYPOINT ["java","-jar","/root/app.jar"]
 
 -   Dockerfile文件编写完成后，将其push到GitLab仓库
 
-![image-20220821104901538](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F4c873bf53139f2b13b4a42ecf3f80514.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114162345.png)
+
 
 > Pre Steps配置
 
 在“Add post-build step”下拉选框中选择“**Send files or execute commands over SSH**”，选择后会在“Pre Steps”中出现“_**Send files or execute commands over SSH**_”模块。
 
-![image-20220821114127333](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F420293da6234e64639c8d45e950f7a14.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114162419.png)
+
 
 在“Send files or execute commands over SSH”模块中，设置“Remote directory”和“Exec command”选项：
 
@@ -1818,7 +1837,8 @@ docker rmi -f $(docker images -aq)
 
 在“Add post-build step”下拉选框中选择“**Send files or execute commands over SSH**”，选择后会在“Post Steps”中出现“_**Send files or execute commands over SSH**_”模块。
 
-![image-20220821114744099](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F7ed6d262901d84b7d626913bbd81ec05.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/7ed6d262901d84b7d626913bbd81ec05.png)
+
 
 在“Send files or execute commands over SSH”模块中，设置“Source files”、“Remove prefix”、“Remote directory”和“Exec command”选项：
 
@@ -1850,31 +1870,34 @@ docker run -d --name demo -p 8080:8080 demo
 
 进入Jenkins主界面，在面板左侧的导航栏中点击“新建任务”，进入“新建任务”界面后，在J“任务名称”文本框中输入一个合法的名称（该名称最好能简短、清晰地描述所要构建的项目，且不能与已有的任务名称重合），然后选择“Pipeline”，点击左下角的“确定”按钮，进入任务配置界面。
 
-![image-20220821164629029](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fa498088db6b183271738deffe49c0fda.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114162723.png)
 
-![image-20220821164750539](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F3df454e129cb7e0b65dc7cddaa81421f.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114162732.png)
 
-![image-20220821164838955](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F97cd4fd1e66c8777421eb90e031b9cce.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
 
 ### 7.2 General
 
 在“General”选项卡下勾选“丢弃旧的构建”，填写需要保留的构建天数和构建的最大个数。若不及时清理旧的构建，则会消耗服务器的磁盘空间。“保持构建天数” 和"保持构建的最大个数"是可以自定义的，需要根据实际情况确定一个合理的值。
 
-![image-20220821165036852](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F74be407a29f9d0b4458bad75b678c562.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114162803.png)
+
 
 ### 7.3 流水线
 
 流水线用特殊的语句或者元素定义章节，这遵循 Groovy 语法。
 
-![image-20220821172949558](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F486fa449df0e1e9c2ef0a54f02c8b9b8.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114162901.png)
+
+
 
 Pipeline脚本功能非常强大，默认支持数十个指令！你可能担心指令学习的成本，但这种担心其实是多余的——只需点击“**流水线语法**”按钮，就可以傻瓜化地使用Pipeline语法啦！
 
-![image-20220821171441740](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fc80894a5397ab6760dc13c00fe7ae9ce.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114163029.png)
+
 
 Pipeline脚本：
 
-```shell
+```groovy
 pipeline {
             
     agent any
@@ -1943,7 +1966,7 @@ docker run -d --name demo -p 8080:8080 demo''', execTimeout: 120000, flatten: fa
 }
 ```
 
-```shell
+```groovy
 - environment：用于定义流水线执行过程中的环境变量。
 - triggers：用于定义流水线的触发机制。pollSCM 定义了每分钟判断一次代码是否有变化，如果有变化则自动执行流水线。
 - agent：用于定义整条流水线的执行环境，可以指定执行节点。
@@ -1967,23 +1990,28 @@ docker run -d --name demo -p 8080:8080 demo''', execTimeout: 120000, flatten: fa
 
 -   配置完成后，点击构建项目，执行构建。
 
-![image-20220821174048495](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F6d34966b0bf1d15c682446a015d7b665.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114163240.png)
+
 
 -   构建成功后，可通过界面视图查看每阶段的执行情况。
 
-![image-20220821183844354](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F863ccd72b20aafcd921119cd896912d4.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114163258.png)
+
 
 -   构建成功后，浏览器上访问，看是否能正常访问。
 
-![image-20220819161440474](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Ffa53e13a3608973f20f531a28f2c157d.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114163315.png)
+
 
 ### 7.5 打开Blue Ocean
 
 `Blue Ocean`插件安装好后，进入Jenkins主界面，在面板左侧的导航栏中点击“打开Blue Ocean”，进入“Blue Ocean可视化界面”，可进行流水线创建和流水线管理。
 
-![image-20220821201054575](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F8f48bbea2cf0eb0b8b83a5c839c6d778.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114163337.png)
 
-![image-20220821203720763](https://pucsdn.com//main/csdn/img?url=https%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2Fe009d2a51bab2fdb0ffd17b69c9493c1.png&rfUrl=https%3A%2F%2Fblog.csdn.net%2Fqq_43842093%2Farticle%2Fdetails%2F126515350)
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230114163355.png)
+
 
 ```markdown
 Blue Ocean 的主要特点包括：
