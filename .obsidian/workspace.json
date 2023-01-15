@@ -4,83 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "9034b6ba6bfc690b",
+        "id": "e87be92a1e49f0c8",
         "type": "tabs",
         "children": [
           {
-            "id": "41d88e258393b363",
+            "id": "8228a4cff0369a11",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/CICD/Jenkins.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "d64580b05a8a82e9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/Architecture/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "78a9bae392d1cac5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/Architecture/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "46f19ab8649c3ba2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/_sidebar.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5794ba8d86d0da98",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/Architecture/服务接口的高可用设计.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "7b0198177e4dcf2b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/CICD/Git.md",
+                "file": "docs/java/spring/SpringBoot/SpringBootStarter.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -138,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Architecture/服务接口的高可用设计.md",
+                "file": "docs/java/spring/SpringBoot/SpringBootStarter.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -155,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Architecture/服务接口的高可用设计.md"
+                "file": "docs/java/spring/SpringBoot/SpringBootStarter.md"
               }
             }
           },
@@ -184,17 +123,17 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "5794ba8d86d0da98",
+  "active": "8228a4cff0369a11",
   "lastOpenFiles": [
-    "docs/CICD/README.md",
-    "docs/CICD/_sidebar.md",
-    "docs/CICD/Jenkins.md",
-    "docs/Architecture/README.md",
-    "docs/Architecture/_sidebar.md",
-    "docs/README.md",
-    "docs/Architecture/服务接口的高可用设计.md",
-    "docs/_sidebar.md",
-    "docs/Distributed/_sidebar.md",
-    "docs/CICD/Git.md"
+    "docs/java/spring/README.md",
+    "docs/java/spring/_sidebar.md",
+    "docs/java/spring/SpringBoot/README.md",
+    "docs/java/spring/SpringBoot/_sidebar.md",
+    "docs/java/spring/SpringBoot/DeferredResult.md",
+    "docs/java/spring/SpringCloud.md",
+    "docs/java/spring/springboot.md",
+    "docs/java/并发编程/_sidebar.md",
+    "docs/java/spring/SpringBoot/SpringBootStarter.md",
+    "docs/Distributed/_sidebar.md"
   ]
 }
