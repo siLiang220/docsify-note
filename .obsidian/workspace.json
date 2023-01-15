@@ -20,11 +20,51 @@
             }
           },
           {
-            "id": "20fb70ea2948ce93",
+            "id": "d64580b05a8a82e9",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "docs/Architecture/_sidebar.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "78a9bae392d1cac5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/Architecture/_sidebar.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "46f19ab8649c3ba2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/_sidebar.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "5794ba8d86d0da98",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/Architecture/服务接口的高可用设计.md",
+                "mode": "source",
+                "source": false
+              }
             }
           },
           {
@@ -39,7 +79,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -97,7 +138,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/CICD/Jenkins.md",
+                "file": "docs/Architecture/服务接口的高可用设计.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -114,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/CICD/Jenkins.md"
+                "file": "docs/Architecture/服务接口的高可用设计.md"
               }
             }
           },
@@ -143,17 +184,17 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "41d88e258393b363",
+  "active": "5794ba8d86d0da98",
   "lastOpenFiles": [
     "docs/CICD/README.md",
-    "docs/CICD/Jenkins.md",
     "docs/CICD/_sidebar.md",
-    "docs/CICD/Git.md",
+    "docs/CICD/Jenkins.md",
+    "docs/Architecture/README.md",
+    "docs/Architecture/_sidebar.md",
     "docs/README.md",
+    "docs/Architecture/服务接口的高可用设计.md",
     "docs/_sidebar.md",
-    "CICD/Git.md",
-    "docs/_coverpage.md",
-    "docs/CICD/Jenkins/_sidebar.md",
-    "docs/CICD/Jenkins/README.md"
+    "docs/Distributed/_sidebar.md",
+    "docs/CICD/Git.md"
   ]
 }
