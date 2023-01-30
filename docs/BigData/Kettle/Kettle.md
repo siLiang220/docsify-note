@@ -788,6 +788,24 @@ Excel输出大家已经很熟悉了，本章不再赘述，接下来给大家讲
 执行结果：  
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1673065709238.png)
 
+### 3.3.14 设置字段值
+>把一个字段的值替换成另一个字段值
+
+原始数据： 
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1675091821999.png)
+
+1. Field name 值被替换的字段
+2. Replace by value from field  替换值的字段
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1675091959738.png)
+
+任务：
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1675091882519.png)
+
+执行结果：
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1675092004798.png)
+
+
 ## 3.4 Kettle应用控件
 
 > 应用是转换控件里面的第五个分类，这个分类下是Kettle给我们自带的一些工具类
