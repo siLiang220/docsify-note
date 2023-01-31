@@ -24,14 +24,21 @@ Executors 返回线程池对象的弊端如下：
 
 我们可以创建三种类型的 ThreadPoolExecutor：
 
--   **FixedThreadPool** ： 该方法返回一个固定线程数量的线程池。该线程池中的线程数量始终不变。当有一个新的任务提交时，线程池中若有空闲线程，则立即执行。若没有，则新的任务会被暂存在一个任务队列中，待有线程空闲时，便处理在任务队列中的任务。
--   **SingleThreadPool：** 方法返回一个只有一个线程的线程池。若多余一个任务被提交到该线程池，任务会被保存在一个任务队列中，待线程空闲，按先入先出的顺序执行队列中的任务。
--   **CachedThreadPool：** 该方法返回一个可根据实际情况调整线程数量的线程池。线程池的线程数量不确定，但若有空闲线程可以复用，则会优先使用可复用的线程。若所有线程均在工作，又有新的任务提交，则会创建新的线程处理任务。所有线程在当前任务执行完毕后，将返回线程池进行复用。
-
 对应 Executors 工具类中的方法如图所示：
 
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/Executor%E6%A1%86%E6%9E%B6%E7%9A%84%E5%B7%A5%E5%85%B7%E7%B1%BB.png)
 
+1.  newCachedThreadPool()：创建一个可缓存的线程池，调用 execute 将重用以前构造的线程（如果线程可用）。如果没有可用的线程，则创建一个新线程并添加到线程池中。终止并从缓存中移除那些已有 60 秒钟未被使用的线程。CachedThreadPool适用于并发执行**大量短期耗时短的任务，或者负载较轻的服务器**；
+    
+2.  newFiexedThreadPool(int nThreads)：创建固定数目线程的线程池，线程数小于nThreads时，提交新的任务会创建新的线程，当线程数等于nThreads时，提交新的任务后任务会被加入到阻塞队列，正在执行的线程执行完毕后从队列中取任务执行，FiexedThreadPool适用于**负载略重但任务不是特别多**的场景，为了合理利用资源，需要限制线程数量；
+    
+3.  newSingleThreadExecutor() 创建一个单线程化的 Executor，SingleThreadExecutor**适用于串行执行任务**的场景，每个任务按顺序执行，不需要并发执行；
+    
+4.  newScheduledThreadPool(int corePoolSize) 创建一个支持定时及周期性的任务执行的线程池，多数情况下可用来替代 Timer 类。ScheduledThreadPool中，返回了一个ScheduledThreadPoolExecutor实例，而ScheduledThreadPoolExecutor实际上继承了ThreadPoolExecutor。从代码中可以看出，ScheduledThreadPool基于ThreadPoolExecutor，corePoolSize大小为传入的corePoolSize，maximumPoolSize大小为Integer.MAX_VALUE，超时时间为0，workQueue为DelayedWorkQueue。实际上ScheduledThreadPool是一个调度池，其实现了schedule、scheduleAtFixedRate、scheduleWithFixedDelay三个方法，可以实现延迟执行、周期执行等操作；
+    
+5.  newSingleThreadScheduledExecutor() 创建一个corePoolSize为1的ScheduledThreadPoolExecutor；
+    
+6.  newWorkStealingPool(int parallelism)返回一个ForkJoinPool实例，ForkJoinPool 主要用于实现“分而治之”的算法，适合于计算密集型的任务。
 
 ### ThreadPoolExecutor 类分析
 
@@ -223,6 +230,16 @@ public final class NamingThreadFactory implements ThreadFactory {
 [线程池多线程快速处理List集合](https://blog.csdn.net/qililong88/article/details/114320641)
 [ 多线程的利器：CompletableFuture 你还可以这样使用多线程_Java编程Code的博客-CSDN博客](https://blog.csdn.net/qq_39664892/article/details/128297003#:~:text=1%20%E9%81%8D%E5%8E%86list%E9%9B%86%E5%90%88%EF%BC%8C%E6%8F%90%E4%BA%A4CompletableFuture%E4%BB%BB%E5%8A%A1%EF%BC%8C%E6%8A%8A%E7%BB%93%E6%9E%9C%E8%BD%AC%E6%8D%A2%E6%88%90%E6%95%B0%E7%BB%84%202%20%E5%86%8D%E6%8A%8A%E6%95%B0%E7%BB%84%E6%94%BE%E5%88%B0CompletableFuture%E7%9A%84allOf,%28%29%E6%96%B9%E6%B3%95%E9%87%8C%E9%9D%A2%203%20%E6%9C%80%E5%90%8E%E8%B0%83%E7%94%A8join%20%28%29%E6%96%B9%E6%B3%95%E9%98%BB%E5%A1%9E%E7%AD%89%E5%BE%85%E6%89%80%E6%9C%89%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%88%90)
 
+### 合理设置线程池参数
+在工程实践中，通常使用下述公式来计算核心线程数：
+
+nThreads=(w+c)/c*n*u=(w/c+1)*n*u  
+
+其中，w为等待时间，c为计算时间，n为CPU核心数（通常可通过 Runtime.getRuntime().availableProcessors()方法获取），u为CPU目标利用率（取值区间为[0, 1]）；在最大化CPU利用率的情况下，当处理的任务为计算密集型任务时，即等待时间w为0，此时核心线程数等于CPU核心数。
+
+  
+上述计算公式是理想情况下的建议核心线程数，而不同系统/应用在运行不同的任务时可能会有一定的差异，因此最佳线程数参数还需要根据任务的实际运行情况和压测表现进行微调。
+
 ## 线程池可能带来的问题
 
 1.  频繁申请/销毁资源和调度资源，将带来额外的消耗，可能会非常巨大。
@@ -233,3 +250,4 @@ public final class NamingThreadFactory implements ThreadFactory {
 - [8000字详解Thread Pool Executor - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/593365020)
 - [Java 并发常见面试题总结（下） (javaguide.cn)](https://javaguide.cn/java/concurrent/java-concurrent-questions-03.html#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0)
 - [Java线程池实现原理及其在美团业务中的实践 - 美团技术团队 (meituan.com)](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
+- [合理使用线程池以及线程变量 -淘宝技术](https://mp.weixin.qq.com/s/BdVqvm2wLNv05vMTieevMg)
