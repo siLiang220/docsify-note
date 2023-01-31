@@ -77,7 +77,10 @@ public ThreadPoolExecutor(int corePoolSize,
 - **`workQueue`** : 用来保存阻塞的队列，当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。.
 -  **`keepAliveTime`**:当线程池中的线程数量大于 `corePoolSize` 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了 `keepAliveTime`才会被回收销毁；
 -   **`unit`** : `keepAliveTime` 参数的时间单位。
--   **`threadFactory`** :executor 创建新线程的时候会用到。
+-   **`threadFactory`** :`threadFactory`表示线程工厂。用于指定为线程池创建新线程的方式，`threadFactory`可以设置线程名称、线程组、优先级等参数。通过googl工具包设置线程池的线程名
+```java
+new ThreadFactoryBuilder().setNameFormat("general-detail-batch-%d").build()
+```
 -   **`handler`** :饱和策略。
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1671111973043.png)
 
@@ -239,6 +242,10 @@ nThreads=(w+c)/c*n*u=(w/c+1)*n*u  
 
   
 上述计算公式是理想情况下的建议核心线程数，而不同系统/应用在运行不同的任务时可能会有一定的差异，因此最佳线程数参数还需要根据任务的实际运行情况和压测表现进行微调。
+
+###  避免使用局部线程池
+
+使用局部线程池时，若任务执行完后没有执行shutdown()方法或有其他不当引用，极易造成系统资源耗尽。
 
 ## 线程池可能带来的问题
 
