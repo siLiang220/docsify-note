@@ -1,5 +1,5 @@
   * [根目录（/）](/README)
   * [回到上一级（../）](../README.md)
   * [SpringFramework](java/spring/SpringFramework)
-  * [Springboot](java/spring/springboot/README)
+  * [Springboot](java/spring/SpringBoot/README)
   * [SpringDataJpa](java/spring/springDataJpa.md)
