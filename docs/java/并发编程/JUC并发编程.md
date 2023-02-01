@@ -1718,8 +1718,14 @@ java内存模型是抽象的概念描述的是一组约定或规范，是**屏�
 - synchronized或者lock,有个管理员,好比,现在大家签到,多个同学(线程),但是只有一只笔,只能同一个时间,只有一个线程(同学)签到,加锁(同步机制是以时间换空间,执行时间不一样,类似于排队)
 - ThreadLocal,人人有份,每个同学手上都有一支笔,自己用自己的,不用再加锁来维持秩序(同步机制是以空间换时间,为每一个线程都提供了一份变量的副本,从而实现同时访问,互不干扰同时访问,肯定效率高啊)
 
-### API介绍
+### ThreadLocal使用场景
 
+1.  每个线程都需要有属于自己的实例数据（线程隔离）；
+2.  框架跨层数据的传递；
+3.  需要参数全局传递的复杂调用链路的场景；
+4.  数据库连接的管理，在AOP的各种嵌套调用中保证事务的一致性；
+
+### API介绍
 1. protected T initialValue():initialValue():返回此线程局部变量的当前线程的"初始值"
 (对于initialValue()较为老旧,jdk1.8又加入了withInitial()方法)
 
@@ -1727,9 +1733,181 @@ java内存模型是抽象的概念描述的是一组约定或规范，是**屏�
 
 3. T get():返回当前线程的此线程局部变量的副本中的值
 
+```java
+/**
+ * Returns the value in the current thread's copy of this
+ * thread-local variable.  If the variable has no value for the
+ * current thread, it is first initialized to the value returned
+ * by an invocation of the {@link #initialValue} method.
+ *
+ * @return the current thread's value of this thread-local
+ */
+public T get() {
+	// 1. 获取当前线程
+	Thread t = Thread.currentThread();
+	// 2. 获取当前线程内部的ThreadLocalMap变量t.threadLocals;
+	ThreadLocalMap map = getMap(t);
+	// 3. 判断map是否为null
+	if (map != null) {
+		// 4. 使用当前threadLocal变量获取entry
+		ThreadLocalMap.Entry e = map.getEntry(this);
+		// 5. 判断entry是否为null
+		if (e != null) {
+	// 6.返回Entry.value
+			@SuppressWarnings("unchecked")
+			T result = (T) e.value;
+			return result;
+		}
+	}
+	// 7. 如果map/entry为null设置初始值
+	return setInitialValue();
+}
+
+/**
+ * Variant of set() to establish initialValue. Used instead
+ * of set() in case user has overridden the set() method.
+ *
+ * @return the initial value
+ */
+private T setInitialValue() {
+	// 1. 初始化value，如果重写就用重写后的value，默认null
+	T value = initialValue();
+	// 2. 获取当前线程
+	Thread t = Thread.currentThread();
+	// 3. 获取当前线程内部的ThreadLocalMap变量
+	ThreadLocalMap map = getMap(t);
+	if (map != null)
+		// 4. 不为null就set, key: threadLocal, value: value
+		map.set(this, value);
+	else
+		// 5. map若为null则创建ThreadLocalMap对象
+		createMap(t, value);
+	return value;
+}
+
+/**
+ * Create the map associated with a ThreadLocal. Overridden in
+ * InheritableThreadLocal.
+ *
+ * @param t          the current thread
+ * @param firstValue value for the initial entry of the map
+ */
+void createMap(Thread t, T firstValue) {
+	t.threadLocals = new ThreadLocalMap(this, firstValue);
+}
+
+/**
+ * Construct a new map initially containing (firstKey, firstValue).
+ * ThreadLocalMaps are constructed lazily, so we only create
+ * one when we have at least one entry to put in it.
+ */
+ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
+	// 1. 初始化entry数组，size: 16
+	table = new Entry[INITIAL_CAPACITY];
+	// 2. 计算value的index
+	int i = firstKey.threadLocalHashCode & (INITIAL_CAPACITY - 1);
+	// 3. 在对应index位置赋值
+	table[i] = new Entry(firstKey, firstValue);
+	// 4. entry size
+	size = 1;
+	// 5. 设置threshold: threshold = len * 2 / 3;
+	setThreshold(INITIAL_CAPACITY);
+}
+
+/**
+ * Set the resize threshold to maintain at worst a 2/3 load factor.
+ */
+private void setThreshold(int len) {
+	threshold = len * 2 / 3;
+}
+```
+
 4. void set(T value):将当前线程的此线程局部变量的副本设置为指定的值
 
+```java
+/**
+ * Sets the current thread's copy of this thread-local variable
+ * to the specified value.  Most subclasses will have no need to
+ * override this method, relying solely on the {@link #initialValue}
+ * method to set the values of thread-locals.
+ *
+ * @param value the value to be stored in the current thread's copy of
+ *              this thread-local.
+ */
+public void set(T value) {
+	// 1. 获取当前线程
+	Thread t = Thread.currentThread();
+	// 2. 获取当前线程内部的ThreadLocalMap变量
+	ThreadLocalMap map = getMap(t);
+	if (map != null)
+		// 3. 设置value
+		map.set(this, value);
+	else
+		// 4. 若map为null则创建ThreadLocalMap
+		createMap(t, value);
+}
+```
+
 5. void remove():删除此线程局部变量的当前线程的值
+
+### ThreadLocal可能带来的问题
+
+#### 1.  ThreadLocalMap中的Entry为什么要设计为弱引用类型？
+若使用强引用类型，则threadlocal的引用链为：Thread -> ThreadLocal.ThreadLocalMap -> Entry[] -> Entry -> key（threadLocal对象）和value；在这种场景下，只要这个线程还在运行（如线程池场景），若不调用remove方法，则该对象及关联的所有强引用对象都不会被垃圾回收器回收。
+
+#### 2.  使用static和不使用static修饰threadlocal变量有和区别？
+若使用static关键字进行修饰，则一个线程仅对应一个线程变量；否则，threadlocal语义变为perThread-perInstance，容易引发内存泄漏，如下述示例：
+```java
+public class ThreadLocalTest {
+    public static class ThreadLocalDemo {
+        private ThreadLocal<String> threadLocalHolder = new ThreadLocal();
+
+        public void setValue(String value) {
+            threadLocalHolder.set(value);
+        }
+
+        public String getValue() {
+            return threadLocalHolder.get();
+        }
+    }
+
+    public static void main(String[] args) {
+        int count = 3;
+        List<ThreadLocalDemo> list = new LinkedList<>();
+        for (int i = 0; i < count; i++) {
+            ThreadLocalDemo demo = new ThreadLocalDemo();
+            demo.setValue("demo-" + i);
+            list.add(demo);
+        }
+        System.out.println();
+    }
+}
+```
+
+在上述main方法第22行debug，可见线程的threadLocals变量中有3个threadlocal实例。在工程实践中，使用threadlocal时通常期望一个线程只有一个threadlocal实例，因此，若不使用static修饰，期望的语义发生了变化，同时易引起内存泄漏。
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1675257747094.png)
+
+### 最佳实践
+
+#### ThreadLocal变量值初始化和清理建议成对出现
+
+如果不执行清理操作，则可能会出现：
+1.  内存泄漏：由于ThreadLocalMap的中key是弱引用，而Value是强引用。这就导致了一个问题，ThreadLocal在没有外部对象强引用时，发生GC时弱引用Key会被回收，而Value不会回收，从而Entry里面的元素出现<null,value>的情况。如果创建ThreadLocal的线程一直持续运行，那么这个Entry对象中的value就有可能一直得不到回收，这样可能会导致内存泄露。
+   
+2.  脏数据：由于线程复用，在用户1请求时，可能保存了业务数据在ThreadLocal中，若不清理，则用户2的请求进来时，可能会读到用户1的数据。
+
+建议使用try...finally 进行清理。
+ 
+#### ThreadLocal变量建议使用static进行修饰
+
+我们在使用ThreadLocal时，通常期望的语义是perThread，若不使用static进行修饰，则语义变为perThread-perInstance；在线程池场景下，若不用static进行修饰，创建的线程相关实例可能会达到 M * N个（其中M为线程数，N为对应类的实例数），易造成内存泄漏(https://errorprone.info/bugpattern/ThreadLocalUsage)。
+  
+#### 谨慎使用ThreadLocal.withInitial
+```java
+// 反例，实际上使用了共享对象obj而并未隔离，
+private static ThreadLocal<Obj> threadLocal = ThreadLocal.withIntitial(() -> obj)
+```
 
 ## JUC强大的工具类
 
