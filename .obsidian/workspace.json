@@ -73,7 +73,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Linux/_sidebar.md",
+                "file": "docs/Linux/Linux卷管理.md",
                 "mode": "source",
                 "source": false
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Linux/_sidebar.md",
+                "file": "docs/Linux/Linux卷管理.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -155,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Linux/_sidebar.md"
+                "file": "docs/Linux/Linux卷管理.md"
               }
             }
           },
@@ -186,8 +186,8 @@
   },
   "active": "e9f6990654f539ba",
   "lastOpenFiles": [
-    "docs/Linux/README.md",
     "docs/Linux/_sidebar.md",
+    "docs/Linux/README.md",
     "docs/Linux/Linux卷管理.md",
     "docs/BigData/离线数仓/维度还是事实.md",
     "docs/BigData/离线数仓/离线数仓.md",

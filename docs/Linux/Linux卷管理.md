@@ -319,6 +319,7 @@ resize2fs device lv_device
 对逻辑卷lv_test扩容500M。
 
 扩容前的文件大小
+
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230211214129.png)
 
 扩容操作
