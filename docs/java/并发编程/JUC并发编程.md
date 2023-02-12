@@ -1704,7 +1704,7 @@ java内存模型是抽象的概念描述的是一组约定或规范，是**屏�
 #### 内存屏障的分类
 
 ##### 粗分类
-###### 读屏障
+##### 读屏障
 在读指令之前插入读屏障，让工作内存或CPU高速缓存当中的缓存数据失效，重新回到主内存中获取最新数据
 
 ##### 写屏障
@@ -1849,11 +1849,15 @@ public void set(T value) {
 ```
 
 5. void remove():删除此线程局部变量的当前线程的值
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230212161037.png)
+
 
 ### ThreadLocal可能带来的问题
 
 #### 1.  ThreadLocalMap中的Entry为什么要设计为弱引用类型？
 若使用强引用类型，则threadlocal的引用链为：Thread -> ThreadLocal.ThreadLocalMap -> Entry[] -> Entry -> key（threadLocal对象）和value；在这种场景下，只要这个线程还在运行（如线程池场景），若不调用remove方法，则该对象及关联的所有强引用对象都不会被垃圾回收器回收。
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230212160850.png)
 
 #### 2.  使用static和不使用static修饰threadlocal变量有和区别？
 若使用static关键字进行修饰，则一个线程仅对应一个线程变量；否则，threadlocal语义变为perThread-perInstance，容易引发内存泄漏，如下述示例：
@@ -1888,12 +1892,60 @@ public class ThreadLocalTest {
 
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1675257747094.png)
 
+###  InheritableThreadLocal
+
+
+>ThreadLocal的不可继承性指的是子线程无法继承获取到父线程中的值。而`InheritableThreadLocal`则通过继承ThreadLocal类实现了可继承性
+
+```java
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class InheritableThreadLocalDemo {
+    /**
+     * ThreadLocal继承性测试
+     */
+    @Test
+    public void test1() {
+        System.out.println("\n--------------------------- Test 1 ---------------------------");
+        ThreadLocal<String> userInfo = new ThreadLocal<>();
+        userInfo.set("Aaron");
+        new Thread( ()-> System.out.println("<子线程> userInfo: " + userInfo.get()) )
+            .start();
+        System.out.println("<父线程> userInfo: " + userInfo.get());
+    }
+    /**
+     * InheritableThreadLocal继承性测试
+     */
+    @Test
+    public void test2() {
+        System.out.println("\n--------------------------- Test 2 ---------------------------");
+        InheritableThreadLocal<String> userInfo = new InheritableThreadLocal<>();
+        userInfo.set("Aaron");
+        new Thread( ()-> System.out.println("<子线程> userInfo: " + userInfo.get()) )
+            .start();
+        System.out.println("<父线程> userInfo: " + userInfo.get());
+    }
+}
+```
+测试结果
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1676188746755.png)
+
+>[!tip]
+>**使用线程池时，父子线程传递慎用，因为初始化时机为线程创建时**
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230212160455.png)
+
+针对线程池可使用阿里开源`TransmittableThreadLocal`
+- 源码：[GitHub - alibaba/transmittable-thread-local: ](https://github.com/alibaba/transmittable-thread-local)
+- 简述：[TransmittableThreadLocal详解 - 简书 (jianshu.com)](https://www.jianshu.com/p/e0774f965aa3)
+
 ### 最佳实践
 
 #### ThreadLocal变量值初始化和清理建议成对出现
 
 如果不执行清理操作，则可能会出现：
-1.  内存泄漏：由于ThreadLocalMap的中key是弱引用，而Value是强引用。这就导致了一个问题，ThreadLocal在没有外部对象强引用时，发生GC时弱引用Key会被回收，而Value不会回收，从而Entry里面的元素出现<null,value>的情况。如果创建ThreadLocal的线程一直持续运行，那么这个Entry对象中的value就有可能一直得不到回收，这样可能会导致内存泄露。
+
+1. 内存泄漏：由于ThreadLocalMap的中key是弱引用，而Value是强引用。这就导致了一个问题，ThreadLocal在没有外部对象强引用时，发生GC时弱引用Key会被回收，而Value不会回收，从而Entry里面的元素出现<null,value>的情况。如果创建ThreadLocal的线程一直持续运行，那么这个Entry对象中的value就有可能一直得不到回收，这样可能会导致内存泄露，使用完毕后需要remove。
    
 2.  脏数据：由于线程复用，在用户1请求时，可能保存了业务数据在ThreadLocal中，若不清理，则用户2的请求进来时，可能会读到用户1的数据。
 
@@ -1901,7 +1953,7 @@ public class ThreadLocalTest {
  
 #### ThreadLocal变量建议使用static进行修饰
 
-我们在使用ThreadLocal时，通常期望的语义是perThread，若不使用static进行修饰，则语义变为perThread-perInstance；在线程池场景下，若不用static进行修饰，创建的线程相关实例可能会达到 M * N个（其中M为线程数，N为对应类的实例数），易造成内存泄漏(https://errorprone.info/bugpattern/ThreadLocalUsage)。
+我们在使用ThreadLocal时，通常期望的语义是perThread，若不使用static进行修饰，则语义变为perThread-perInstance；在线程池场景下，若不用static进行修饰，创建的线程相关实例可能会达到 M * N个（其中M为线程数，N为对应类的实例数），易造成内存泄漏(https://errorprone.info/bugpattern/ThreadLocalUsage)
   
 #### 谨慎使用ThreadLocal.withInitial
 ```java
