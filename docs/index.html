@@ -73,6 +73,16 @@
           label: "Attention"
         },
       },
+      // 全文搜索
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索',
+        noData: '找不到结果',
+        depth: 6,
+        hideOtherSidebarContent: false,
+        namespace: '查查网'
+      },
 
     }
   </script>
@@ -94,8 +104,10 @@
   <!-- 字数统计 -->
   <script src="//cdn.jsdelivr.net/npm/docsify-count@latest/dist/countable.min.js"></script>
   <!-- 警示框 -->
-<script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
-<!-- 图片预览 -->
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+  <!-- 图片预览 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <!-- 搜索 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 </body>
 </html>
