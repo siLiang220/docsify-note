@@ -72,3 +72,71 @@ public class PictureUploadController {
     }
 }
 ```
+
+
+## 简单demo
+
+```java
+public class DeferredResultController {  
+    private static Logger LOGGER = LoggerFactory.getLogger(DeferredResultController.class);  
+    private static final Map<String, DeferredResult<String>> taskMap = new ConcurrentHashMap<>();  
+    //创建任务  
+    @RequestMapping("/createTask")  
+    public DeferredResult<String> createTask(String uuid) {  
+        LOGGER.info("ID[{}]任务开始", uuid);  
+        StopWatch stopWatch = new StopWatch(" DeferredResult test 容器线程");  
+        stopWatch.start("容器线程");  
+        LOGGER.info("返回值DeferredResult 异步请求开始");  
+        //超时时间100s  
+        DeferredResult<String> deferredResult = new DeferredResult<>(100000L);  
+        StopWatch t = new StopWatch(" DeferredResult test 工作线程");  
+        t.start("工作线程");  
+        deferredResult.onCompletion(() -> {  
+            LOGGER.info("返回值DeferredResult onCompletion 工作线程处理完毕");  
+            t.stop();  
+            LOGGER.info(String.format("%s秒", t.getTotalTimeSeconds()));  
+        });  
+        taskMap.put(uuid, deferredResult);  
+        LOGGER.info("返回值DeferredResult 异步请求结束");  
+        stopWatch.stop();  
+        LOGGER.info(String.format("%s秒", stopWatch.getTotalTimeSeconds()));  
+        return deferredResult;  
+    }  
+  
+    //查询任务状态  
+    @RequestMapping("/queryTaskState")  
+    public String queryTaskState(String uuid) {  
+        DeferredResult<String> deferredResult = taskMap.get(uuid);  
+        if (deferredResult == null) {  
+            return "未查询到任务,uid:" + uuid;  
+        }  
+        if (deferredResult.hasResult()) {  
+            return deferredResult.getResult().toString();  
+        } else {  
+            LOGGER.info("ID[{}]任务进行中", uuid);  
+            return "进行中";  
+        }  
+    }  
+  
+    //模拟第三方调用通知任务结束  
+    @RequestMapping("/changeTaskState")  
+    public String changeTaskState(String uuid) {  
+        DeferredResult<String> deferredResult = taskMap.remove(uuid);  
+        if (deferredResult == null) {  
+            return "未查到到任务";  
+        }  
+        if (deferredResult.hasResult()) {  
+            return "已完成，无需再次设置";  
+        } else {  
+            //未完成设置为完成  
+            deferredResult.setResult("已完成");  
+            LOGGER.info("将任务ID{},设置为处理完成", uuid);  
+            return "已完成";  
+        }  
+    }
+```
+在createTask创建任务并且设置超时时间。将任务保存到map中在合适的时候通过另一个请求设置任务结束，createTask接口在未收到完成通知或超时之前不会结束请求。
+
+## 参考文章
+
+[浅谈spring servlet异步编程 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/612546966)
