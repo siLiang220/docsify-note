@@ -137,6 +137,9 @@ public class DeferredResultController {
 ```
 在createTask创建任务并且设置超时时间。将任务保存到map中在合适的时候通过另一个请求设置任务结束，createTask接口在未收到完成通知或超时之前不会结束请求。
 
+在多实例的情况下可以使用redis作为消息中间件，参考：
+利用redis的发布订阅功能，实例可以构造一个有相同前缀的队列ID，比如createbranch-request-084Tkjfh和createbranch-response-084Tkjfh,然后消费方根据createbranch-request这个前缀获取到相关队列列表，消费消息后根据队列命名规则将结果塞到对应的响应队列createbranch-response-084Tkjfh中由请求方消费。其中还需要考虑资源的竞争，以及重复消费的问题，需要做好幂等。
+
 ## 参考文章
 
 [浅谈spring servlet异步编程 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/612546966)
