@@ -412,3 +412,4 @@ BFF 微服务只有应用层和用户接口层的职能，适配不同前端和�
 - [DDD 概念参考 (domain-driven-design.org)](https://domain-driven-design.org/zh/ddd-concept-reference.html)
 - [标准化思想及组装式架构在后端BFF中的实践 - 美团技术团队 (meituan.com)](https://tech.meituan.com/2022/04/28/composable-architecture-in-bff-2022.html)
 - [后台开发进阶：白话DDD从入门到实践 (qq.com)](https://mp.weixin.qq.com/s/_qi3pE-uF8w3uHK0oinrcA)
+- [降低复杂度提升效率，DDD在携程用车/租车订单系统重构中的实践 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/620103914)
