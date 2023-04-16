@@ -216,6 +216,7 @@ public ChangePriceResponse changePrice(ChangePriceRequest request) {
 
 [使用枚举实现状态机来优雅你的状态变更逻辑-云社区-华为云 (huaweicloud.com)](https://bbs.huaweicloud.com/blogs/344617)
 
+[状态机引擎在vivo营销自动化中的深度实践](https://zhuanlan.zhihu.com/p/496396933)
 
 ---
 ## 事务的传播特性
