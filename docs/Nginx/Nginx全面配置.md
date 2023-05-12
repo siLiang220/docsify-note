@@ -1229,8 +1229,6 @@ server {
 **对于一些实时性要求非常高的页面或数据来说，就不应该去设置缓存，下面来看看如何配置不缓存的内容。**
 
 ```
-...
-
 server {
   listen 80;
   server_name cache.lion.club;
@@ -1390,7 +1388,6 @@ gzip_http_version 1.1;
 Nginx正向代理涉及到的指令较少，下面直接贴上其配置文件内容：
 
 ```
-...  
 server {  
     resolver 192.168.1.1; #指定DNS服务器IP地址  
     listen 8080;  
@@ -1398,7 +1395,6 @@ server {
         proxy_pass http://$http_host$request_uri; #设定代理服务器的协议和地址  
     }  
 }  
-...
 ```
 
 其中：
