@@ -1,4 +1,4 @@
 # 目录
 
-* [Html](Web/html.md)
-* [CSS](Web/css.md)
+* [Html](Web/Html.md)
+* [CSS](Web/CSS.md)

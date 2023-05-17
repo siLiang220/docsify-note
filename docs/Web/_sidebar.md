@@ -1,4 +1,4 @@
 * [根目录（/）](/README)
 * [回到上一级(../)](/README.md)
-* [Html](Web/html.md)
-* [CSS](Web/css.md)
+* [Html](Web/Html.md)
+* [CSS](Web/CSS.md)
