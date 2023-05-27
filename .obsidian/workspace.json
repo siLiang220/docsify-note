@@ -122,6 +122,17 @@
   },
   "active": "c63607ebccb6094d",
   "lastOpenFiles": [
+    "docs/Web/_sidebar.md",
+    "docs/Web/vue3.md",
+    "docs/Web/vue.md",
+    "docs/Web/README.md",
+    "docs/Web/Html.md",
+    "docs/Web/CSS.md",
+    "docs/Web",
+    "docs/Nginx/Nginx全面配置.md",
+    "docs/Linux/oh-my-zsh.md",
+    "docs/BigData/BDA/_sidebar.md",
+    "docs/BigData/BDA/README.md",
     "docs/todo/未命名看板.md",
     "docs/todo/2023/2023-04/未命名看板.md",
     "docs/CSS页面布局.md",
@@ -145,15 +156,6 @@
     "docs/Microservices",
     "docs/BigData/BDA/MPP与Hadoop有什么区别.md",
     "docs/BigData/BDA",
-    "docs/java/DesignPatterns/命令模式.md",
-    "docs/java/并发编程/JUC并发编程.md",
-    "docs/java/DesignPatterns/策略模式.md",
-    "docs/WorkFlow/camunda.md",
-    "docs/WorkFlow/_slidebar.md",
-    "docs/BigData/离线数仓/离线数仓.md",
-    "docs/BigData/离线数仓/维度还是事实.md",
-    "docs/Linux/Linux卷管理.md",
-    "docs/Linux/_sidebar.md",
-    "docs/Linux/README.md"
+    "docs/java/DesignPatterns/命令模式.md"
   ]
 }
