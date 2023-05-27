@@ -1,0 +1,11 @@
+{
+  "legacyEditor": false,
+  "alwaysUpdateLinks": true,
+  "livePreview": true,
+  "spellcheck": true,
+  "spellcheckLanguages": [
+    "zh-CN",
+    "en-US"
+  ],
+  "promptDelete": false
+}

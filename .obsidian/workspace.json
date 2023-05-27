@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "9cd156cabf0eae76",
+        "id": "0e966da21c0f829c",
         "type": "tabs",
         "children": [
           {
-            "id": "1533a8ef5533daac",
+            "id": "c63607ebccb6094d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/java/表达式规则引擎Aviator.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/java/表达式规则引擎Aviator.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -93,9 +88,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "docs/java/表达式规则引擎Aviator.md"
-              }
+              "state": {}
             }
           },
           {
@@ -107,11 +100,12 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 306.5
+    "width": 306.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -120,11 +114,37 @@
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "command-palette:打开命令面板": false,
-      "markdown-importer:打开 Markdown 格式转换器": false
+      "markdown-importer:打开 Markdown 格式转换器": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "workspaces:管理工作区布局": false,
+      "periodic-notes:Open today": false
     }
   },
-  "active": "1533a8ef5533daac",
+  "active": "c63607ebccb6094d",
   "lastOpenFiles": [
+    "docs/todo/未命名看板.md",
+    "docs/todo/2023/2023-04/未命名看板.md",
+    "docs/CSS页面布局.md",
+    "docs/todo/2023/2023-04/未命名.md",
+    "docs/todo/2023/未命名.md",
+    "docs/todo/2023/2023-04",
+    "docs/todo/2023.md",
+    "docs/diary/2023-04-16.md",
+    "docs/todo/2023",
+    "docs/todo",
+    "docs/week",
+    "docs/diary/delete.md",
+    "docs/diary",
+    "2023-04-16.md",
+    "docs/java/表达式规则引擎Aviator.md",
+    "docs/java/Cache/README.md",
+    "docs/java/Cache/_sidebar.md",
+    "docs/java/Cache/GuavaCache本地缓存.md",
+    "docs/java/Cache",
+    "docs/Microservices/微服务设计原则和最佳实践.md",
+    "docs/Microservices",
+    "docs/BigData/BDA/MPP与Hadoop有什么区别.md",
+    "docs/BigData/BDA",
     "docs/java/DesignPatterns/命令模式.md",
     "docs/java/并发编程/JUC并发编程.md",
     "docs/java/DesignPatterns/策略模式.md",

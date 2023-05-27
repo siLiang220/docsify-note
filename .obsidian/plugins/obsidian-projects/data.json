@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "projects": [
+    {
+      "fieldConfig": {},
+      "defaultName": "",
+      "templates": [],
+      "excludedNotes": [],
+      "isDefault": false,
+      "dataSource": {
+        "kind": "folder",
+        "config": {
+          "path": "docs/task",
+          "recursive": false
+        }
+      },
+      "newNotesFolder": "",
+      "views": [
+        {
+          "config": {},
+          "filter": {
+            "conditions": []
+          },
+          "colors": {
+            "conditions": []
+          },
+          "id": "1c9d97d1-02c4-457c-9414-c40e8d70dcb5",
+          "name": "Table",
+          "type": "table"
+        },
+        {
+          "config": {},
+          "filter": {
+            "conditions": []
+          },
+          "colors": {
+            "conditions": []
+          },
+          "id": "60bb6867-24ea-427e-a806-542c54131b08",
+          "name": "Board",
+          "type": "board"
+        },
+        {
+          "config": {},
+          "filter": {
+            "conditions": []
+          },
+          "colors": {
+            "conditions": []
+          },
+          "id": "1fa299cd-8aa0-45d7-8181-98638ca4b7d1",
+          "name": "Calendar",
+          "type": "calendar"
+        }
+      ],
+      "id": "28dd84a1-089c-41cd-aacb-ce15c506f3b1",
+      "name": "任务归纳盒"
+    }
+  ],
+  "preferences": {
+    "projectSizeLimit": 1000,
+    "frontmatter": {
+      "quoteStrings": "PLAIN"
+    },
+    "commands": [
+      {
+        "project": "28dd84a1-089c-41cd-aacb-ce15c506f3b1"
+      },
+      {
+        "project": "28dd84a1-089c-41cd-aacb-ce15c506f3b1",
+        "view": "1c9d97d1-02c4-457c-9414-c40e8d70dcb5"
+      }
+    ]
+  }
+}
