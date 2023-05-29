@@ -100,9 +100,13 @@ git branch <brach-name> <commit-id>
 	-  fix：产生diff并自动修复此问题。适合于一次提交直接修复问题
 	- to：只产生diff不自动修复此问题。适合于多次提交。最终修复问题提交时使用fix
 
-- docs：文档（documentation）。
+- docs：添加/更新文档（documentation）。
 
-- style：格式（不影响代码运行的变动）。
+- style：格式更新UI样式（不影响代码运行的变动）。
+
+- format：格式化代码
+
+- init：初始提交或初始化代码 
 
 - refactor：重构（即不是新增功能，也不是修改bug的代码变动）。
 
@@ -110,9 +114,23 @@ git branch <brach-name> <commit-id>
 
 - test：增加测试。
 
+- publish：发布新版本
+
+- tag：发布版本/添加标签 
+
+- patch：添加重要补丁
+
+- file：添加文件 
+
+- git：添加或修改gitignore文件
+
 - chore：构建过程或辅助工具的变动。
 
 - revert：回滚到上一个版本。
+
+- ci：对CI或配置文件和脚本的更改。
+
+- config：修改配置文件（配置） 
 
 - merge：代码合并。
 

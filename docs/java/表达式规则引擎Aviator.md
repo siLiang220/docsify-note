@@ -98,6 +98,67 @@ public class AviatorExampleTwo {
 //公式5：no
 ```
 
+- 工作中实际使用
+```java
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.AviatorEvaluatorInstance;
+import com.googlecode.aviator.Options;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.List;
+import java.util.Map;
+/**表达式工具类*/
+public class ExpressionUtil {
+    public static AviatorEvaluatorInstance aviatorEvaluator = AviatorEvaluator.getInstance();
+    static {
+        aviatorEvaluator.setOption(Options.ALWAYS_PARSE_FLOATING_POINT_NUMBER_INTO_DECIMAL, true);
+        aviatorEvaluator.setCachedExpressionByDefault(true);
+        AviatorEvaluator.addFunction(new ExpressionFunction());
+    }
+    /**
+     * 表达式验证
+     **/
+    public static boolean verify(String expression) {
+        try {
+            aviatorEvaluator.validate(expression);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * 获取表达式变量
+     */
+    public static List<String> getVariableNames(String expression) {
+        return aviatorEvaluator.compile(expression).getVariableNames();
+    }
+    /**
+     * 表达式计算
+     * @param expression 表达式
+     * @param params     需要替换的表达式参数
+     * @return calculate result
+     */
+    public static BigDecimal calculate(String expression, Map<String, Object> params, int scale) {
+        try {
+            BigDecimal val = (BigDecimal) aviatorEvaluator.compile(expression).execute(params);
+            return val.setScale(scale, RoundingMode.HALF_UP);
+        } catch (ArithmeticException e) {
+            return BigDecimal.ZERO;
+        }
+    }
+    /**
+     * 表达式计算
+     * @param expression 表达式
+     * @param params     需要替换的表达式参数
+     * @return calculate result
+     */
+    public static String calculateAge(String expression, Map<String, Object> params) {
+        String age = (String) AviatorEvaluator.execute(expression,params);
+        return age;
+    }
+}
+```
+
 ## Aviator 动态脚本
 [AviatorScript 文档 ](https://www.yuque.com/boyan-avfmj/aviatorscript)
 
