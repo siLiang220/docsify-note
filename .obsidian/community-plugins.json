@@ -1,9 +1,13 @@
 [
   "table-editor-obsidian",
-  "obsidian-image-auto-upload-plugin",
   "ProxyGithub",
   "mx-bili-plugin",
   "media-extended",
+  "table-editor-obsidian",
+  "obsidian-image-auto-upload-plugin",
+  "Enhanced-editing",
+  "editing-toolbar",
+  "obsius-publish",
   "obsidian-kanban",
   "periodic-notes"
 ]

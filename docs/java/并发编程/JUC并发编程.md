@@ -146,8 +146,10 @@ public class FutureAPIDemo {
 
 
  这两方法各有一个重载版本，可以指定执行异步任务的Executor实现，如果不指定，默认使用`ForkJoinPool.commonPool()`，如果机器是单核的，则默认使用`ThreadPerTaskExecutor`，该类是一个内部类，每次执行execute都会创建一个新线程，
+ 
  - `runAsync`表示创建无返回值的异步任务，相当于ExecutorService submit(Runnable task)方法
- -  `supplyAsync`执行`CompletableFuture任务`，支持返回值
+ 
+ -  `supplyAsync`执行`CompletableFuture任务`，支持返回值
  
 ```java
 package com.java.bilibili.base;  
@@ -322,6 +324,11 @@ true	xxxx
 
 #### thenRun/thenRunAsync
 CompletableFuture的thenRun方法，通俗点讲就是，**做完第一个任务后，再做第二个任务**。某个任务执行完成后，执行回调方法；但是前后两个任务**没有参数传递，第二个任务也没有返回值**
+
+- `thenRun(Runnable action)` 它是同第一个任务同一个线程，所以当第一个任务结束后，他才开始运行
+- `thenRunAsync(Runnable action,Executor executor)` 如果第一个任务传入的是自定义线程池，则第一个任务就是以自定义线程池运行，第二个任务使用的是`ForkJoin`线程池
+- `thenRunAsync(Runnable action,Executor executor)` 执行时使用的是自定义的B线程池
+
 ```java
 public class FutureThenRunTest {
 
@@ -349,6 +356,7 @@ null
 
 #### thenApply/thenApplyAsync 
  `thenApply` 表示某个任务执行完成后执行的动作，即回调方法，会将该任务的执行结果即方法返回值作为入参传递到回调方法中如果使用thenApplyAsync，那么执行的线程是从ForkJoinPool.commonPool()中获取不同的线程进行执行，如果使用thenApply，如果supplyAsync方法执行速度特别快，那么thenApply任务就是主线程进行执行，如果执行特别慢的话就是和supplyAsync执行线程一样。
+ 
 计算结果存在依赖关系，线程串行化，**当前步骤出现异常，不继续走下一步**
 ```java
 public class FutureThenApplyTest {

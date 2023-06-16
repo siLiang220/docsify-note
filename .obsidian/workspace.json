@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "bf4bf12c255f5fe3",
+        "id": "97a3cfea14260fea",
         "type": "tabs",
         "children": [
           {
-            "id": "71d9c1107d7911e7",
+            "id": "8a0d5e18b6b105eb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Web/vue3.md",
+                "file": "docs/java/并发编程/JUC并发编程.md",
                 "mode": "source",
                 "source": false
               }
@@ -58,7 +58,7 @@
             }
           },
           {
-            "id": "ef9d4d7ee0d1b040",
+            "id": "fdfe9ecb9f80fb4a",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/Web/vue3.md",
+                "file": "docs/java/并发编程/JUC并发编程.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/Web/vue3.md"
+                "file": "docs/java/并发编程/JUC并发编程.md"
               }
             }
           },
@@ -124,52 +124,51 @@
   "left-ribbon": {
     "hiddenItems": {
       "canvas:新建白板": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "command-palette:打开命令面板": false,
       "markdown-importer:打开 Markdown 格式转换器": false,
-      "daily-notes:打开/创建今天的日记": false,
-      "workspaces:管理工作区布局": false,
-      "periodic-notes:Open today": false
+      "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "71d9c1107d7911e7",
+  "active": "8a0d5e18b6b105eb",
   "lastOpenFiles": [
+    "docs/中台/数据中台.md",
+    "docs/WorkFlow/README.md",
+    "docs/WorkFlow/_slidebar.md",
+    "docs/WorkFlow/camunda.md",
+    "docs/WorkFlow",
+    "docs/BigData/Airflow/_sidebar.md",
+    "docs/BigData/Airflow/README.md",
+    "docs/BigData/Airflow/Airflow.md",
+    "docs/BigData/Airflow",
+    "docs/java/并发编程/JUC并发编程.md",
+    "docs/java/并发编程/Java线程池.md",
     "docs/Web/vue3.md",
-    "docs/CICD/Git.md",
-    "docs/Web/_sidebar.md",
+    "docs/BigData/README.md",
+    "docs/BigData/BDA/README.md",
+    "docs/BigData/BDA/MPP与Hadoop有什么区别.md",
+    "docs/BigData/_sidebar.md",
+    "docs/BigData/BDA/_sidebar.md",
+    "docs/BigData/Kettle/_sidebar.md",
+    "docs/BigData/Kettle/Kettle.md",
     "docs/Web/vue.md",
     "docs/Web/README.md",
-    "docs/Web/Html.md",
+    "docs/Web/_sidebar.md",
     "docs/Web/CSS.md",
+    "docs/CICD/Git.md",
+    "docs/CICD/README.md",
+    "docs/CICD/_sidebar.md",
+    "docs/BigData/ambari/ambari.md",
+    "docs/中台/《中台架构与实现基于DDD和微服务》.md",
+    "docs/yarn.lock",
+    "docs/node_modules",
+    "未命名.canvas",
+    "Nginx",
+    "Web",
+    "docs/Web/Html",
     "docs/Web",
-    "docs/Nginx/Nginx全面配置.md",
-    "docs/Linux/oh-my-zsh.md",
-    "docs/BigData/BDA/_sidebar.md",
-    "docs/BigData/BDA/README.md",
-    "docs/todo/未命名看板.md",
-    "docs/todo/2023/2023-04/未命名看板.md",
-    "docs/CSS页面布局.md",
-    "docs/todo/2023/2023-04/未命名.md",
-    "docs/todo/2023/未命名.md",
-    "docs/todo/2023/2023-04",
-    "docs/todo/2023.md",
-    "docs/diary/2023-04-16.md",
-    "docs/todo/2023",
-    "docs/todo",
-    "docs/week",
-    "docs/diary/delete.md",
-    "docs/diary",
-    "2023-04-16.md",
-    "docs/java/表达式规则引擎Aviator.md",
-    "docs/java/Cache/README.md",
-    "docs/java/Cache/_sidebar.md",
-    "docs/java/Cache/GuavaCache本地缓存.md",
-    "docs/java/Cache",
-    "docs/Microservices/微服务设计原则和最佳实践.md",
-    "docs/Microservices",
-    "docs/BigData/BDA/MPP与Hadoop有什么区别.md",
-    "docs/BigData/BDA"
+    "java/Cache",
+    "java"
   ]
 }

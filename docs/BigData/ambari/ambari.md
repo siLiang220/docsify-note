@@ -1,10 +1,10 @@
-### Ambari功能
+## Ambari功能
 
 1. 提供跨任意数量的主机安装Hadoop服务分步向导 处理集群的Hadoop服务配置
 2. 提供集中管理，用于在整个集群中启动、停止和重新配置Hadoop服务
 3. 提供系统警报、监控Hadoop集群的运行状态
 
-### Ambari架构
+## Ambari架构
 
 ambari使用的是Master/Slaves 架构（由一个Ambari server 和多个Agent 组成），通过一个Server主进程实现集群的管理和操作命令的发送，而具体的管理动作是由每台目标主机的Agent进行执行。
 
@@ -52,7 +52,6 @@ ping node1
 setenforce 0
 # 永久关闭（设置后需重启才能生效）
 vi /etc/selinux/config # 然后将 SELINUX=enforcing 改为 SELINUX=disabled
-
 ```
 ### 安装包
 **ambari 2.7.4安装包 HDP3.1.4安装包 下载后上传到node1（使用迅雷下载）**
