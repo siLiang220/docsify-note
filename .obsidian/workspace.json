@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "0e966da21c0f829c",
+        "id": "bf4bf12c255f5fe3",
         "type": "tabs",
         "children": [
           {
-            "id": "c63607ebccb6094d",
+            "id": "71d9c1107d7911e7",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "docs/Web/vue3.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -52,6 +56,14 @@
                 "sortOrder": "alphabetical"
               }
             }
+          },
+          {
+            "id": "ef9d4d7ee0d1b040",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
@@ -73,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "docs/Web/vue3.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -88,7 +101,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "docs/Web/vue3.md"
+              }
             }
           },
           {
@@ -100,12 +115,11 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 306.5,
-    "collapsed": true
+    "width": 306.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -120,10 +134,11 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "c63607ebccb6094d",
+  "active": "71d9c1107d7911e7",
   "lastOpenFiles": [
-    "docs/Web/_sidebar.md",
     "docs/Web/vue3.md",
+    "docs/CICD/Git.md",
+    "docs/Web/_sidebar.md",
     "docs/Web/vue.md",
     "docs/Web/README.md",
     "docs/Web/Html.md",
@@ -155,7 +170,6 @@
     "docs/Microservices/微服务设计原则和最佳实践.md",
     "docs/Microservices",
     "docs/BigData/BDA/MPP与Hadoop有什么区别.md",
-    "docs/BigData/BDA",
-    "docs/java/DesignPatterns/命令模式.md"
+    "docs/BigData/BDA"
   ]
 }
