@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "97a3cfea14260fea",
+        "id": "55856adf03d1f70c",
         "type": "tabs",
         "children": [
           {
-            "id": "8a0d5e18b6b105eb",
+            "id": "9aadddc17cfa932f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/java/并发编程/JUC并发编程.md",
+                "file": "docs/K8s/Kubernetes.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/java/并发编程/JUC并发编程.md",
+                "file": "docs/K8s/Kubernetes.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/java/并发编程/JUC并发编程.md"
+                "file": "docs/K8s/Kubernetes.md"
               }
             }
           },
@@ -123,52 +123,54 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "daily-notes:打开/创建今天的日记": false,
+      "workspaces:管理工作区布局": false,
       "canvas:新建白板": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "command-palette:打开命令面板": false,
       "markdown-importer:打开 Markdown 格式转换器": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "periodic-notes:Open today": false
     }
   },
-  "active": "8a0d5e18b6b105eb",
+  "active": "9aadddc17cfa932f",
   "lastOpenFiles": [
-    "docs/中台/数据中台.md",
-    "docs/WorkFlow/README.md",
-    "docs/WorkFlow/_slidebar.md",
+    "docs/系统设计/RBAC.md",
+    "docs/系统设计",
+    "docs/公开演讲/未命名.md",
+    "docs/公开演讲",
+    "docs/java/MDC在线程池中传递链路ID.md",
+    "docs/iot/开源物联网平台.md",
     "docs/WorkFlow/camunda.md",
-    "docs/WorkFlow",
-    "docs/BigData/Airflow/_sidebar.md",
-    "docs/BigData/Airflow/README.md",
-    "docs/BigData/Airflow/Airflow.md",
-    "docs/BigData/Airflow",
-    "docs/java/并发编程/JUC并发编程.md",
-    "docs/java/并发编程/Java线程池.md",
-    "docs/Web/vue3.md",
-    "docs/BigData/README.md",
-    "docs/BigData/BDA/README.md",
-    "docs/BigData/BDA/MPP与Hadoop有什么区别.md",
-    "docs/BigData/_sidebar.md",
-    "docs/BigData/BDA/_sidebar.md",
-    "docs/BigData/Kettle/_sidebar.md",
+    "docs/WorkFlow/_slidebar.md",
+    "docs/K8s/Kubernetes.md",
     "docs/BigData/Kettle/Kettle.md",
+    "docs/BigData/BDA/MPP与Hadoop有什么区别.md",
+    "docs/Architecture/服务接口的高可用设计.md",
+    "docs/WorkFlow/README.md",
+    "docs/CICD/Jenkins.md",
+    "docs/Microservices/微服务设计原则和最佳实践.md",
+    "docs/Web/Html.md",
     "docs/Web/vue.md",
-    "docs/Web/README.md",
-    "docs/Web/_sidebar.md",
+    "docs/Web/vue3.md",
+    "docs/Microservices/在微服务架构中实践《十二要素应用》原则.md",
+    "docs/_sidebar.md",
+    "docs/README.md",
+    "docs/Microservices/README.md",
+    "docs/Microservices/_sidebar.md",
+    "docs/Linux/README.md",
+    "Linux/微服务设计原则和最佳实践.md",
+    "Linux",
+    "docs/Linux/_sidebar.md",
     "docs/Web/CSS.md",
-    "docs/CICD/Git.md",
-    "docs/CICD/README.md",
-    "docs/CICD/_sidebar.md",
-    "docs/BigData/ambari/ambari.md",
-    "docs/中台/《中台架构与实现基于DDD和微服务》.md",
+    "未命名",
+    "docs/WorkFlow",
+    "docs/BigData/Airflow",
     "docs/yarn.lock",
     "docs/node_modules",
     "未命名.canvas",
     "Nginx",
-    "Web",
-    "docs/Web/Html",
-    "docs/Web",
-    "java/Cache",
-    "java"
+    "Web"
   ]
 }

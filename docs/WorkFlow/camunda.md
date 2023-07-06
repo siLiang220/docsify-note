@@ -81,3 +81,7 @@ public class TaskCreateListener implements TaskListener {
 
 
 在每个步骤中，将处理人保存到流程变量中，以任务key前缀和处理人作为流程变量的键值对，当需要同一个处理人审核时，可以直接使用该任务key前缀获取已经指定过的处理人。
+
+## 开源的第三方集成框架
+
+https://gitee.com/wanglonewalker/snail-camunda.git
