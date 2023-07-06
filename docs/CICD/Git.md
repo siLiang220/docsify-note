@@ -128,7 +128,7 @@ git branch <brach-name> <commit-id>
 
 - revert：回滚到上一个版本。
 
-- ci：对CI或配置文件和脚本的更改。
+- ci：对CI配置文件和脚本的更改。
 
 - config：修改配置文件（配置） 
 
