@@ -24,8 +24,11 @@
 `Execution`的含义就是一个流程实例（`ProcessInstance`）具体要执行的过程对象，流程实例只有一个，但是执行对象可以有多个
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230711210225.png)
 
+在上面的例子中 两个用户任务“receive payment”和“ship order”可以同时执行。流程引擎在流程实例遇到并行网关会创建两个并发的执行，每个并发执行都有一个执行的路径
 
-## 学习文档与社区
+[流程变量 | docs.camunda.org (shaochenfeng.com)](http://camunda-cn.shaochenfeng.com/user-guide/process-engine/variables/)
+
+## 三、学习文档与社区
 - 官方文档：[https://docs.camunda.org/manual/](https://docs.camunda.org/manual/ "https://docs.camunda.org/manual/")
 - 国内翻译过后的中文文档：[http://camunda-cn.shaochenfeng.com/](http://camunda-cn.shaochenfeng.com/ "http://camunda-cn.shaochenfeng.com/")
 - github社区: [https://github.com/camunda-community-hub](https://github.com/camunda-community-hub "https://github.com/camunda-community-hub")
@@ -37,7 +40,7 @@ camunda支持流程实例的迁移，比如同一个流程有多个实例，多�
 
 
 
-## 实际应用
+## 四、实际应用
 ### 实现业务审核退回
 
 #### 业务需求
