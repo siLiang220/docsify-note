@@ -111,3 +111,35 @@
     -   我们通过 Kubernetes 的 API 来操作整个集群
     -   同时我们可以通过 kubectl 、ui、curl 最终发送 http + json/yaml 方式的请求给 API Server，然后控制整个 K8S 集群，K8S 中所有的资源对象都可以采用 yaml 或 json 格式的文件定义或描述
 
+
+## k8s 网络检测工具
+
+[尼古拉卡/网拍 - 码头工人图片 |码头工人中心 (docker.com)](https://hub.docker.com/r/nicolaka/netshoot)
+
+```sh
+kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash
+```
+
+## minikube
+
+Minikube 是一个在本地运行 Kubernetes 集群的工具。由于 Minikube 运行在虚拟机或者本地的容器中，它的网络环境与宿主机的网络环境是隔离的。
+
+为了将集群内部的服务暴露给宿主机或外部网络，需要进行端口转发。端口转发将宿主机的某个端口与集群内部的服务端口进行映射，这样宿主机就可以通过转发的端口访问集群内的服务。
+
+在使用 `minikube service` 命令时，Minikube 会自动进行端口转发，将集群内的服务映射到宿主机上的一个端口。这样，您可以使用宿主机的 IP 地址和映射的端口来访问集群内的服务。
+
+需要注意的是，如果您的网络环境发生变化或 Minikube 重新启动，端口转发可能会中断。因此，当需要长期使用端口转发时，建议将转发进程设置为后台运行，并且在需要时检查转发是否正常工作。
+
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230630111308.png)
+
+
+在这里还需要将服务转发到绑定的端口30010 
+```sh
+kubectl port-forward svc/xc-simple-login --address 0.0.0.0 30010:8080
+```
+
+因为关闭终端或断开连接，转发仍然将会停止，这里将转发进程放在后台运行
+```sh
+nohup kubectl port-forward svc/xc-simple-login --address 0.0.0.0 30010:8080 > port-forward.log 2>&1 &
+```

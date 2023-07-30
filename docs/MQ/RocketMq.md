@@ -73,6 +73,9 @@ Consumer可以根据消息标签（Tag）对消息进行过滤，确保Consumer�
 ## 普通消息
 ### 功能简介
 在多种消息类型中，普通消息是最简单也最为重要。普通消息是 RocketMQ 的基本消息类型，提供高吞吐、扩展、低延迟、异步的通信能力。其他高级消息类型基本都是在这种普通消息类型的基础上叠加了独有的控制特性，或者是特定的使用的方式。
+
+可用于以三种方式发送消息：同步、异步和单向传输。前两种消息类型是可靠的，因为无论它们是否成功发送都有响应。
+
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20220821181819.png)
 **普通消息的特点**
 - 原子性：消息之间没有关联关系，收发处理逻辑原子；
@@ -135,7 +138,9 @@ _**使用定时消息实现金融支付超时的需求**_
 ## 顺序消息
 ### 基本概念
 顺序消息是消息队列 RocketMQ 版提供的一种对消息发送和消费顺序有严格要求的消息。对于一个指定的 Topic，同一 MessageGroup 的消息按照严格的先进先出（FIFO）原则进行发布和消费，即先发布的消息先消费，后发布的消息后消费，服务端严格按照发送顺序进行存储、消费。同一 MessageGroup 的消息保证顺序，不同 MessageGroup 之间的消息顺序不做要求，因此需做到两点，发送的顺序性和消费的顺序性。
+
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20220821174945.png)
+
 在分布式环境下，保证消息的全局顺序性是十分困难的，例如两个 RocketMQ Producer A 与 Producer B，它们在没有沟通的情况下各自向 RocketMQ 服务端发送消息 a 和消息 b，由于分布式系统的限制，我们无法保证 a 和 b 的顺序。因此业界消息系统通常保证的是分区的顺序性，即保证带有同一属性的消息的顺序，我们将该属性称之为 MessageGroup。如图所示，ProducerA 发送了 MessageGroup 属性为 A 的两条消息 A1，A2 和 MessageGroup 属性为 B 的 B1，B2，而 ProducerB 发送了 MessageGroup 属性为 C 的两条属性 C1，C2。  
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661087067399.png)
 
@@ -182,7 +187,9 @@ _**应用案例**_
 以 电商交易场景为例，用户支付订单会同时设计下游物流发货，积分变更，购物车状态清空等多个子系统变更分布式系统的调用特点：一个核心业务逻辑的执行同时需要调用多个下游业务进行处理。
 基于rocketMQ分布式事务消息：支持最终的一致性
 而基于消息队列 RocketMQ 版实现的分布式事务消息功能，在普通消息基础上，支持二阶段的提交能力。将二阶段提交和本地事务绑定，实现全局提交结果的一致性。
+
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/uTools_1661072393119.png)
+
 ### 基本原理
 #### 基本概念
 - **事务消息：** RocketMQ 提供类似 XA 或 Open XA 的分布式事务功能，通过 RocketMQ 事务消息能达到分布式事务的最终一致；

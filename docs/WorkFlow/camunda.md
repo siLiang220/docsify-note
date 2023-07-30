@@ -1,6 +1,6 @@
 ## 工作流基础
 
-### 术语
+### 一、术语
 - **或签：** 一名负责人通过即可通过审批节点
 - **会签：** 需所有负责人通过才能通过审批节点
 - **加签：** 审批过程中加签
@@ -13,15 +13,34 @@
 - **反签收：** 就是把执行人设置为空
     - 注意事项：反签收的时候，一定要先确定是否有候选人或者候选组，如果没有的话，不能反签收。因为会导致这个任务无法认领。
 
-## 论坛网站
-[Camunda 中文站 | docs.camunda.org (shaochenfeng.com)](http://camunda-cn.shaochenfeng.com/)
-[Camunda Platform ](https://forum.camunda.io/)
+### 二、工作流中流程对象之间的关系
 
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230711204144.png)
+
+#### 1.ProcessInstance 与ProcessDefinition
+流程实例（`ProcessInstance`）和流程定义（`ProcessDefinition`）的关系，与类和实例对象的关系有点像，`ProcessDefinition`是整个流程步骤的说明而`ProcessInstance`就是指流程定义从开始到结束的那个最大的执行路线。
+
+#### 2.Execution 与 ProcessInstance
+`Execution`的含义就是一个流程实例（`ProcessInstance`）具体要执行的过程对象，流程实例只有一个，但是执行对象可以有多个
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20230711210225.png)
+
+在上面的例子中 两个用户任务“receive payment”和“ship order”可以同时执行。流程引擎在流程实例遇到并行网关会创建两个并发的执行，每个并发执行都有一个执行的路径
+
+[流程变量 | docs.camunda.org (shaochenfeng.com)](http://camunda-cn.shaochenfeng.com/user-guide/process-engine/variables/)
+
+## 三、学习文档与社区
+- 官方文档：[https://docs.camunda.org/manual/](https://docs.camunda.org/manual/ "https://docs.camunda.org/manual/")
+- 国内翻译过后的中文文档：[http://camunda-cn.shaochenfeng.com/](http://camunda-cn.shaochenfeng.com/ "http://camunda-cn.shaochenfeng.com/")
+- github社区: [https://github.com/camunda-community-hub](https://github.com/camunda-community-hub "https://github.com/camunda-community-hub")
+- 脚手架：[https://start.camunda.com/](https://start.camunda.com/ "https://start.camunda.com/")
+- 论坛[https://forum.camunda.io/](https://forum.camunda.io/ "https://forum.camunda.io/")
 camunda支持流程实例的迁移，比如同一个流程有多个实例，多个流程版本，不同流程实例运行在不同的版本中，camunda支持任意版本的实例迁移到指定的流程版本中，并可以在迁移的过程中支持从哪个节点开始。
 
 用户-->组-->租户
 
-## 实际应用
+
+
+## 四、实际应用
 ### 实现业务审核退回
 
 #### 业务需求
@@ -81,3 +100,7 @@ public class TaskCreateListener implements TaskListener {
 
 
 在每个步骤中，将处理人保存到流程变量中，以任务key前缀和处理人作为流程变量的键值对，当需要同一个处理人审核时，可以直接使用该任务key前缀获取已经指定过的处理人。
+
+## 开源的第三方集成框架
+
+https://gitee.com/wanglonewalker/snail-camunda.git
