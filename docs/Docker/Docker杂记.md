@@ -1,3 +1,50 @@
+## Centos 安装Docker
+
+### 1. 卸载旧版本
+```sh
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+```
+
+### 2. 安装yum工具
+```sh
+sudo yum install -y yum-utils
+```
+
+### 3. 设置stable镜像仓库
+这里使用的阿里云镜像地址
+```sh
+yum-config-manager \
+    --add-repo \
+    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+    
+sed -i 's/download.docker.com/mirrors.aliyun.com\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
+```
+
+### 4.安装docker引擎
+```sh
+sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### 5. 配置阿里云docker镜像加速器
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://4z3ue4qc.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+
 
 ## Docker 容器运行模式
 docker 容器进程有两种运行模式
