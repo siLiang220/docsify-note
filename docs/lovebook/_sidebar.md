@@ -2,3 +2,4 @@
 * [废测](lovebook/废物测试.md)
 * [搭讪](lovebook/搭讪.md)
 * [心态](lovebook/心态.md)
+* [话术](lovebook/话术.md)
