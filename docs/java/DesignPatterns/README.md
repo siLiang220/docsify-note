@@ -9,3 +9,4 @@
 * [观察者模式](java/DesignPatterns/观察者模式)
 * [模板方法](java/DesignPatterns/模板方法)    
 * [责任链模式](java/DesignPatterns/责任链模式)
+* [java Design Patterns](https://java-design-patterns.com/zh)

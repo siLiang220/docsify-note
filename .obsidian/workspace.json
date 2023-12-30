@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "aa0f50fc661adaf6",
+        "id": "dcbc6245badb0320",
         "type": "tabs",
         "children": [
           {
-            "id": "3a21c8dd1246707f",
+            "id": "29a061f4615fee52",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "docs/未命名/未命名.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/lovebook/心态.md",
+                "file": "docs/未命名/未命名.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -98,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/lovebook/心态.md"
+                "file": "docs/未命名/未命名.md"
               }
             }
           },
@@ -108,6 +112,18 @@
             "state": {
               "type": "advanced-tables-toolbar",
               "state": {}
+            }
+          },
+          {
+            "id": "3fd21486761f5317",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              }
             }
           }
         ],
@@ -131,44 +147,44 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "1c363c84f8732b0a",
+  "active": "29a061f4615fee52",
   "lastOpenFiles": [
-    "docs/中台/《中台架构与实现基于DDD和微服务》.md",
-    "docs/lovebook/心态_REMOTE_128.md",
-    "docs/lovebook/心态_LOCAL_128.md",
-    "docs/lovebook/心态_BASE_128.md",
-    "docs/lovebook/心态_BACKUP_128.md",
+    "docs/未命名/未命名.md",
+    "docs/未命名",
+    "docs/BigData/Doris实时数据仓库建设.md",
+    "docs/BigData/Doris/Doris.md",
+    "docs/java/DesignPatterns/README.md",
+    "docs/BigData/Flink/_sidebar.md",
+    "docs/BigData/Flink/Flink.md",
+    "docs/java/spring/SpringBoot/DeferredResult.md",
+    "docs/java/spring/SpringFramework.md",
+    "docs/BigData/Doris",
+    "docs/BigData/离线数仓/离线数仓.md",
+    "docs/网络安全/WSA抓包.md",
+    "docs/网络安全/web安全.md",
+    "docs/网络安全/nmap使用手册.md",
+    "docs/网络安全/REDEME.md",
+    "docs/lovebook/徒步 爬山.md",
     "docs/lovebook/心态.md",
-    "docs/干货/职场提升经验.md",
-    "docs/干货/技术分享.md",
-    "docs/lovebook/_sidebar.md",
-    "docs/lovebook/搭讪.md",
-    "docs/lovebook/第五.md",
-    "docs/lovebook/README.md",
-    "docs/lovebook/废物测试.md",
-    "docs/Web/_sidebar.md",
-    "docs/Web/第三.md",
-    "docs/Web/README.md",
-    "docs/lovebook",
-    "docs/Web/vue3.md",
-    "docs/Linux/README.md",
-    "docs/系统设计/RBAC.md",
-    "docs/系统设计",
+    "docs/java/并发编程/JUC并发编程.md",
+    "docs/系统设计/多租户.md",
     "docs/公开演讲/未命名.md",
-    "docs/公开演讲",
-    "docs/java/MDC在线程池中传递链路ID.md",
     "docs/iot/开源物联网平台.md",
-    "docs/Microservices/在微服务架构中实践《十二要素应用》原则.md",
-    "docs/Linux/_sidebar.md",
-    "docs/Linux/node19.md",
-    "docs/Docker/Docker杂记.md",
+    "docs/java/DesignPatterns/_sidebar.md",
+    "docs/系统设计/新老系统数据同步.md",
+    "docs/BigData/Flink/paimon.md",
+    "docs/BigData/Hive/拉链表脚本.md",
+    "docs/WorkFlow/camunda.md",
+    "docs/java/DesignPatterns/策略模式.md",
+    "docs/README.md",
+    "docs/lovebook",
+    "docs/系统设计",
+    "docs/公开演讲",
     "docs/WorkFlow",
     "docs/BigData/Airflow",
     "docs/yarn.lock",
     "docs/node_modules",
     "未命名.canvas",
-    "Nginx",
-    "Web",
-    "docs/Web/Html"
+    "Nginx"
   ]
 }

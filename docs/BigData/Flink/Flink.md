@@ -1,3 +1,25 @@
+
+## 一、 window 函数
+### 1.1 windows 与windowsAll的区别
+keyed streams 要调用 `keyBy(...)`后再调用 `window(...)` ， 而 non-keyed streams 只用直接调用 `windowAll(...)`。留
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20231114171905.png)
+
+### 窗口的生命周期
+
+一个窗口在第一个属于它的元素到达时就会被**创建**，然后在时间（event 或 processing time） 超过窗口的“结束时间戳 + 用户定义的 `allowed lateness` （详见 [Allowed Lateness](https://nightlies.apache.org/flink/flink-docs-release-1.18/zh/docs/dev/datastream/operators/windows/#allowed-lateness)）”时 被**完全删除**
+
+
+###  窗口函数（Window Functions）
+
+窗口函数有三种：`ReduceFunction`、`AggregateFunction` 或 `ProcessWindowFunction`。 前两者执行起来更高效（详见 [State Size](https://nightlies.apache.org/flink/flink-docs-release-1.18/zh/docs/dev/datastream/operators/windows/#%e5%85%b3%e4%ba%8e%e7%8a%b6%e6%80%81%e5%a4%a7%e5%b0%8f%e7%9a%84%e8%80%83%e9%87%8f)）因为 Flink 可以在每条数据到达窗口后 进行增量聚合（incrementally aggregate）。 而 `ProcessWindowFunction` 会得到能够遍历当前窗口内所有数据的 `Iterable`，以及关于这个窗口的 meta-information。
+
+使用 `ProcessWindowFunction` 的窗口转换操作没有其他两种函数高效，因为 Flink 在窗口触发前必须缓存里面的_所有_数据。 `ProcessWindowFunction` 可以与 `ReduceFunction` 或 `AggregateFunction` 合并来提高效率。 这样做既可以增量聚合窗口内的数据，又可以从 `ProcessWindowFunction` 接收窗口的 metadata。 我们接下来看看每种函数的例子。
+
+
+### 参考资料
+
+- [官方文档-窗口](https://nightlies.apache.org/flink/flink-docs-release-1.18/zh/docs/dev/datastream/operators/windows/)
 ## Watermark
 
 ### 基本概念
@@ -55,3 +77,16 @@ Watermark是一种衡量Event Time进展的机制。 Watermark是用于处理乱
 [ Flink 水位线机制WaterMark实践 处理乱序消息_二十六画生的博客的博客-CSDN博客_flink水位机制](https://programskills.blog.csdn.net/article/details/106876623)
 
 [ Flink窗口机制详解_最佳第六六六人的博客-CSDN博客_flink窗口触发机制](https://blog.csdn.net/qq_43523503/article/details/114958569)
+
+
+## Flink 集成SpringBoot
+
+
+### 参考文章
+[springboot集成flink并发布flink集群端运行](https://blog.csdn.net/guaotianxia/article/details/120885307)
+
+[Flink与Spring Boot集成实践：搭建实时数据处理平台](https://juejin.cn/post/7299008858521141283#comment)
+
+
+
+https://github.com/geekyouth/SZT-bigdata

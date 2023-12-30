@@ -14,8 +14,16 @@ ambari使用的是Master/Slaves 架构（由一个Ambari server 和多个Agent �
 
 [参考文档2](https://blog.csdn.net/weixin_40461486/article/details/120437682)
 
+##  Ambari 与 HDP 关系
 
-## 准备工作
+Ambari和HDP（Hortonworks Data Platform）是用于管理和运维Hadoop集群的两个关键组件。
+
+- `Ambari` 是一个开源的集群管理工具，提供了一个直观的Web界面，用于简化Hadoop集群的配置、管理和监控。通过Ambari，管理员可以轻松地进行集群部署、服务配置、扩展和监控。它还提供了一些高级功能，如自动服务恢复、告警管理和权限控制等
+
+- HDP 是Hortonworks提供的一个完整的数据平台，基于开源的Apache Hadoop生态系统构建而成。它包含了一系列的核心组件，如HDFS（Hadoop分布式文件系统）、YARN（Yet Another Resource Negotiator）、MapReduce、Hive、HBase、Spark、Pig等。HDP通过集成这些组件，为用户提供了一个稳定、可靠和易于管理的Hadoop平台。
+
+- Ambari 和 HDP 之间的关系是，Ambari作为一个集群管理工具，可以用于管理和运维HDP所构建的Hadoop集群。通过Ambari，管理员可以在HDP集群上进行各种操作，如添加/删除节点、配置服务参数、监控集群健康状态等。同时，Ambari还提供了一些附加功能，如服务自动发现、日志聚合和可视化等，以提高Hadoop集群的可管理性和可视化性。
+
 ### 机器
 
 设置ssh 免密登录 
