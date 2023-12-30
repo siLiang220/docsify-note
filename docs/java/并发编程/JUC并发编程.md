@@ -735,6 +735,30 @@ public class AnyOfFutureTest {
 finish
 ```
 
+## 主线程捕获其他线程产生的异常
+### completeExceptionally
+
+```java
+public static String getTestResult()
+{
+	int i = 10/0;
+	return "test";
+}
+
+public static void main(String[] args) {
+	CompletableFuture<String> completableFuture  = new CompletableFuture();
+	new Thread(()->{
+		try {
+			completableFuture.complete(getTestResult());
+		} catch (Exception e) {
+			System.out.println("get exception in side");
+			completableFuture.completeExceptionally(e);
+		}
+	}).start();
+	completableFuture.exceptionally(e->"we hava a exception"+e.getMessage())
+			.thenAccept(u-> System.out.println(u));
+}
+```
 ### CompletableFuture使用注意点
 #### 1. Future需要获取返回值，才能获取异常信息
 
