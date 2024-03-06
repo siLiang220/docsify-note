@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "dcbc6245badb0320",
+        "id": "7fb91c9c88d94808",
         "type": "tabs",
         "children": [
           {
-            "id": "29a061f4615fee52",
+            "id": "210c43042d1d050c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/未命名/未命名.md",
+                "file": "docs/java/maven/Maven.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/未命名/未命名.md",
+                "file": "docs/java/maven/Maven.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/未命名/未命名.md"
+                "file": "docs/java/maven/Maven.md"
               }
             }
           },
@@ -131,8 +131,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 306.5,
-    "collapsed": true
+    "width": 306.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -147,9 +146,17 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "29a061f4615fee52",
+  "active": "210c43042d1d050c",
   "lastOpenFiles": [
+    "docs/Distributed/CAP.md",
+    "docs/java/maven/README.md",
+    "docs/java/maven/Maven.md",
+    "docs/机器视觉/YOLO/YOLOV5学习.md",
+    "docs/java/maven",
     "docs/未命名/未命名.md",
+    "docs/机器视觉/YOLO",
+    "docs/机器视觉",
+    "未命名",
     "docs/未命名",
     "docs/BigData/Doris实时数据仓库建设.md",
     "docs/BigData/Doris/Doris.md",
@@ -173,18 +180,10 @@
     "docs/java/DesignPatterns/_sidebar.md",
     "docs/系统设计/新老系统数据同步.md",
     "docs/BigData/Flink/paimon.md",
-    "docs/BigData/Hive/拉链表脚本.md",
-    "docs/WorkFlow/camunda.md",
-    "docs/java/DesignPatterns/策略模式.md",
-    "docs/README.md",
     "docs/lovebook",
     "docs/系统设计",
     "docs/公开演讲",
     "docs/WorkFlow",
-    "docs/BigData/Airflow",
-    "docs/yarn.lock",
-    "docs/node_modules",
-    "未命名.canvas",
-    "Nginx"
+    "未命名.canvas"
   ]
 }
