@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "91c3ac5ba57d9e25",
+        "id": "8fb66be145e504e4",
         "type": "tabs",
         "children": [
           {
-            "id": "9d621ab649c59b78",
+            "id": "e037ad0814323bc6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/tools/README.md",
+                "file": "docs/java/spring/_sidebar.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/tools/README.md",
+                "file": "docs/java/spring/_sidebar.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/tools/README.md"
+                "file": "docs/java/spring/_sidebar.md"
               }
             }
           },
@@ -146,16 +146,30 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "9d621ab649c59b78",
+  "active": "e037ad0814323bc6",
   "lastOpenFiles": [
+    "docs/java/spring/SpringBoot/_sidebar.md",
+    "docs/java/spring/_sidebar.md",
+    "docs/SystemDesign/_sidebar.md",
+    "docs/java/maven/_sidebar.md",
+    "docs/BigData/Flink/_sidebar.md",
+    "docs/java/_sidebar.md",
+    "docs/java/maven/README.md",
+    "docs/java/README.md",
+    "docs/java/maven/Maven.md",
+    "docs/java/DesignPatterns/README.md",
+    "docs/java/DesignPatterns/_sidebar.md",
+    "docs/tools/README.md",
+    "docs/机器视觉/YOLO/YOLOV5学习.md",
+    "docs/机器视觉/YOLO",
+    "docs/机器视觉",
+    "docs/java/maven",
     "docs/tools/tools.md",
     "docs/Docker/_sidebar.md",
     "docs/_sidebar.md",
-    "docs/tools/README.md",
     "工具/README.md",
     "工具",
     "docs/tools/_sidebar.md",
-    "docs/SystemDesign/_sidebar.md",
     "docs/SystemDesign/README.md",
     "docs/README.md",
     "docs/BigData/_sidebar.md",
@@ -164,26 +178,12 @@
     "docs/SystemDesign/多租户.md",
     "docs/Architecture/一码多用.md",
     "docs/BigData/Doris/Doris.md",
-    "docs/BigData/Kettle/README.md",
-    "docs/网络安全/REDEME.md",
-    "docs/iot/开源物联网平台.md",
-    "docs/iot/iot乐鑫蓝牙配网.md",
-    "docs/lovebook/第五.md",
-    "docs/lovebook/话术.md",
-    "docs/公开演讲/未命名.md",
-    "docs/iot/设备消息源格式.md",
-    "docs/Microservices/_sidebar.md",
-    "docs/lovebook/分析.md",
-    "docs/lovebook/越野跑.md",
     "docs/tools",
     "docs/未命名",
     "docs/BigData/Doris",
     "docs/lovebook",
     "docs/SystemDesign",
     "docs/公开演讲",
-    "docs/WorkFlow",
-    "docs/BigData/Airflow",
-    "docs/yarn.lock",
     "未命名.canvas"
   ]
 }

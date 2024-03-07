@@ -3,6 +3,7 @@
     * [回到上一级(../)](../README)
     * [并发编程](java/并发编程/README.md)
     * [Spring](java/spring/README.md)
+    * [Maven](java/maven/README.md)
     * [设计模式](java/DesignPatterns/README.md)
     * [如何优雅的记录操作日志](java/如何优雅的记录操作日志)
     * [MDC在线程池中传递链路ID](java/MDC在线程池中传递链路ID.md)
