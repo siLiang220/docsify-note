@@ -2165,3 +2165,86 @@ public class SemaphoreDemo {
 }
 ```
 
+### 实际使用
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
+
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+
+@RestController
+@RequestMapping("/api")
+@EnableAsync
+public class AsyncController {
+
+    private final Map<String, DeferredResult<String>> deferredResultMap = new ConcurrentHashMap<>();
+
+    @Autowired
+    private AsyncService asyncService;
+
+    @GetMapping("/startTask")
+    public DeferredResult<ResponseEntity<String>> startTask() {
+        String taskId = "Task1";
+        DeferredResult<ResponseEntity<String>> deferredResult = new DeferredResult<>();
+
+        CompletableFuture<String> completableFuture = asyncService.executeAsyncTask(taskId);
+
+        completableFuture.whenComplete((result, ex) -> {
+            if (ex != null) {
+                deferredResult.setErrorResult(ex.getMessage());
+            } else {
+                deferredResult.setResult(ResponseEntity.ok("Task completed. Result: " + result));
+            }
+        });
+
+        deferredResultMap.put(taskId, deferredResult);
+        return deferredResult;
+    }
+
+    @GetMapping("/checkTask")
+    public ResponseEntity<String> checkTask() {
+        String taskId = "Task1";
+        DeferredResult<String> deferredResult = deferredResultMap.get(taskId);
+
+        if (deferredResult != null) {
+            if (deferredResult.hasResult()) {
+                return ResponseEntity.ok("Task Result: " + deferredResult.getResult());
+            } else {
+                return ResponseEntity.ok("Task is still in progress");
+            }
+        } else {
+            return ResponseEntity.ok("Task not found");
+        }
+    }
+}
+
+@Service
+class AsyncService {
+
+    @Async
+    public CompletableFuture<String> executeAsyncTask(String taskId) {
+        return CompletableFuture.supplyAsync(() -> {
+            simulateTaskExecution(taskId);
+            return "Task completed";
+        });
+    }
+
+    private void simulateTaskExecution(String taskId) {
+        try {
+            Thread.sleep(3000); // Simulate task execution time
+            System.out.println("Task " + taskId + " executed");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
