@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "dcbc6245badb0320",
+        "id": "91c3ac5ba57d9e25",
         "type": "tabs",
         "children": [
           {
-            "id": "29a061f4615fee52",
+            "id": "9d621ab649c59b78",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/未命名/未命名.md",
+                "file": "docs/tools/README.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 283.5
+    "width": 259.5
   },
   "right": {
     "id": "16c03617cb4fcd6a",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/未命名/未命名.md",
+                "file": "docs/tools/README.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/未命名/未命名.md"
+                "file": "docs/tools/README.md"
               }
             }
           },
@@ -131,8 +131,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 306.5,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -147,44 +146,44 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "29a061f4615fee52",
+  "active": "9d621ab649c59b78",
   "lastOpenFiles": [
-    "docs/未命名/未命名.md",
-    "docs/未命名",
-    "docs/BigData/Doris实时数据仓库建设.md",
-    "docs/BigData/Doris/Doris.md",
-    "docs/java/DesignPatterns/README.md",
-    "docs/BigData/Flink/_sidebar.md",
-    "docs/BigData/Flink/Flink.md",
-    "docs/java/spring/SpringBoot/DeferredResult.md",
-    "docs/java/spring/SpringFramework.md",
-    "docs/BigData/Doris",
-    "docs/BigData/离线数仓/离线数仓.md",
-    "docs/网络安全/WSA抓包.md",
-    "docs/网络安全/web安全.md",
-    "docs/网络安全/nmap使用手册.md",
-    "docs/网络安全/REDEME.md",
-    "docs/lovebook/徒步 爬山.md",
-    "docs/lovebook/心态.md",
-    "docs/java/并发编程/JUC并发编程.md",
-    "docs/系统设计/多租户.md",
-    "docs/公开演讲/未命名.md",
-    "docs/iot/开源物联网平台.md",
-    "docs/java/DesignPatterns/_sidebar.md",
-    "docs/系统设计/新老系统数据同步.md",
-    "docs/BigData/Flink/paimon.md",
-    "docs/BigData/Hive/拉链表脚本.md",
-    "docs/WorkFlow/camunda.md",
-    "docs/java/DesignPatterns/策略模式.md",
+    "docs/tools/tools.md",
+    "docs/Docker/_sidebar.md",
+    "docs/_sidebar.md",
+    "docs/tools/README.md",
+    "工具/README.md",
+    "工具",
+    "docs/tools/_sidebar.md",
+    "docs/SystemDesign/_sidebar.md",
+    "docs/SystemDesign/README.md",
     "docs/README.md",
+    "docs/BigData/_sidebar.md",
+    "docs/SystemDesign/ACL权限控制.md",
+    "docs/SystemDesign/新老系统数据同步.md",
+    "docs/SystemDesign/多租户.md",
+    "docs/Architecture/一码多用.md",
+    "docs/BigData/Doris/Doris.md",
+    "docs/BigData/Kettle/README.md",
+    "docs/网络安全/REDEME.md",
+    "docs/iot/开源物联网平台.md",
+    "docs/iot/iot乐鑫蓝牙配网.md",
+    "docs/lovebook/第五.md",
+    "docs/lovebook/话术.md",
+    "docs/公开演讲/未命名.md",
+    "docs/iot/设备消息源格式.md",
+    "docs/Microservices/_sidebar.md",
+    "docs/lovebook/分析.md",
+    "docs/lovebook/越野跑.md",
+    "docs/tools",
+    "docs/未命名",
+    "docs/BigData/Doris",
     "docs/lovebook",
-    "docs/系统设计",
+    "docs/SystemDesign",
     "docs/公开演讲",
     "docs/WorkFlow",
     "docs/BigData/Airflow",
     "docs/yarn.lock",
-    "docs/node_modules",
-    "未命名.canvas",
-    "Nginx"
+    "未命名.canvas"
   ]
 }
