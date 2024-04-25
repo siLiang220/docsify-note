@@ -127,3 +127,20 @@ RBAC-2模型在用户与角色间和角色与角色之间加入了一些规则�
 - [ Zanzibar: Google’s Consistent, Global Authorization System](https://zanzibar.tech/)
 - [Zanzibar: Google’s Consistent, Global Authorization System](https://storage.googleapis.com/gweb-research2023-media/pubtools/pdf/10683a8987dbf0c6d4edcafb9b4f05cc9de5974a.pdf)
 - [Zanzibar的开源实现spicedb](https://github.com/authzed/spicedb)
+
+### 3.1 Zanzibar 的基本实现
+
+Zanzibar 权限系统利用有向无环图（DAG）来模型话权限的关系，其中节点代表资源或者权限等级。在这样的表示中，只要从A节点出发，无论通过多少条路径到达B节点，也不论每条路径上设置了多少层访问控制列表（ACL），只要存在可达路径，A节点关联的实体就具备最终访问到B节点所表示资源的能力。将复杂的权限寻路抽象为按照特定语法的path解析
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20240307160712.png)
+
+
+![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/20240307160728.png)
+
+
+例如：
+-  对于某一个用户可以直接访问content 
+- 对这个用户设置为admin时可以访问content
+- 这个用户属于conetnt team 并且content team 属于content operator 也可以访问content
+
+ 
