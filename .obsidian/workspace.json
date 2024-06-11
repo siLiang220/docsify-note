@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "8fb66be145e504e4",
+        "id": "55c3b33aabd24a8c",
         "type": "tabs",
         "children": [
           {
-            "id": "e037ad0814323bc6",
+            "id": "977428d012cf748d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/java/spring/_sidebar.md",
+                "file": "docs/tools/README.md",
                 "mode": "source",
                 "source": false
               }
@@ -80,29 +80,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e79d31fa32cdaf59",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "file": "docs/java/spring/_sidebar.md",
-                "collapseAll": false,
-                "extraContext": true,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
-          },
-          {
             "id": "60737400b735a4b0",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/java/spring/_sidebar.md"
+                "file": "docs/tools/README.md"
               }
             }
           },
@@ -125,13 +108,29 @@
                 "searchQuery": ""
               }
             }
+          },
+          {
+            "id": "c946272be2d3d90e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "docs/tools/README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 394.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -146,44 +145,44 @@
       "periodic-notes:Open today": false
     }
   },
-  "active": "e037ad0814323bc6",
+  "active": "977428d012cf748d",
   "lastOpenFiles": [
-    "docs/java/spring/SpringBoot/_sidebar.md",
+    "docs/tools/_sidebar.md",
+    "docs/公开演讲/未命名.md",
+    "docs/README.md",
+    "docs/机器视觉/OCR/OCR.md",
+    "docs/大模型/大模型.md",
+    "docs/Web/vue.md",
+    "docs/Web/vue2集成bpmn.md",
+    "docs/Web/vue3.md",
+    "docs/Web/第三.md",
+    "docs/MQ/MQTT5.md",
+    "docs/iot/开源物联网平台.md",
+    "docs/大模型/Huggingace.md",
+    "docs/机器视觉/OCR/Text Renderer.md",
+    "docs/iot/设备消息源格式.md",
+    "docs/iot/iot乐鑫蓝牙配网.md",
+    "docs/大模型",
+    "docs/Web/README.md",
+    "docs/Web/Html.md",
+    "docs/Web/_sidebar.md",
+    "docs/java/README.md",
+    "docs/iot/README.md",
     "docs/java/spring/_sidebar.md",
+    "docs/java/spring/SpringBoot/_sidebar.md",
     "docs/SystemDesign/_sidebar.md",
     "docs/java/maven/_sidebar.md",
     "docs/BigData/Flink/_sidebar.md",
     "docs/java/_sidebar.md",
-    "docs/java/maven/README.md",
-    "docs/java/README.md",
-    "docs/java/maven/Maven.md",
-    "docs/java/DesignPatterns/README.md",
-    "docs/java/DesignPatterns/_sidebar.md",
-    "docs/tools/README.md",
-    "docs/机器视觉/YOLO/YOLOV5学习.md",
     "docs/机器视觉/YOLO",
     "docs/机器视觉",
     "docs/java/maven",
-    "docs/tools/tools.md",
-    "docs/Docker/_sidebar.md",
-    "docs/_sidebar.md",
-    "工具/README.md",
     "工具",
-    "docs/tools/_sidebar.md",
-    "docs/SystemDesign/README.md",
-    "docs/README.md",
-    "docs/BigData/_sidebar.md",
-    "docs/SystemDesign/ACL权限控制.md",
-    "docs/SystemDesign/新老系统数据同步.md",
-    "docs/SystemDesign/多租户.md",
-    "docs/Architecture/一码多用.md",
-    "docs/BigData/Doris/Doris.md",
     "docs/tools",
     "docs/未命名",
     "docs/BigData/Doris",
     "docs/lovebook",
     "docs/SystemDesign",
-    "docs/公开演讲",
     "未命名.canvas"
   ]
 }

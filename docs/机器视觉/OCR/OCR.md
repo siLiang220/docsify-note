@@ -145,7 +145,9 @@ im_show.save('result.jpg')
 2. 更新字典：打开ppocr_keys_v1.txt文件，确保在文件末尾添加罗马数字字符。罗马数字通常包括以下字符（按需添加）：
 
 
+### 数据合成
 
+[数据合成](https://github.com/PaddlePaddle/PaddleOCR/blob/static/doc/doc_ch/data_synthesis.md)
 ### 创建虚拟环境
 
 输入以下代码用来创建虚拟环境
@@ -276,6 +278,8 @@ python gen_ocr_train_val_test.py --trainValTestRatio 6:2:2 --datasetRootPath ../
 ![](https://zhaosi-1253759587.cos.ap-nanjing.myqcloud.com/files/obsidian/picture/39ae8b701586eea47f7f44b41678b75.png)
 
 ### 5. 修改字典文件(修改字典尚未实现)
+
+- [数据集说明](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_ch/recognition.md#12-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86)
 项目中找到并更新`ppocr/utils/ppocr_keys_v1.txt`文件，加入罗马数字字符。
 ### 6.  训练文字检测模型
 #### 6.1下载预训练模型
@@ -376,6 +380,29 @@ python tools/infer_det.py -c configs/det/ch_PP-OCRv3/ch_PP-OCRv3_det_student_rom
 python tools/train.py -c configs/rec/PP-OCRv3/ch_PP-OCRv3_rec_distillation_roman.yml
 ```
 
+
+#### 7.3 模型训练log
+```
+[2022/02/22 07:58:05] root INFO: epoch: [1/800], iter: 10, lr: 0.000000, loss: 0.754281, acc: 0.000000, norm_edit_dis: 0.000008, reader_cost: 0.55541 s, batch_cost: 0.91654 s, samples: 1408, ips: 153.62133
+[2022/02/22 07:58:13] root INFO: epoch: [1/800], iter: 20, lr: 0.000001, loss: 0.924677, acc: 0.000000, norm_edit_dis: 0.000008, reader_cost: 0.00236 s, batch_cost: 0.28528 s, samples: 1280, ips: 448.68599
+[2022/02/22 07:58:23] root INFO: epoch: [1/800], iter: 30, lr: 0.000002, loss: 0.967231, acc: 0.000000, norm_edit_dis: 0.000008, reader_cost: 0.14527 s, batch_cost: 0.42714 s, samples: 1280, ips: 299.66507
+[2022/02/22 07:58:31] root INFO: epoch: [1/800], iter: 40, lr: 0.000003, loss: 0.895318, acc: 0.000000, norm_edit_dis: 0.000008, reader_cost: 0.00173 s, batch_cost: 0.27719 s, samples: 1280, ips: 461.77252
+```
+
+log 中自动打印如下信息：
+
+|      字段       |       含义        |
+| :-----------: | :-------------: |
+|     epoch     |     当前迭代轮次      |
+|     iter      |     当前迭代次数      |
+|      lr       |      当前学习率      |
+|     loss      |     当前损失函数      |
+|      acc      |   当前batch的准确率   |
+| norm_edit_dis | 当前 batch 的编辑距离  |
+|  reader_cost  | 当前 batch 数据处理耗时 |
+|  batch_cost   |  当前 batch 总耗时   |
+|    samples    | 当前 batch 内的样本数  |
+|      ips      |    每秒处理图片的数量    |
 #### 7.3 模型测试
 
  在终端中输入以下指令进行测试。 其中`Global.pretrained_model`是我们训练好并且需要测试的模型，`Global.infer_img`为所要检测的图片路径。
@@ -396,6 +423,9 @@ python tools/train.py -c configs/your_new_config.yml -o Global.pretrained_model=
 ```
 8. 导出模型
 
+### 模型微调
+
+[模型微调](https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/doc/doc_ch/finetune.md)
 
 
 https://blog.csdn.net/yinqinggong/article/details/134823777?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-134823777-blog-134715664.235^v43^pc_blog_bottom_relevance_base5&spm=1001.2101.3001.4242.1&utm_relevant_index=3
@@ -406,3 +436,6 @@ https://blog.csdn.net/yinqinggong/article/details/134823777?utm_medium=distribut
 [文本识别训练教程](https://gitee.com/PaddlePaddle/PaddleOCR/blob/release%2F2.6/doc/doc_ch/recognition.md)
 
 [模型微调](https://gitee.com/paddlepaddle/PaddleOCR/blob/release/2.6/doc/doc_ch/finetune.md)
+
+## 官方支持
+- https://aistudio.baidu.com/community/channel/610
