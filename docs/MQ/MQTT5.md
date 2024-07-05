@@ -1,3 +1,70 @@
+
+##  概况MQTT连接
+
+### MQTT over TCP
+`TCP/IP` 应用广泛，是一种面向连接的、可靠的、基于字节流的传输层通信协议。它通过`ACK`确认和重传机制，能够保证发送的所有字节在接收时是完全一样的，并且字节顺序也是正确的。`MQTT` 通常基于 `TCP` 进行网络通信，它继承了 TCP `的很多优点`，能稳定运行在低带宽、高延时、及资源受限的环境下。
+
+### MQTT over WebSocket
+
+https://www.emqx.com/zh/blog/connect-to-mqtt-broker-with-websocket
+
+
+### MQTT 连接参数的使用
+
+### 连接地址
+- `MQTT` 的连接地址通常包含 ：服务器 IP 或者域名、服务器端口、连接协议。
+### 基于 TCP 的 MQTT 连接
+
+- `mqtt` 是普通的 `TCP` 连接，端口一般为 1883。 
+- `mqtts` 是基于 `TLS/SSL `的安全连接，端口一般为 8883。
+- 比如 mqtt://broker.emqx.io:1883 是一个基于普通 `TCP` 的 `MQTT` 连接地址。
+
+### 基于 WebSocket 的连接
+
+- `ws` 是普通的 `WebSocket` 连接，端口一般为 8083。
+- `wss` 是基于 `WebSocket` 的安全连接，端口一般为 8084。 
+
+当使用 `WebSocket` 连接时，连接地址还需要包含 Path，`EMQX` 默认配置的Path 是/mqtt。比如ws://broker.emqx.io:8083/mqtt 是一个基于 `WebSocket` 的 `MQTT` 连接地址。
+
+
+### 客户端 ID（Client ID）
+MQTT 服务器使用 Client ID 识别客户端，连接到服务器的每个客户端都必须要有唯一的Client ID。ClientID 的长度通常为 1 至 23 个字节的 UTF-8 字符串。
+> [!Warning] 如果客户端使用一个重复的 Client ID 连接至服务器，将会把已使用该 Client ID 连接成功的客户端踢下线。
+
+### 用户名与密码（Username & Password）
+
+`MQTT` 协议可以通过用户名和密码来进行相关的认证和授权，但是如果此信息未加密，则用户名和密码将以明文方式传输。如果设置了用户名与密码认证，那么最好要使用 `mqtts` 或`wss` 协议。大多数 `MQTT` 服务器默认为匿名认证，匿名认证时用户名与密码设置为空字符串即可。
+
+### 连接超时（Connect Timeout）
+
+连接超时时长，收到服务器连接确认前的等待时间，等待时间内未收到连接确认则为连接失败。
+
+### 保活周期（Keep Alive）
+- 保活周期，是一个以秒为单位的时间间隔。客户端在无报文发送时，将按 `Keep Alive` 设定的值定时向服务端发送心跳报文，确保连接不被服务端断开。
+- 在连接建立成功后，如果服务器没有在 Keep Alive 的 1.5 倍时间内收到来自客户端的任何包，则会认为和客户端之间的连接出现了问题，此时服务器便会断开和客户端的连接。
+
+### 清除会话（Clean Session）
+- 为 false 时表示创建一个 **持久会话**，在客户端断开连接时，会话仍然保持并保存离线消息，直到会话超时注销。为 true 时表示创建一个新的临时会话，在客户端断开时，会话自动销毁。持久会话避免了客户端掉线重连后消息的丢失，并且免去了客户端连接后重复的订阅开销。这一功能在带宽小，网络不稳定的物联网场景中非常实用。
+
+> [!Warning] 持久会话恢复的前提是客户端使用固定的 Client ID 再次连接，如果Client ID是动态的，那么连接成功后将会创建一个新的持久会话。
+
+### 遗嘱消息（Last Will）
+
+遗嘱消息是 `MQTT` 为那些可能出现意外断线的设备提供的将遗嘱优雅地发送给其他客户端的能力。设置了遗嘱消息消息的 `MQTT` 客户端异常下线时，`MQTT` 服务器会发布该客户端设置的遗嘱消息。
+
+> 意外断线包括：因网络故障，连接被服务端关闭；设备意外掉电；设备尝试进行不被允许的操作而被服务端关闭连接等。
+
+- 当设备意外断线时，遗嘱消息将被发送至遗嘱 Topic； 
+- 遗嘱 `Payload` 是待发送的消息内容； 
+- 遗嘱 `QoS` 与普通 `MQTT` 消息的 `QoS` 一致 
+- 遗嘱 Retain 为 true 时表明遗嘱消息是保留消息。`MQTT` 服务器会为每个主题存储最新一条保留消息，以方便消息发布后才上线的客户端在订阅主题时仍可以接收到该消息
+
+### MQTT 5.0 新增连接参数
+
+#### Clean Start & Session Expiry Interval
+
+MQTT 5.0 中将 Clean Session 拆分成了 Clean Start 与 Session Expiry Interval。Clean Start 用于指定连接时是创建一个全新的会话还是尝试复用一个已存在的会话。为true 时表示必须丢弃任何已存在的会话，并创建一个全新的会话；为 false 时表示必须使用与Client ID 关联的会话来恢复与客户端的通信（除非会话不存在）。 Session Expiry Interval 用于指定网络连接断开后会话的过期时间。设置为0 或未设置，表示断开连接时会话即到期；设置为大于 0 的数值，则表示会话在网络连接关闭后会保持多少秒；设置为0xFFFFFFFF表示会话永远不会过期。
+
 ##  一、Payload Format Indicator 和 Content Type
 
 ###  什么是 Payload Format Indicator?
@@ -183,6 +250,8 @@ MQTT 还允许客户端在断开连接时更新会话过期时间，这主要依
 
 注意，MQTT 5.0 之前的协议版本并不支持服务端返回自动分配的 Client ID，所以在由服务端自动分配 Client ID 和使用持久会话之间，我们只能二选一。
 
+### 源文档
+- [MQTT 持久会话与 Clean Session 详解](https://www.emqx.com/zh/blog/mqtt-session)
 ## 五、MQTT遗嘱消息 （Will Message）
 
 ### 什么是 MQTT 遗嘱消息？

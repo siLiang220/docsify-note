@@ -1,3 +1,10 @@
+
+## spring基础
+
+https://www.wolai.com/oacbJpH1wPzGNoMAVnoELR
+
+- [动态实现配置类注入](https://juejin.cn/post/7342279484487270450)
+
 ## SpEL表达式
 ### 简介
 Spring Expression Language是一个支持运行时查询和操作对象图的强大表达式语言

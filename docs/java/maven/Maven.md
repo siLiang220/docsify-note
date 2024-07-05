@@ -23,6 +23,12 @@
   - packaging 属性为 jar（默认值），代表普通的Java工程，打包以后是.jar结尾的文件。
   - packaging 属性为 war，代表Java的web工程，打包以后.war结尾的文件。
   - packaging 属性为 pom，代表不会打包，用来做继承的父工程。
+5. **scope 指定依赖生效范围：**
+- compile ：main目录 test目录 打包打包 [默认] 
+- provided：main目录 test目录 Servlet 
+- runtime： 打包运行 MySQL -
+- test: test目录 junit
+- import： 导入依赖范围，该依赖范围只能与 dependencyManagement 元素配合使用
 
 ## idea创建Maven javaEE项目
 ### 使用idea插件JBLJavaToWeb创建
@@ -146,7 +152,7 @@ Maven 继承是指在 Maven 的项目中，让一个项目从另一个项目中*
 **继承作用：** 在父工程中统一管理项目中的依赖信息,进行统一版本管理!
 ### maven 聚合工程关系
 
-Maven 聚合是指将多个项目组织到一个父级项目中，通过触发父工程的构建,统一按顺序触发子工程构建的过程!!
+**Maven 聚合是指将多个项目组织到一个父级项目中，通过触发父工程的构建,统一按顺序触发子工程构建的过程!!**
 
 **聚合作用：** 
 - 统一管理子项目构建：通过聚合，可以将多个子项目组织在一起，方便管理和维护。
