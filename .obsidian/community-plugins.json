@@ -4,8 +4,9 @@
   "media-extended",
   "obsidian-image-auto-upload-plugin",
   "Enhanced-editing",
-  "editing-toolbar",
   "obsius-publish",
   "obsidian-kanban",
-  "periodic-notes"
+  "obsidian-plantuml",
+  "obsidian-excalidraw-plugin",
+  "mehrmaid"
 ]

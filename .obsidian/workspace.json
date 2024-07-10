@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "55c3b33aabd24a8c",
+        "id": "fa7c08b23c86bdd6",
         "type": "tabs",
         "children": [
           {
-            "id": "977428d012cf748d",
+            "id": "33d9a6467ad01a61",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/tools/README.md",
+                "file": "docs/Architecture/一码多用.md",
                 "mode": "source",
                 "source": false
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#持久会话，在客户端断开连接时，会话仍然保持并保存离线消息，直到会话超时注销。为",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/tools/README.md"
+                "file": "docs/Architecture/一码多用.md"
               }
             }
           },
@@ -115,7 +115,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/tools/README.md",
+                "file": "docs/Architecture/一码多用.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,6 +123,16 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "634ca9a3cb66a30d",
+            "type": "leaf",
+            "state": {
+              "type": "file-properties",
+              "state": {
+                "file": "docs/Architecture/一码多用.md"
               }
             }
           }
@@ -142,47 +152,48 @@
       "command-palette:打开命令面板": false,
       "markdown-importer:打开 Markdown 格式转换器": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "periodic-notes:Open today": false
+      "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "977428d012cf748d",
+  "active": "33d9a6467ad01a61",
   "lastOpenFiles": [
-    "docs/tools/_sidebar.md",
-    "docs/公开演讲/未命名.md",
-    "docs/README.md",
-    "docs/机器视觉/OCR/OCR.md",
-    "docs/大模型/大模型.md",
-    "docs/Web/vue.md",
-    "docs/Web/vue2集成bpmn.md",
-    "docs/Web/vue3.md",
-    "docs/Web/第三.md",
-    "docs/MQ/MQTT5.md",
+    "docs/Microservices/在微服务架构中实践《十二要素应用》原则.md",
+    "docs/博客/未命名.md",
+    "docs/iot/物联网系统设计.md",
+    "docs/博客",
+    "docs/plugin/plugin.md",
     "docs/iot/开源物联网平台.md",
-    "docs/大模型/Huggingace.md",
-    "docs/机器视觉/OCR/Text Renderer.md",
-    "docs/iot/设备消息源格式.md",
-    "docs/iot/iot乐鑫蓝牙配网.md",
-    "docs/大模型",
-    "docs/Web/README.md",
-    "docs/Web/Html.md",
-    "docs/Web/_sidebar.md",
-    "docs/java/README.md",
+    "docs/_sidebar.md",
+    "docs/README.md",
     "docs/iot/README.md",
-    "docs/java/spring/_sidebar.md",
-    "docs/java/spring/SpringBoot/_sidebar.md",
-    "docs/SystemDesign/_sidebar.md",
-    "docs/java/maven/_sidebar.md",
-    "docs/BigData/Flink/_sidebar.md",
+    "docs/iot/_sidebar.md",
+    "docs/java/README.md",
     "docs/java/_sidebar.md",
-    "docs/机器视觉/YOLO",
-    "docs/机器视觉",
-    "docs/java/maven",
-    "工具",
-    "docs/tools",
-    "docs/未命名",
-    "docs/BigData/Doris",
-    "docs/lovebook",
-    "docs/SystemDesign",
+    "docs/iot/设备消息源格式.md",
+    "docs/plugin/p",
+    "docs/plugin",
+    "docs/tools/tools.md",
+    "docs/iot/iot 架构设计.excalidraw.md",
+    "docs/BigData/Hazelcast",
+    "docs/java/Vertx.md",
+    "docs/未命名/未命名.md",
+    "Excalidraw/Drawing 2024-07-04 10.11.49.excalidraw.md",
+    "docs/MQ/MQTT5.md",
+    "docs/iot/MQTT 协议接入.md",
+    "docs/iot/iot乐鑫蓝牙配网.md",
+    "Excalidraw/lib/system-design-template.excalidrawlib",
+    "Excalidraw/lib/basic-system-design.excalidrawlib",
+    "Excalidraw/lib/systemdesignicons.excalidrawlib",
+    "Excalidraw/lib",
+    "Excalidraw/新建文件夹",
+    "docs/iot/未命名.canvas",
+    "docs/iot/Drawing 2024-07-04 10.08.35.excalidraw.md",
+    "docs/iot/Drawing 2024-07-04 10.11.21.excalidraw.md",
+    "Excalidraw",
+    "docs/java/spring/SpringFramework.md",
+    "docs/大模型/大模型.md",
+    "docs/java/maven/Maven.md",
+    "docs/BigData/RisingWave/RasingWave.md",
     "未命名.canvas"
   ]
 }
