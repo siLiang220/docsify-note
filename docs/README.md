@@ -5,6 +5,10 @@
 
 如有**侵权**，请联系 1782705551@qq.com，本人会第一时间删除相关内容。
 
+全局安装 `docsify-cli` 工具
+```shell
+npm i docsify-cli -g
+```
 进入docs目录下命令执行启动项目
 ```sh
 docsify serve

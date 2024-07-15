@@ -7,10 +7,12 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 </head>
 <body>
   <div id="app"></div>
   <script>
+    var num = 0;
     window.$docsify = {
       name: '',
       //开启封面也
@@ -28,6 +30,35 @@
       //       url: "",
       //   },
       // },
+
+      markdown:{
+        renderer:{
+          code:function(code, lang){
+            if (lang === "mermaid") {
+              return '<div class="mermaid">' + code + '</div>';
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
+      },
+      // markdown: {
+      //   // smartypants 是一个选项，用于将简单的标点符号转换为印刷符号。例如，将直引号（""）转换为弯引号，将双破折号（--）转换为长破折号（—`）等。
+      //   // smartypants: true,
+      //   renderer: {
+      //     link: function() {
+      //       // ...
+      //     },
+      //     code: function(code, lang) {
+      //       if (lang === "mermaid") {
+      //         return (
+      //           '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+      //         );
+      //       }
+      //       return this.origin.code.apply(this, arguments);
+      //     }
+      //   }
+      // },
+
       plugins: [
         function(hook) {
           var footer = [
@@ -40,6 +71,15 @@
           hook.afterEach(function(html) {
             return html + footer;
           });
+          hook.ready(function () {
+            // 类似 jQuery.ready 初始化 mermaid, 禁用自动渲染
+            mermaid.initialize({ startOnLoad: false });
+          });
+          hook.doneEach(function () {
+            // 每个页面渲染完成后手动渲染 mermaid 图表
+            mermaid.init(undefined, '.mermaid');
+          }); 
+
         }
       ],
       // 字数统计
@@ -111,5 +151,7 @@
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
   <!-- 搜索 -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <!-- mermaid 时序图支持 需要引入css及配置 markdown函数 -->
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 </body>
 </html>
