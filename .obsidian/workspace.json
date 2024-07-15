@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/tools/tools.md",
+                "file": "docs/iot/物联网系统设计.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/tools/tools.md"
+                "file": "docs/iot/物联网系统设计.md"
               }
             }
           },
@@ -115,7 +115,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/tools/tools.md",
+                "file": "docs/iot/物联网系统设计.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -132,7 +132,7 @@
             "state": {
               "type": "file-properties",
               "state": {
-                "file": "docs/tools/tools.md"
+                "file": "docs/iot/物联网系统设计.md"
               }
             }
           }
@@ -157,10 +157,10 @@
   },
   "active": "33d9a6467ad01a61",
   "lastOpenFiles": [
-    "docs/iot/iot 架构设计.excalidraw.md",
-    "docs/tools/tools.md",
-    "docs/iot/物联网系统设计.md",
     "docs/iot/开源物联网平台.md",
+    "docs/tools/tools.md",
+    "docs/iot/iot 架构设计.excalidraw.md",
+    "docs/iot/物联网系统设计.md",
     "docs/Architecture/一码多用.md",
     "docs/Microservices/在微服务架构中实践《十二要素应用》原则.md",
     "docs/博客/未命名.md",
